@@ -11,10 +11,9 @@ import java.util.List;
  */
 public class CountryCodeConverter {
 
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
-    private String[] _codes;
-    private int _lengthCountries;
-
+    private String[] codes;
+    private int lengthCountries;
+    private final int positionCode = 3;
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -22,7 +21,7 @@ public class CountryCodeConverter {
      */
     public CountryCodeConverter() {
         this("country-codes.txt");
-    } //separated by tab.
+    } // separated by tab.
 
     /**
      * Overloaded constructor which allows us to specify the filename to load the country code data from.
@@ -35,8 +34,8 @@ public class CountryCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            _codes = lines.toArray(new String[0]);
-            _lengthCountries = _codes.length;
+            codes = lines.toArray(new String[0]);
+            lengthCountries = codes.length;
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -51,9 +50,9 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        for(int i = 0; i < _codes.length; i++){
-            if (_codes[i].toLowerCase().contains(code)){
-                String[] temp = _codes[i].split("\t");
+        for (int i = 0; i < codes.length; i++) {
+            if (codes[i].toLowerCase().contains(code.toLowerCase())) {
+                String[] temp = codes[i].split("\t");
                 return temp[0];
             }
         }
@@ -66,11 +65,10 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        for(int i = 0; i < _codes.length; i++){
-            if (_codes[i].toLowerCase().contains(country)){
-                String[] temp = _codes[i].split("\t");
-                return temp[3];
+        for (int i = 0; i < codes.length; i++) {
+            if (codes[i].toLowerCase().contains(country.toLowerCase())) {
+                String[] temp = codes[i].split("\t");
+                return temp[positionCode];
             }
         }
         return null;
@@ -81,6 +79,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        return _lengthCountries-1;
+        return lengthCountries - 1;
     }
 }
