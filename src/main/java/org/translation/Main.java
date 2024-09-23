@@ -79,7 +79,7 @@ public class Main {
         //      hint: class Collections provides a static sort method
         // TODO Task: convert the country codes to the actual country names before sorting
         for (int i = 0; i < countries.size(); i++) {
-            countries.set(i, converter.fromCountryCode(countries.get(i));
+            countries.set(i, converter.fromCountryCode(countries.get(i)));
         }
         Collections.sort(countries);
         for (String country : countries) {
