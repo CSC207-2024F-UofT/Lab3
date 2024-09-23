@@ -40,8 +40,6 @@ public class Main {
         String q = "quit";
         while (true) {
             String country = promptForCountry(translator);
-            // TODO CheckStyle: The String "quit" appears 3 times in the file.
-            // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
             if (country.equals(q)) {
                 break;
             }
@@ -87,7 +85,8 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
 
-        // TODO Task: replace the line below so that we sort the languages alphabetically and print them out; one per line
+        // TODO Task: replace the line below so that we sort the languages alphabetically and print them out;
+        //  one per line
         // TODO Task: convert the language codes to the actual language names before sorting
         System.out.println(translator.getCountryLanguages(country));
 
