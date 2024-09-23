@@ -35,7 +35,7 @@ public class CountryCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             for (String line : lines) {
-                countries.put(line.split(",")[0], line.split(",")[1]);
+                countries.put(line.split(" ")[0], line.split(" ")[1]);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -64,6 +64,7 @@ public class CountryCodeConverter {
                 return entry.getKey();
             }
         }
+        return null;
     }
 
     /**
