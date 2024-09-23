@@ -65,10 +65,10 @@ using a different build system, such as Gradle.
 ### Running your code and tests
 Take a second to ensure that you are able to run everything that you need to in the project.
 
-- Confirm that you can run `Main.java`.
+- Confirm that you can run `Main.java`. yup
 
 - Confirm that you can run the tests by right-clicking the `src/test/java` folder and selecting "Run 'All Tests'".
-  Only one test should initially be passing.
+  Only one test should initially be passing. yup
 
 Note: these won't do much yet, but we want to know things are working.
 
@@ -85,7 +85,7 @@ CheckStyle requires a configuration file to be specified which indicates which r
 By default, the plugin is bundled with configurations used by Sun and Google.
 For this lab, we'll be using our own configuration in `mystyle.xml`.
 
-Note: If you didn't install the CheckStyle plugin when installing IntelliJ, do so now in the Settings menu.
+Note: If you didn't install the CheckStyle plugin when installing IntelliJ, do so now in the Settings menu. did
 
 - Configure CheckStyle to use `mystyle.xml`.
 
