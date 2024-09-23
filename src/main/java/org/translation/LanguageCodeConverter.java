@@ -69,6 +69,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        return countryCode.length;
+        return countryCode.size();
     }
 }
