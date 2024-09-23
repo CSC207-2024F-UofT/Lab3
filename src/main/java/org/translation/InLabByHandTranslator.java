@@ -22,6 +22,7 @@ public class InLabByHandTranslator implements Translator {
      * @return list of language abbreviations which are available for this country
      */
     private static String can = "can";
+    public static final String CANADA = can;
 
     @Override
     public List<String> getCountryLanguages(String country) {
@@ -31,10 +32,6 @@ public class InLabByHandTranslator implements Translator {
         }
         return new ArrayList<>();
     }
-
-    // TODO Checkstyle: Static variable definition in wrong order.
-
-    public static final String CANADA = can;
 
     /**
      * Returns the country abbreviations for all countries whose translations are
