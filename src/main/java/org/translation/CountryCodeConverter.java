@@ -30,18 +30,23 @@ public class CountryCodeConverter {
      * @param filename the name of the file in the resources folder to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
-    @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:SuppressWarnings"})
+    @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:SuppressWarnings", "checkstyle:WhitespaceAround"})
     public CountryCodeConverter(String filename) {
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
             // so it converts the txt file into json file
-            this.countryname = lines.get(0);
-            this.alpha2code = lines.get(1);
-            this.alpha3code = lines.get(2);
-            this.numerc = Integer.parseInt(lines.get(3));
+            for (String line : lines) {
+                String[] parts = line.split("/t");
+                if (parts.length == 4){
+                    this.countryname = parts[0];
+                    this.alpha2code = parts[1];
+                    this.alpha3code = parts[2];
+                    this.numerc = Integer.parseInt(parts[3]);
+                }
 
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
