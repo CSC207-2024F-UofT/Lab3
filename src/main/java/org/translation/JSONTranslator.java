@@ -48,7 +48,6 @@ public class JSONTranslator implements Translator {
             // Initialize the data structures
             countryTranslations = new HashMap<>();
             countries = new ArrayList<>();
-            Set<String> languageCodes = new HashSet<>();
 
             // Populate the structures from JSON
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -60,8 +59,6 @@ public class JSONTranslator implements Translator {
                 for (String key : countryObject.keySet()) {
                     if (!"id".equals(key) && !"alpha2".equals(key) && !"alpha3".equals(key)) {
                         translations.put(key, countryObject.getString(key));
-                        // Collect all language codes
-                        languageCodes.add(key);
                     }
                 }
 
