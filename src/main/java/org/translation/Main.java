@@ -19,6 +19,7 @@ public class Main {
      * A class implementing the Translator interface is created and passed into a call to runProgram.
      * @param args not used by the program
      */
+    // Jason Change
     public static void main(String[] args) {
 
         // TODO Task: once you finish the JSONTranslator,
