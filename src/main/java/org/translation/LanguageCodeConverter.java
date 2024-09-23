@@ -37,10 +37,10 @@ public class LanguageCodeConverter {
             for (String line : lines) {
                 String[] parts = line.split("\t");
                 if (parts[0].equals(this.convert)) {
-                    this.convert = parts[0];
+                    this.convert = parts[1];
                 }
                 else if (parts[1].equals(this.convert)) {
-                    this.convert = parts[1];
+                    this.convert = parts[0];
                 }
             }
 
