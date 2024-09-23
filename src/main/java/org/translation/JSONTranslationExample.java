@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -56,7 +57,7 @@ public class JSONTranslationExample {
                 return jsonObject.getString(languageCode);
             }
         }
-        return "Country not found";
+        for (int i = 0; )
     }
 
     /**
