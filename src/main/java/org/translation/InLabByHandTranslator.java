@@ -52,22 +52,24 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public String translate(String country, String language) {
-        // TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
+        // Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
         // Checkstyle: String literal expressions should be on the left side of an equals comparison
+        String x;
         if (!"can".equals(country)) {
-            return null;
+            x = null;
         }
         if ("de".equals(language)) {
-            return "Kanada";
+            x = "Kanada";
         }
         else if ("en".equals(language)) {
-            return "Canada";
+            x = "Canada";
         }
         else if ("zh".equals(language)) {
-            return "加拿大";
+            x = "加拿大";
         }
         else {
-            return null;
+            x = null;
         }
+        return x;
     }
 }
