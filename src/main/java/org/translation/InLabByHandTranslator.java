@@ -52,7 +52,6 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public String translate(String country, String language) {
-        // TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
         if ("de".equals(language)) {
             return "Kanada";
         }
