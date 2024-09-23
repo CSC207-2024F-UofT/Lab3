@@ -9,7 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * A minimal example of reading and using the JSON data from resources/sample.json..\
+ * A minimal example of reading and using the JSON data from resources/sample.json.
  */
 public class JSONTranslationExample {
 
@@ -53,16 +53,10 @@ public class JSONTranslationExample {
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
-        // Loop through the array to find the correct country code
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject country = jsonArray.getJSONObject(i);
-            // Check if the country code matches (case-insensitive)
-            if (country.getString("code").equalsIgnoreCase(countryCode)) {
-                JSONObject translations = country.getJSONObject("translations");
-                // Check if the language code exists in the translations
-                if (translations.has(languageCode)) {
-                    return translations.getString(languageCode);
-                }
+            if (country.getString("alpha3").equalsIgnoreCase(countryCode)) {
+                return country.optString(languageCode, "Translation not found");
             }
         }
         return "Country not found";
