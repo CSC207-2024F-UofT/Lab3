@@ -33,8 +33,9 @@ public class LanguageCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             for (String line : lines) {
-                String[] tokens = line.split(" ");
+                String[] tokens = line.split("\t");
                 countryCode.add(tokens[0]);
+
                 countryCode.add(tokens[1]);
             }
         }
