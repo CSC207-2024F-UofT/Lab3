@@ -30,7 +30,6 @@ public class InLabByHandTranslator implements Translator {
         return new ArrayList<>();
     }
 
-    // TODO Checkstyle: Static variable definition in wrong order.
     public static final String CANADA = "can";
 
     /**
@@ -54,14 +53,14 @@ public class InLabByHandTranslator implements Translator {
     @Override
     public String translate(String country, String language) {
         // TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
-        // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
-        if (!country.equals("can")) {
+
+        if (!"can".equals(country)) {
             return null;
         }
-        if (language.equals("de")) {
+        if ("de".equals(language)) {
             return "Kanada";
         }
-        else if (language.equals("en")) {
+        else if ("en".equals(language)) {
             return "Canada";
         }
         else if ("zh".equals(language)) {
