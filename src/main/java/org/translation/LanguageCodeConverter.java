@@ -14,6 +14,7 @@ import java.util.Map;
 public class LanguageCodeConverter {
 
     // TODO Task: pick appropriate instance variables to store the data necessary for this class
+    private String convert;
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -33,12 +34,20 @@ public class LanguageCodeConverter {
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
+            for (String line : lines) {
+                String[] parts = line.split("\t");
+                if (parts[0].equals(this.convert)) {
+                    this.convert = parts[0];
+                }
+                else if (parts[1].equals(this.convert)) {
+                    this.convert = parts[1];
+                }
+            }
 
             // TODO Task: use lines to populate the instance variable
             //           tip: you might find it convenient to create an iterator using lines.iterator()
-
-        // TODO Checkstyle: '}' on next line should be alone on a line.
-        } catch (IOException | URISyntaxException ex) {
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
 
@@ -51,7 +60,10 @@ public class LanguageCodeConverter {
      */
     public String fromLanguageCode(String code) {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+        this.convert = code;
+        LanguageCodeConverter converter = new LanguageCodeConverter();
+        this.LanguageCodeConverter("language-codes.txt");
+        return this.convert;
     }
 
     /**
