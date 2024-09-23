@@ -39,7 +39,7 @@ public class JSONTranslationExample {
     public String getCanadaCountryNameSpanishTranslation() {
 
         // TODO Checkstyle: '30' is a magic number.
-        JSONObject canada = jsonArray.getJSONObject(1);
+        JSONObject canada = jsonArray.getJSONObject(30);
         return canada.getString("es");
     }
 
