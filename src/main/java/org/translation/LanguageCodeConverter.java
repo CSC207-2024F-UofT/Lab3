@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class provides the service of converting language codes to their names.
@@ -29,8 +30,8 @@ public class LanguageCodeConverter {
     public LanguageCodeConverter(String filename) {
 
         try {
-            List<String> lines = Files.readAllLines(Paths.get(getClass()
-                    .getClassLoader().getResource(filename).toURI()));
+            List<String> lines = Files.readAllLines(Paths.get(Objects.requireNonNull(getClass()
+                    .getClassLoader().getResource(filename)).toURI()));
 
             // TODO Task: use lines to populate the instance variable
             //           tip: you might find it convenient to create an iterator using lines.iterator()

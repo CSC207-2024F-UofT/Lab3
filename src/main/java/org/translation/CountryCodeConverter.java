@@ -7,14 +7,13 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-// TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
+import java.util.Objects;
 
 /**
  * This class provides the service of converting country codes to their names.
  */
 public class CountryCodeConverter {
 
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
     private final Map<String, String> codeToCountry;
     private final Map<String, String> countryToCode;
 
@@ -33,8 +32,8 @@ public class CountryCodeConverter {
      */
     public CountryCodeConverter(String filename) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(getClass()
-                    .getClassLoader().getResource(filename).toURI()));
+            List<String> lines = Files.readAllLines(Paths.get(Objects.requireNonNull(getClass()
+                    .getClassLoader().getResource(filename)).toURI()));
 
             // TODO Task: use lines to populate the instance variable(s)
             countryToCode = new HashMap<>();
@@ -61,7 +60,6 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
         return codeToCountry.get(code);
     }
 
@@ -71,7 +69,6 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
         return countryToCode.get(country);
     }
 
@@ -80,7 +77,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
         return codeToCountry.size();
     }
 }
