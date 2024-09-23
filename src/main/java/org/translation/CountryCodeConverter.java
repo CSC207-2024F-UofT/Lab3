@@ -5,15 +5,16 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-// TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class provides the service of converting country codes to their names.
  */
 public class CountryCodeConverter {
-
+    private String countryname;
+    private String alpha2code;
+    private String alpha3code;
+    private int numerc;
+    // do we aassign the variable to
     // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
 
     /**
@@ -29,13 +30,17 @@ public class CountryCodeConverter {
      * @param filename the name of the file in the resources folder to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
+    @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:SuppressWarnings"})
     public CountryCodeConverter(String filename) {
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
-
-            // TODO Task: use lines to populate the instance variable(s)
+            // so it converts the txt file into json file
+            this.countryname = lines.get(0);
+            this.alpha2code = lines.get(1);
+            this.alpha3code = lines.get(2);
+            this.numerc = Integer.parseInt(lines.get(3));
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -51,7 +56,7 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+
     }
 
     /**
@@ -71,5 +76,25 @@ public class CountryCodeConverter {
     public int getNumCountries() {
         // TODO Task: update this code to use an instance variable to return the correct value
         return 0;
+    }
+
+    @SuppressWarnings({"checkstyle:DesignForExtension", "checkstyle:SuppressWarnings"})
+    public String getCountryname() {
+        return countryname;
+    }
+
+    @SuppressWarnings({"checkstyle:DesignForExtension", "checkstyle:SuppressWarnings"})
+    public String getAlpha2code() {
+        return alpha2code;
+    }
+
+    @SuppressWarnings({"checkstyle:DesignForExtension", "checkstyle:SuppressWarnings"})
+    public String getAlpha3code() {
+        return alpha3code;
+    }
+
+    @SuppressWarnings({"checkstyle:DesignForExtension", "checkstyle:SuppressWarnings"})
+    public int getNumerc() {
+        return numerc;
     }
 }
