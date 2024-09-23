@@ -72,7 +72,7 @@ public class Main {
     private static String promptForCountry(Translator translator) {
         List<String> countries = translator.getCountries();
         // TODO Task: replace the following println call, sort the countries alphabetically,
-        //            and print them out; one per line
+        //            and print them out; one per line.
         //      hint: class Collections provides a static sort method
         // TODO Task: convert the country codes to the actual country names before sorting
         System.out.println(countries);
