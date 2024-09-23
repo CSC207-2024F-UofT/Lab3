@@ -33,8 +33,8 @@ public class JSONDemo {
      * @return value of key "key1" from the second object in the given jsonArray
      */
     public static String getKeyOneOfSecond(JSONArray jsonArray) {
-        JSONObject objectOneOfSecond = jsonArray.getJSONObject(1);
-        return objectOneOfSecond.getString("key1");
+        JSONObject jsonObject = jsonArray.getJSONObject(1);
+        return jsonObject.getString("key1");
     }
 
 }
