@@ -23,25 +23,31 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Checkstyle: The String "can" appears 4 times in the file.
-        if ("can".equals(country)) {
+
+        String can = "can";
+        if (can.equals(country)) {
             return new ArrayList<>(List.of("de", "en", "zh"));
         }
         return new ArrayList<>();
     }
 
     // TODO Checkstyle: Static variable definition in wrong order.
-    public static final String CANADA = "can";
 
+    public static final String CANADA = "can";
     /**
      * Returns the country abbreviations for all countries whose translations are
      * available from this Translator.
      *
      * @return list of country abbreviations for which we have translations available
      */
+
     @Override
     public List<String> getCountries() {
-        return new ArrayList<>(List.of("can"));
+
+        if (CANADA.equals(country)) {
+            return new ArrayList<>(List.of("de", "en", "zh"));
+        }
+        return new ArrayList<>();
     }
 
     /**
