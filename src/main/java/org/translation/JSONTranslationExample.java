@@ -22,7 +22,7 @@ public class JSONTranslationExample {
             // this next line of code reads in a file from the resources folder as a String,
             // which we then create a new JSONArray object from.
             String jsonString = Files.readString(Paths.get(getClass()
-                .getClassLoader().getResource("sample.json").toURI()));
+                    .getClassLoader().getResource("sample.json").toURI()));
             this.jsonArray = new JSONArray(jsonString);
         }
         catch (IOException | URISyntaxException ex) {
@@ -51,7 +51,7 @@ public class JSONTranslationExample {
             if (jsonArray.getJSONObject(i).getString("alpha3").equals(countryCode)) {
                 JSONObject country = jsonArray.getJSONObject(i);
                 return country.getString(languageCode);
-            } 
+            }
         }
         return "Country not found";
 
