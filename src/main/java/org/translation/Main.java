@@ -1,7 +1,10 @@
 package org.translation;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+
+// import org.translation.LanguageCodeConverter;
 
 /**
  * Main class for this program.
@@ -27,7 +30,7 @@ public class Main {
         //            you can use it here instead of the InLabByHandTranslator
         //            to try out the whole program!
         // Translator translator = new JSONTranslator(null);
-        Translator translator = new InLabByHandTranslator();
+        Translator translator = new JSONTranslator();
 
         runProgram(translator);
     }
@@ -76,7 +79,8 @@ public class Main {
         //            and print them out; one per line
         //      hint: class Collections provides a static sort method
         // TODO Task: convert the country codes to the actual country names before sorting
-        System.out.println(countries);
+        // System.out.println(countries);
+        Collections.sort(countries);
 
         System.out.println("select a country from above:");
 
@@ -88,7 +92,8 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
 
-        // TODO Task: replace the line below so that we sort the languages alphabetically and print them out; one per line
+        // TODO Task: replace the line below so that we sort the languages
+        //  alphabetically and print them out; one per line
         // TODO Task: convert the language codes to the actual language names before sorting
         System.out.println(translator.getCountryLanguages(country));
 
