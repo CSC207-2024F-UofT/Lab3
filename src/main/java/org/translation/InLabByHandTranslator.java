@@ -21,15 +21,17 @@ public class InLabByHandTranslator implements Translator {
      * @param country the country
      * @return list of language abbreviations which are available for this country
      */
-    private final String canada = "can";
-
     @Override
     public List<String> getCountryLanguages(String country) {
-        if (canada.equals(country)) {
+        // TODO Checkstyle: The String "can" appears 4 times in the file.
+        if ("can".equals(country)) {
             return new ArrayList<>(List.of("de", "en", "zh"));
         }
         return new ArrayList<>();
     }
+
+    // TODO Checkstyle: Static variable definition in wrong order.
+    public static final String CANADA = "can";
 
     /**
      * Returns the country abbreviations for all countries whose translations are
@@ -39,7 +41,7 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public List<String> getCountries() {
-        return new ArrayList<>(List.of(canada));
+        return new ArrayList<>(List.of("can"));
     }
 
     /**
@@ -51,23 +53,22 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public String translate(String country, String language) {
-        String name = "";
-
-        //        if (!country.equals(Canada12)) {
-        //            return null;
-        //        }
-        if ("de".equals(language)) {
-            name = "Kanada";
+        // TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
+        // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
+        if (!country.equals("can")) {
+            return null;
         }
-        else if ("en".equals(language)) {
-            name = "Canada";
+        if (language.equals("de")) {
+            return "Kanada";
+        }
+        else if (language.equals("en")) {
+            return "Canada";
         }
         else if ("zh".equals(language)) {
-            name = "加拿大";
+            return "加拿大";
         }
-        //        else {
-        //            return null;
-        //        }
-        return name;
+        else {
+            return null;
+        }
     }
 }
