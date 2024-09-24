@@ -1,5 +1,6 @@
 package org.translation;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -79,9 +80,14 @@ public class Main {
         //            and print them out; one per line
         //      hint: class Collections provides a static sort method
         // TODO Task: convert the country codes to the actual country names before sorting
-        Collections.sort(countries);
+        ArrayList<String> countriesConv = new ArrayList<>();
+
         for (int i = 0; i < countries.size(); i++) {
-            System.out.println(countryConverter.fromCountryCode(countries.get(i)));
+            countriesConv.add(countryConverter.fromCountryCode(countries.get(i)));
+        }
+        Collections.sort(countriesConv);
+        for (int i = 0; i < countries.size(); i++) {
+            System.out.println(countriesConv.get(i));
         }
         System.out.println("select a country from above:");
 
@@ -97,11 +103,16 @@ public class Main {
         // TODO Task: replace the line below so that we sort the languages alphabetically and print them out;
         //  one per line
         // TODO Task: convert the language codes to the actual language names before sorting
-        Collections.sort(countryLanguages);
-        for (int i = 0; i < countryLanguages.size(); i++) {
-            System.out.println(langConverter.fromLanguageCode(countryLanguages.get(i)));
-        }
+        ArrayList<String> languagesConv = new ArrayList<>();
 
+        for (int i = 0; i < countryLanguages.size(); i++) {
+            languagesConv.add(langConverter.fromLanguageCode(countryLanguages.get(i)));
+        }
+        System.out.println("BLOCK!");
+        Collections.sort(languagesConv);
+        for (int i = 0; i < countryLanguages.size(); i++) {
+            System.out.println(languagesConv.get(i));
+        }
         System.out.println("select a language from above:");
 
         Scanner s = new Scanner(System.in);

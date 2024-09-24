@@ -59,7 +59,7 @@ public class LanguageCodeConverter {
                 return currLine[0];
             }
         }
-        return null;
+        return "";
     }
 
     /**
@@ -75,7 +75,7 @@ public class LanguageCodeConverter {
                 return currLine[1];
             }
         }
-        return null;
+        return "";
     }
 
     /**

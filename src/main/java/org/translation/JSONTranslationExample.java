@@ -24,7 +24,7 @@ public class JSONTranslationExample {
 
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader()
                     .getResource("sample.json").toURI()));
-            this.jsonArray = new JSONArray(jsonString);
+            jsonArray = new JSONArray(jsonString);
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -51,11 +51,14 @@ public class JSONTranslationExample {
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
-        JSONObject targetCountry = new JSONObject();
+        JSONObject targetCountry = null;
         for (int i = 0; i < jsonArray.length(); i++) {
-            if (this.jsonArray.getJSONObject(i).getString("alpha3") == countryCode) {
+            if (jsonArray.getJSONObject(i).getString("alpha3").equals(countryCode)) {
                 targetCountry = jsonArray.getJSONObject(i);
             }
+        }
+        if (targetCountry == null) {
+            return "Country not found";
         }
         return targetCountry.getString(languageCode);
     }

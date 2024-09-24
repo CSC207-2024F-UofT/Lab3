@@ -76,7 +76,7 @@ public class CountryCodeConverter {
                 return currLine[2];
             }
         }
-        return null;
+        return "";
     }
 
     /**
