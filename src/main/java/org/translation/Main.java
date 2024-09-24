@@ -41,14 +41,14 @@ public class Main {
             String country = promptForCountry(translator);
             String quit = "quit";
 
-            if (quit.equals(country)) {
+            if (country.equals(quit)) {
                 break;
             }
             // TODO Task: Once you switch promptForCountry so that it returns the country
             //            name rather than the 3-letter country code, you will need to
             //            convert it back to its 3-letter country code when calling promptForLanguage
             String language = promptForLanguage(translator, country);
-            if (quit.equals(language)) {
+            if (language.equals(quit)) {
                 break;
             }
             // TODO Task: Once you switch promptForLanguage so that it returns the language
@@ -61,7 +61,7 @@ public class Main {
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
 
-            if (quit.equals(textTyped)) {
+            if (textTyped.equals(quit)) {
                 break;
             }
         }
