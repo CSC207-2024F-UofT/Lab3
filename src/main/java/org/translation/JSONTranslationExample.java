@@ -53,7 +53,12 @@ public class JSONTranslationExample {
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
-
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject country = jsonArray.getJSONObject(i);
+            if (country.getString("alpha3").equals(countryCode)){
+                return country.getString(languageCode);
+            }
+        }
         return "Country not found";
     }
 
