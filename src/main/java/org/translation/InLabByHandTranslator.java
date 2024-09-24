@@ -3,7 +3,7 @@ package org.translation;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO Task: modify this class so that it also supports the Spanish language code "es" and
+// Task: modify this class so that it also supports the Spanish language code "es" and
 //            one more language code of your choice. Each member of your group should add
 //            support for one additional langauge code on a branch; then push and create a pull request on GitHub.
 
@@ -21,17 +21,18 @@ public class InLabByHandTranslator implements Translator {
      * @param country the country
      * @return list of language abbreviations which are available for this country
      */
+    public static final String CANADA = "can";
+
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Checkstyle: The String "can" appears 4 times in the file.
-        if ("can".equals(country)) {
-            return new ArrayList<>(List.of("de", "en", "zh"));
+        // Checkstyle: The String "can" appears 4 times in the file.
+        if (CANADA.equals(country)) {
+            return new ArrayList<>(List.of("de", "en", "zh", "es", "th"));
         }
         return new ArrayList<>();
     }
 
-    // TODO Checkstyle: Static variable definition in wrong order.
-    public static final String CANADA = "can";
+    // Checkstyle: Static variable definition in wrong order.
 
     /**
      * Returns the country abbreviations for all countries whose translations are
@@ -41,7 +42,7 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public List<String> getCountries() {
-        return new ArrayList<>(List.of("can"));
+        return new ArrayList<>(List.of(CANADA));
     }
 
     /**
@@ -53,22 +54,24 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public String translate(String country, String language) {
-        // TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
-        // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
-        if (!country.equals("can")) {
-            return null;
+        String result = null;
+        // Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
+        // Checkstyle: String literal expressions should be on the left side of an equals comparison
+        if ("de".equals(language)) {
+            result = "Kanada";
         }
-        if (language.equals("de")) {
-            return "Kanada";
-        }
-        else if (language.equals("en")) {
-            return "Canada";
+        else if ("en".equals(language)) {
+            result = "Canada";
         }
         else if ("zh".equals(language)) {
-            return "加拿大";
+            result = "加拿大";
         }
-        else {
-            return null;
+        else if ("es".equals(language)) {
+            result = "Canadá";
         }
+        else if ("th".equals(language)) {
+            result = "แคนาดา";
+        }
+        return result;
     }
 }
