@@ -14,11 +14,12 @@ import java.util.List;
 public class LanguageCodeConverter {
 
     // TODO Task: pick appropriate instance variables to store the data necessary for this class
-
+    private static List<String> langCodes;
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
      * in the resources folder.
      */
+
     public LanguageCodeConverter() {
         this("language-codes.txt");
     }
@@ -36,6 +37,7 @@ public class LanguageCodeConverter {
 
             // TODO Task: use lines to populate the instance variable
             //           tip: you might find it convenient to create an iterator using lines.iterator()
+            this.langCodes = lines;
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -51,7 +53,13 @@ public class LanguageCodeConverter {
      */
     public String fromLanguageCode(String code) {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+        for (int i = 1; i < this.langCodes.size(); i++) {
+            String[] currLine = this.langCodes.get(i).split("\t");
+            if (currLine[1].equals(code)) {
+                return currLine[0];
+            }
+        }
+        return null;
     }
 
     /**
@@ -61,7 +69,13 @@ public class LanguageCodeConverter {
      */
     public String fromLanguage(String language) {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return language;
+        for (int i = 1; i < this.langCodes.size(); i++) {
+            String[] currLine = this.langCodes.get(i).split(" ");
+            if (currLine[0].equals(language)) {
+                return currLine[1];
+            }
+        }
+        return null;
     }
 
     /**
@@ -70,6 +84,6 @@ public class LanguageCodeConverter {
      */
     public int getNumLanguages() {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return 0;
+        return this.langCodes.size() - 1;
     }
 }
