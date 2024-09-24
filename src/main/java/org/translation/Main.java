@@ -70,10 +70,6 @@ public class Main {
     private static String promptForCountry(Translator translator) {
         CountryCodeConverter c = new CountryCodeConverter();
         List<String> countries = translator.getCountries();
-        // TODO Task: replace the following println call, sort the countries alphabetically,
-        //            and print them out; one per line
-        //      hint: class Collections provides a static sort method
-        // TODO Task: convert the country codes to the actual country names before sorting
         List<String> countryNames = new ArrayList<String>();
         for (String countryCode : countries) {
             countryNames.add(c.fromCountryCode(countryCode));
