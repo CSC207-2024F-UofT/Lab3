@@ -26,7 +26,8 @@ public class JSONTranslationExample {
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource("sample.json")
                     .toURI()));
             this.jsonArray = new JSONArray(jsonString);
-        } catch (IOException | URISyntaxException ex) {
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
     }
