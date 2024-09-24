@@ -43,6 +43,7 @@ public class JSONTranslator implements Translator {
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
 
         }
+
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
