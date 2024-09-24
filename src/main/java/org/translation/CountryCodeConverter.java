@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 /**
  * This class provides the service of converting country codes to their names.
@@ -12,6 +13,10 @@ import java.util.List;
 public class CountryCodeConverter {
 
     // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
+    List<String> country_name = new ArrayList<>();
+    List<String> alpha2 = new ArrayList<>();
+    List<String> alpha3 = new ArrayList<>();
+    List<String> numeric = new ArrayList<>();
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -33,7 +38,15 @@ public class CountryCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             // TODO Task: use lines to populate the instance variable(s)
-
+            for (int i = 1; i < lines.size(); i++) {
+                String[] parts = lines.get(i).split("\t");
+                if (parts.length == 4) {
+                    country_name.add(parts[0].trim());
+                    alpha2.add(parts[1].trim());
+                    alpha3.add(parts[2].trim());
+                    numeric.add(parts[3].trim());
+                }
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -48,7 +61,13 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        int country_index = 0;
+        for (int i = 0; i < alpha3.size(); i++) {
+            if (code.equals(alpha3.get(i))) {
+                country_index = i;
+            }
+        }
+        return country_name.get(country_index);
     }
 
     /**
@@ -58,7 +77,13 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        int code_index = 0;
+        for (int i = 0; i < country_name.size(); i++) {
+            if (country.equals(country_name.get(i))) {
+                code_index = i;
+            }
+        }
+        return alpha3.get(code_index);
     }
 
     /**
@@ -67,6 +92,6 @@ public class CountryCodeConverter {
      */
     public int getNumCountries() {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        return country_name.size();
     }
 }
