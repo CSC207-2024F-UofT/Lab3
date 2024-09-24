@@ -70,8 +70,4 @@ public class InLabByHandTranslator implements Translator {
                     result = null;
                     break;
             }
-        }
 
-        return result;
-    }
-}
