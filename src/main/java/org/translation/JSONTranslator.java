@@ -20,7 +20,6 @@ public class JSONTranslator implements Translator {
 
     private final JSONArray jsonArrayNew;
     private final JSONObject sampleCountry;
-    private List<String> countryCodes;
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -84,14 +83,14 @@ public class JSONTranslator implements Translator {
             countries.add(countryCode);
         }
 
-        countryCodes = countries;
-
         return countries;
     }
 
     @Override
     public String translate(String country, String language) {
         // TODO Task: complete this method using your instance variables as needed
+
+        List<String> countryCodes = getCountries();
 
         final int countryIndex = countryCodes.indexOf(country);
         JSONObject targetCountry = this.jsonArrayNew.getJSONObject(countryIndex);
