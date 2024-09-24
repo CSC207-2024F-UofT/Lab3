@@ -19,7 +19,6 @@ public class JSONTranslator implements Translator {
     // TODO Task: pick appropriate instance variables for this class
 
     private final JSONArray jsonArrayNew;
-    private final JSONObject sampleCountry;
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -46,7 +45,6 @@ public class JSONTranslator implements Translator {
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
 
             this.jsonArrayNew = jsonArray;
-            this.sampleCountry = jsonArray.getJSONObject(0);
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -60,8 +58,11 @@ public class JSONTranslator implements Translator {
         //            but make sure there is no aliasing to a mutable object
 
         List<String> languages = new ArrayList<>(this.jsonArrayNew.length());
+        List<String> countries = getCountries();
 
-        languages.addAll(this.sampleCountry.keySet());
+        int index = countries.indexOf(country);
+
+        languages.addAll(this.jsonArrayNew.getJSONObject(index).keySet());
 
         languages.remove("id");
         languages.remove("alpha2");
