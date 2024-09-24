@@ -108,7 +108,6 @@ public class Main {
         for (int i = 0; i < countryLanguages.size(); i++) {
             languagesConv.add(langConverter.fromLanguageCode(countryLanguages.get(i)));
         }
-        System.out.println("BLOCK!");
         Collections.sort(languagesConv);
         for (int i = 0; i < countryLanguages.size(); i++) {
             System.out.println(languagesConv.get(i));
