@@ -1,13 +1,9 @@
 package org.translation;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,8 +14,6 @@ import org.json.JSONObject;
 public class JSONTranslationExample {
 
     public static final int CANADA_INDEX = 30;
-    public static final int ALPHA_THREE_ROW = 2;
-    public static final int ID_ROW = 3;
     private final JSONArray jsonArray;
 
     // Note: CheckStyle is configured so that we are allowed to omit javadoc for constructors
@@ -45,9 +39,6 @@ public class JSONTranslationExample {
         JSONObject canada = jsonArray.getJSONObject(CANADA_INDEX);
         return canada.getString("es");
     }
-
-    // TODO Task: Complete the method below to generalize the above to get the country name
-    //            for any country code and language code from sample.json.
 
     /**
      * Returns the name of the country based on the provided country and language codes.
