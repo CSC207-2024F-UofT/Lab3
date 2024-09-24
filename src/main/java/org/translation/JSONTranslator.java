@@ -59,7 +59,6 @@ public class JSONTranslator implements Translator {
         }
     }
 
-    @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     public List<String> getCountryLanguages(String country) {
         // TODO Task: return an appropriate list of language codes,

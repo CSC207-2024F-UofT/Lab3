@@ -70,7 +70,7 @@ public class LanguageCodeConverter {
     public String fromLanguage(String language) {
         // TODO Task: update this code to use your instance variable to return the correct value
         for (int i = 1; i < this.langCodes.size(); i++) {
-            String[] currLine = this.langCodes.get(i).split(" ");
+            String[] currLine = this.langCodes.get(i).split("\t");
             if (currLine[0].equals(language)) {
                 return currLine[1];
             }
