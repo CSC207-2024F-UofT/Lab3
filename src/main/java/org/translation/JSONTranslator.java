@@ -6,10 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,8 +50,10 @@ public class JSONTranslator implements Translator {
             // Populate the structures from JSON
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject countryObject = jsonArray.getJSONObject(i);
-                String countryCode = countryObject.getString("alpha2");
+                String countryCode = countryObject.getString("alpha3");
                 Map<String, String> translations = new HashMap<>();
+
+                // TODO: fix this for loop such that the translations takes a language and provides the translation
 
                 // Add all language translations for the country
                 for (String key : countryObject.keySet()) {
@@ -75,15 +75,10 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // Check if the country exists in the map
-        if (countryTranslations.containsKey(country)) {
-            // Return the list of language codes for that country
-            return new ArrayList<>(countryTranslations.get(country).keySet());
-        }
-        else {
-            // If country not found, return an empty list
+        if (!countries.contains(country)) {
             return new ArrayList<>();
         }
+        return new ArrayList<>(countryTranslations.get(country).keySet());
     }
 
     @Override
@@ -99,11 +94,11 @@ public class JSONTranslator implements Translator {
             Map<String, String> translations = countryTranslations.get(country);
             // Check if the language exists for the country
             // If the language doesn't exist, return null or a default message
-            return translations.getOrDefault(language, "Translation not available for this language.");
+            return translations.getOrDefault(language, "Country not found");
         }
         else {
             // If the country doesn't exist, return null or a default message
-            return "Country not found.";
+            return "Country not found";
         }
     }
 }
