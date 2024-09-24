@@ -59,7 +59,7 @@ public class InLabByHandTranslator implements Translator {
             return null;
         }
         if (language.equals("de")) {
-            return "Kanada";
+            return "1gitKanada";
         }
         else if (language.equals("en")) {
             return "Canada";
