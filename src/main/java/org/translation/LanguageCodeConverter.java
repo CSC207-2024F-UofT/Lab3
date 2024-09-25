@@ -73,7 +73,6 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        // TODO Task: update this code to use your instance variable to return the correct value
         JSONObject jsonObject = jsonArray.getJSONObject(0);
 
         for (String key : jsonObject.keySet()) {
@@ -90,7 +89,6 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        // TODO Task: update this code to use your instance variable to return the correct value
         JSONObject jsonObject = jsonArray.getJSONObject(0);
 
         for (String key : jsonObject.keySet()) {
@@ -106,7 +104,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        // TODO Task: update this code to use your instance variable to return the correct value
         return jsonArray.length();
     }
 }
