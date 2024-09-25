@@ -43,7 +43,8 @@ public class Main {
             if (q.equals(language)) {
                 break;
             }
-            System.out.println(country + " in " + language + " is " + translator.translate(country, LanguageCodeConverter.fromLanguage(language)));
+            System.out.println(country + " in " + language + " is " + translator.translate(CountryCodeConverter
+                    .fromCountry(country), LanguageCodeConverter.fromLanguage(language)));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -57,10 +58,9 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForCountry(Translator translator) {
         List<String> countries = new ArrayList<>();
-
+        CountryCodeConverter converter = new CountryCodeConverter("country-codes.txt");
         for (String country : translator.getCountries()) {
-            countries.add(country);
-            countries.add(CountryCodeConverter.fromCountryCode(country));
+            countries.add(converter.fromCountryCode(country));
         }
 
         Collections.sort(countries);
@@ -78,8 +78,9 @@ public class Main {
 
     private static String promptForLanguage(Translator translator, String country) {
         List<String> languages = new ArrayList<>();
+        LanguageCodeConverter converter = new LanguageCodeConverter("language-codes.txt");
         for (String language : translator.getCountryLanguages(country)) {
-            languages.add(LanguageCodeConverter.fromLanguageCode(language));
+            languages.add(converter.fromLanguageCode(language));
         }
         Collections.sort(languages);
 
