@@ -19,8 +19,9 @@ import org.json.JSONObject;
 public class JSONTranslator implements Translator {
 
     // TODO Task: pick appropriate instance variables for this class
-    private final  Map<String, Map<String, String>> countries = new HashMap<>();
     private static final String ALPHA3_CODE = "alpha3";
+    private final Map<String, Map<String, String>> countries = new HashMap<>();
+
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
@@ -45,10 +46,11 @@ public class JSONTranslator implements Translator {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String country = jsonObject.getString(ALPHA3_CODE);
 
-                Map<String, String> translations = new HashMap<>(); // Load available translations
+                // Load available translations
+                Map<String, String> translations = new HashMap<>();
 
                 for (String key : jsonObject.keySet()) {
-                    if (!key.equals("id") && !key.equals("alpha2") && !key.equals(ALPHA3_CODE)) {
+                    if (!"id".equals(key) && !"alpha2".equals(key) && !ALPHA3_CODE.equals(key)) {
                         translations.put(key, jsonObject.getString(key));
                     }
                 }
@@ -65,11 +67,11 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-       List<String> languageCodes = new ArrayList<>();
-       Map<String, String> languages = countries.get(country);
-       for (String language : languages.keySet()) {
-           languageCodes.add(language);
-       }
+        List<String> languageCodes = new ArrayList<>();
+        Map<String, String> languages = countries.get(country);
+        for (String language : languages.keySet()) {
+            languageCodes.add(language);
+        }
         // TODO Task: return an appropriate list of language codes,
         //            but make sure there is no aliasing to a mutable object
         return new ArrayList<>(languageCodes);
