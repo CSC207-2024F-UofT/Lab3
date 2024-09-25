@@ -38,23 +38,13 @@ public class Main {
         while (true) {
             String country = promptForCountry(translator);
             String quit = "quit";
-            // TODO CheckStyle: The String "quit" appears 3 times in the file.
-            // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
             if (quit.equals(country)) {
                 break;
             }
-            // TODO Task: Once you switch promptForCountry so that it returns the country
-            //            name rather than the 3-letter country code, you will need to
-            //            convert it back to its 3-letter country code when calling promptForLanguage
             String language = promptForLanguage(translator, country);
             if (quit.equals(language)) {
                 break;
             }
-            // TODO Task: Once you switch promptForLanguage so that it returns the language
-            //            name rather than the 2-letter language code, you will need to
-            //            convert it back to its 2-letter language code when calling translate.
-            //            Note: you should use the actual names in the message printed below though,
-            //            since the user will see the displayed message.
             System.out.println(country + " in " + language + " is " + translator.translate(country, language));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
@@ -84,7 +74,7 @@ public class Main {
         System.out.println("select a country from above:");
 
         Scanner s = new Scanner(System.in);
-        return s.nextLine();
+        return c.fromCountry(String.valueOf(s));
 
     }
 
@@ -104,11 +94,9 @@ public class Main {
             System.out.println(language);
         }
 
-        System.out.println(translator.getCountryLanguages(country));
-
         System.out.println("select a language from above:");
 
         Scanner s = new Scanner(System.in);
-        return s.nextLine();
+        return l.fromLanguage(String.valueOf(s));
     }
 }
