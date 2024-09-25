@@ -40,7 +40,7 @@ Danish	da
 Divehi, Dhivehi, Maldivian	dv
 Dutch, Flemish	nl
 Dzongkha	dz
-English	en
+English en
 Esperanto	eo
 Estonian	et
 Ewe	ee
@@ -67,7 +67,7 @@ Hindi	hi
 Hiri Motu	ho
 Hungarian	hu
 Icelandic	is
-Ido	io
+Ido io
 Igbo	ig
 Indonesian	id
 Interlingua (International Auxiliary Language Association)	ia

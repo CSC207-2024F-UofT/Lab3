@@ -53,8 +53,6 @@ public class JSONTranslator implements Translator {
                 String countryCode = countryObject.getString("alpha3");
                 Map<String, String> translations = new HashMap<>();
 
-                // TODO: fix this for loop such that the translations takes a language and provides the translation
-
                 // Add all language translations for the country
                 for (String key : countryObject.keySet()) {
                     if (!"id".equals(key) && !"alpha2".equals(key) && !"alpha3".equals(key)) {
