@@ -51,12 +51,10 @@ public class JSONTranslationExample {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject countryObject = jsonArray.getJSONObject(i);
 
-            // Check for both alpha2 and alpha3 codes
             if (countryObject.has("alpha2") && countryObject.getString("alpha2")
                     .equalsIgnoreCase(countryCode) || countryObject.has("alpha3") && countryObject
                     .getString("alpha3").equalsIgnoreCase(countryCode)) {
 
-                // Return the translation if it exists
                 if (countryObject.has(languageCode)) {
                     return countryObject.getString(languageCode);
                 }
