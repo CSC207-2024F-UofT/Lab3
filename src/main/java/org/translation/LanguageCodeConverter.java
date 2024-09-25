@@ -12,7 +12,7 @@ import java.util.Map;
  * This class provides the service of converting language codes to their names.
  */
 public class LanguageCodeConverter {
-    private Map<String, String> dictionary = new HashMap<>() {
+    private static Map<String, String> dictionary = new HashMap<>() {
     };
 
     /**
@@ -62,7 +62,7 @@ public class LanguageCodeConverter {
      * @param code the language code
      * @return the name of the language corresponding to the code
      */
-    public String fromLanguageCode(String code) {
+    public static String fromLanguageCode(String code) {
         String lang = dictionary.get(code);
         if (lang != null) {
             return lang;
@@ -75,7 +75,7 @@ public class LanguageCodeConverter {
      * @param language the name of the language
      * @return the 2-letter code of the language
      * */
-    public String fromLanguage(String language) {
+    public static String fromLanguage(String language) {
         for (String key : dictionary.keySet()) {
             if (dictionary.get(key).equals(language)) {
                 return key;

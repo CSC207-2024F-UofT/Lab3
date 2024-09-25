@@ -15,7 +15,6 @@ import org.json.JSONArray;
  */
 public class JSONTranslator implements Translator {
 
-    // TODO Task: pick appropriate instance variables for this class
     private final JSONArray jsonArray;
     private final int keyNumber = 4;
 
@@ -39,9 +38,6 @@ public class JSONTranslator implements Translator {
 
             this.jsonArray = new JSONArray(jsonString);
 
-            // TODO Task: use the data in the jsonArray to populate your instance variables
-            //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
-
         }
 
         catch (IOException | URISyntaxException ex) {
@@ -51,8 +47,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Task: return an appropriate list of language codes,
-        //            but make sure there is no aliasing to a mutable object
         List<String> languages = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             String alpha3 = "alpha3";
@@ -71,13 +65,11 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountries() {
-        // TODO Task: return an appropriate list of country codes,
-        //            but make sure there is no aliasing to a mutable object
         List<String> countries = new ArrayList<>();
         String alpha3 = "alpha3";
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).keySet().size() >= keyNumber) {
-                countries.add(alpha3);
+                countries.add(jsonArray.getJSONObject(i).getString(alpha3));
             }
         }
         return countries;
@@ -85,7 +77,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String country, String language) {
-        // TODO Task: complete this method using your instance variables as needed
         String alpha3 = "alpha3";
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).getString(alpha3).equals(country)) {

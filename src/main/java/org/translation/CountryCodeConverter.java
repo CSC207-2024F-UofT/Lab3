@@ -34,6 +34,7 @@ public class CountryCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
             lines.remove(0);
 
+
             for (String line : lines) {
                 String[] items = line.split("[\t ]+");
                 int i = 1;
@@ -48,7 +49,9 @@ public class CountryCodeConverter {
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
+
     }
+
 
     /**
      * Returns the name of the country for the given country code.
@@ -56,9 +59,9 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public static String fromCountryCode(String code) {
-        String lang = dictionary.get(code);
-        if (lang != null) {
-            return lang;
+        String country = dictionary.get(code.toLowerCase());
+        if (country != null) {
+            return country;
         }
         return "Country not found.";
     }

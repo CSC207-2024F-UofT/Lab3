@@ -1,5 +1,6 @@
 package org.translation;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ public class Main {
      * @param args not used by the program
      */
     public static void main(String[] args) {
-        Translator translator = new JSONTranslator(null);
+        Translator translator = new JSONTranslator("sample.json");
         runProgram(translator);
     }
 
@@ -55,12 +56,15 @@ public class Main {
 
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForCountry(Translator translator) {
-        List<String> countries = translator.getCountries();
-        for (String country : countries) {
-//            country = CountryCodeConverter.fromCountryCode(country);
+        List<String> countries = new ArrayList<>();
+
+        for (String country : translator.getCountries()) {
+            countries.add(country);
+            countries.add(CountryCodeConverter.fromCountryCode(country));
         }
 
         Collections.sort(countries);
+
         for (String country : countries) {
             System.out.println(country);
         }
@@ -73,11 +77,12 @@ public class Main {
     }
 
     private static String promptForLanguage(Translator translator, String country) {
-        List<String> languages = translator.getCountryLanguages(country);
-        for (String language : languages) {
-//            language = LanguageCodeConverter.fromLanguageCode(language);
+        List<String> languages = new ArrayList<>();
+        for (String language : translator.getCountryLanguages(country)) {
+            languages.add(LanguageCodeConverter.fromLanguageCode(language));
         }
         Collections.sort(languages);
+
         for (String language : languages) {
             System.out.println(language);
         }
@@ -87,4 +92,5 @@ public class Main {
         Scanner s = new Scanner(System.in);
         return s.nextLine();
     }
+
 }
