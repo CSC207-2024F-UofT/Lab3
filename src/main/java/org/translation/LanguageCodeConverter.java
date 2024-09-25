@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class provides the service of converting language codes to their names.
@@ -80,11 +78,11 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        int Count = 0;
+        int count = 0;
         while (this.countries.hasNext()) {
             this.countries.next();
-            Count++;
+            count++;
         }
-        return Count;
+        return count;
     }
 }
