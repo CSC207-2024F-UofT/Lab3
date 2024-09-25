@@ -11,17 +11,13 @@ import java.util.*;
  */
 public class CountryCodeConverter {
 
-    private HashMap<String,List<String>[]> countryDictionary = new HashMap<>();
-    /*
-    // A list of the country names in this CountryCodeConverter
-    private List<String> countryNames = new ArrayList<String>();
-    // A list of the country Alpha-2 codes in this CountryCodeConverter
-    private List<String> alpha2Codes = new ArrayList<String>();
-    // A list of the country Alpha-3 codes in this CountryCodeConverter
-    private List<String> alpha3Codes = new ArrayList<String>();
-    // A list of the country numeric codes in this CountryCodeConverter
-    private List<String> numericCodes = new ArrayList<String>();
-    */
+    // Index where country code is stored
+    private static final int COUNTRY_CODE_INDEX = 1;
+    // Index where country name is stored
+    private static final int COUNTRY_NAME_INDEX = 0;
+
+    // HashMap storing all country info in the converter
+    private Map<String, List<String>> countryDictionary = new HashMap<>();
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -41,20 +37,12 @@ public class CountryCodeConverter {
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
-
-            // TODO Task: use lines to populate the instance variable(s)
-            for (String line : lines) {
+            // Start at index 1 to skip the header
+            for (String line : lines.subList(1, lines.size())) {
                 String[] values = line.split("\t");
-                List<String> temp = Arrays.asList(new String[]{values[1], values[2], values[3]});
-                this.countryDictionary.put(values[0], temp]);
-                /*this.countryNames.add(values[0]);
-                this.alpha2Codes.add(values[1]);
-                this.alpha3Codes.add(values[2]);
-                this.numericCodes.add(values[3]);
-                 */
+                List<String> temp = new ArrayList<>(Arrays.asList(values).subList(1, values.length));
+                this.countryDictionary.put(values[COUNTRY_NAME_INDEX], temp);
             }
-
-
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -68,8 +56,12 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        for (Map.Entry<String, List<String>> entry : countryDictionary.entrySet()) {
+            if (entry.getValue().get(COUNTRY_CODE_INDEX).equalsIgnoreCase(code)) {
+                return entry.getKey();
+            }
+        }
+        return "Country Code Not Found";
     }
 
     /**
@@ -78,8 +70,12 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        for (Map.Entry<String, List<String>> entry : countryDictionary.entrySet()) {
+            if (entry.getKey().equals(country)) {
+                return entry.getValue().get(COUNTRY_CODE_INDEX);
+            }
+        }
+        return "Country Not Found";
     }
 
     /**
@@ -87,7 +83,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        return countryDictionary.size();
     }
 }

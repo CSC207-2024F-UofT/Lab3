@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -21,8 +22,6 @@ public class JSONTranslationExample {
         try {
             // this next line of code reads in a file from the resources folder as a String,
             // which we then create a new JSONArray object from.
-            // TODO CheckStyle: Line is longer than 120 characters
-            //                  (note: you can split a line such that the next line starts with a .method()... call
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader()
                     .getResource("sample.json").toURI()));
             this.jsonArray = new JSONArray(jsonString);
@@ -37,14 +36,9 @@ public class JSONTranslationExample {
      * @return the Spanish translation of Canada
      */
     public String getCanadaCountryNameSpanishTranslation() {
-        final int index30 = 30;
-        // TODO Checkstyle: '30' is a magic number.
-        JSONObject canada = jsonArray.getJSONObject(index30);
+        JSONObject canada = jsonArray.getJSONObject(CANADA_INDEX);
         return canada.getString("es");
     }
-
-    // TODO Task: Complete the method below to generalize the above to get the country name
-    //            for any country code and language code from sample.json.
 
     /**
      * Returns the name of the country based on the provided country and language codes.
@@ -53,6 +47,17 @@ public class JSONTranslationExample {
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (countryCode.equals(jsonObject.getString("alpha3"))) {
+                try {
+                    return jsonObject.getString(languageCode);
+                }
+                catch (JSONException ex) {
+                    break;
+                }
+            }
+        }
         return "Country not found";
     }
 

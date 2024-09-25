@@ -13,6 +13,24 @@ public class CountryCodeConverterTest {
     }
 
     @Test
+    public void fromCountryCodeAfghanistan() {
+        CountryCodeConverter converter = new CountryCodeConverter();
+        assertEquals("Afghanistan", converter.fromCountryCode("Afg"));
+    }
+
+    @Test
+    public void fromCountryCodeÅlandIslands() {
+        CountryCodeConverter converter = new CountryCodeConverter();
+        assertEquals("Åland Islands", converter.fromCountryCode("ALa"));
+    }
+
+    @Test
+    public void fromCountryNewZealand() {
+        CountryCodeConverter converter = new CountryCodeConverter();
+        assertEquals("NZL", converter.fromCountry("New Zealand"));
+    }
+
+    @Test
     public void fromCountryCodeAllLoaded() {
         CountryCodeConverter converter = new CountryCodeConverter();
         assertEquals(249, converter.getNumCountries());
