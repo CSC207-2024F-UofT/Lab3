@@ -40,6 +40,7 @@ public class JSONTranslationExample {
     }
 
 
+
     /**
      * Returns the name of the country based on the provided country and language codes.
      * @param countryCode the country, as its three-letter code.
@@ -48,8 +49,8 @@ public class JSONTranslationExample {
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
         for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject country = jsonArray.getJSONObject(i);
-            if (country.getString("alpha3").equals(countryCode)){
+            if (jsonArray.getJSONObject(i).getString("alpha3").equals(countryCode)) {
+                JSONObject country = jsonArray.getJSONObject(i);
                 return country.getString(languageCode);
             }
         }
