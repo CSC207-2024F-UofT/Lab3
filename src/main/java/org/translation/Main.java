@@ -43,7 +43,8 @@ public class Main {
             if (q.equals(language)) {
                 break;
             }
-            System.out.println(country + " in " + language + " is " + translator.translate(CountryCodeConverter.fromCountry(country), LanguageCodeConverter.fromLanguage(language)));
+            System.out.println(country + " in " + language + " is " + translator.translate(CountryCodeConverter
+                    .fromCountry(country), LanguageCodeConverter.fromLanguage(language)));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -59,7 +60,6 @@ public class Main {
         List<String> countries = new ArrayList<>();
         CountryCodeConverter converter = new CountryCodeConverter("country-codes.txt");
         for (String country : translator.getCountries()) {
-            //countries.add(country);
             countries.add(converter.fromCountryCode(country));
         }
 

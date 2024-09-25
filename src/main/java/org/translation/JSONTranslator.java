@@ -18,6 +18,7 @@ public class JSONTranslator implements Translator {
 
     private final JSONArray jsonArray;
     private final int keyNumber = 4;
+    private final String alpha3 = "alpha3";
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -50,7 +51,6 @@ public class JSONTranslator implements Translator {
     public List<String> getCountryLanguages(String country) {
         List<String> languages = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
-            String alpha3 = "alpha3";
             String alpha2 = "alpha2";
             String id = "id";
             if (jsonArray.getJSONObject(i).getString(alpha3).equals(country)) {
@@ -67,7 +67,6 @@ public class JSONTranslator implements Translator {
     @Override
     public List<String> getCountries() {
         List<String> countries = new ArrayList<>();
-        String alpha3 = "alpha3";
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).keySet().size() >= keyNumber) {
                 countries.add(jsonArray.getJSONObject(i).getString(alpha3));
@@ -80,7 +79,7 @@ public class JSONTranslator implements Translator {
     public String translate(String country, String language) {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.getString("alpha3").equals(country)) {
+            if (jsonObject.getString(alpha3).equals(country)) {
                 return jsonObject.getString(language.toLowerCase());
             }
         }
