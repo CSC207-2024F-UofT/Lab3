@@ -1,4 +1,3 @@
-
 package org.translation;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class InLabByHandTranslator implements Translator {
     @Override
     public List<String> getCountryLanguages(String country) {
         if (CANADA.equals(country)) {
-            return new ArrayList<>(List.of("de", "en", "zh", "es", "fr")); // Added "es" and "fr"
+            return new ArrayList<>(List.of("de", "en", "zh", "es", "ko"));
         }
         return new ArrayList<>();
     }
@@ -62,8 +61,8 @@ public class InLabByHandTranslator implements Translator {
                 return "加拿大";
             case "es":
                 return "Canadá";
-            case "fr":
-                return "Canada";
+            case "ko":
+                return "캐나다";
             default:
                 return null;
         }
