@@ -31,9 +31,6 @@ public class InLabByHandTranslator implements Translator {
         return new ArrayList<>();
     }
 
-    // TODO Checkstyle: Static variable definition in wrong order.
-
-
     /**
      * Returns the country abbreviations for all countries whose translations are
      * available from this Translator.

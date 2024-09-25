@@ -15,9 +15,10 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static final String quit = "quit";
-    private static final LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
-    private static final CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+    private static final String QUIT = "quit";
+    private static final LanguageCodeConverter LANG_CONVERTER = new LanguageCodeConverter();
+    private static final CountryCodeConverter COUNTRY_CONVERTER = new CountryCodeConverter();
+
     /**
      * This is the main entry point of our Translation System!<br/>
      * A class implementing the Translator interface is created and passed into a call to runProgram.
@@ -25,9 +26,6 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        // TODO Task: once you finish the JSONTranslator,
-        //            you can use it here instead of the InLabByHandTranslator
-        //            to try out the whole program!
         Translator translator = new JSONTranslator(null);
         // Translator translator = new InLabByHandTranslator();
 
@@ -43,31 +41,30 @@ public class Main {
     public static void runProgram(Translator translator) {
         while (true) {
             String country = promptForCountry(translator);
-            if (quit.equals(country)) {
+            if (QUIT.equals(country)) {
                 break;
             }
-            country = countryCodeConverter.fromCountry(country);
+            country = COUNTRY_CONVERTER.fromCountry(country);
             String language = promptForLanguage(translator, country);
-            if (quit.equals(language)) {
+            if (QUIT.equals(language)) {
                 break;
             }
-            language = languageCodeConverter.fromLanguage(language);
+            language = LANG_CONVERTER.fromLanguage(language);
             System.out.println(country + " in " + language + " is " + translator.translate(country, language));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
 
-            if (quit.equals(textTyped)) {
+            if (QUIT.equals(textTyped)) {
                 break;
             }
         }
     }
 
-
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForCountry(Translator translator) {
         List<String> countries = translator.getCountries();
-        countries.replaceAll(countryCodeConverter::fromCountryCode);
+        countries.replaceAll(COUNTRY_CONVERTER::fromCountryCode);
         Collections.sort(countries);
         for (String country : countries) {
             System.out.println(country);
@@ -79,10 +76,11 @@ public class Main {
         return s.nextLine();
 
     }
+
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
         List<String> languages = translator.getCountryLanguages(country);
-        languages.replaceAll(languageCodeConverter::fromLanguageCode);
+        languages.replaceAll(LANG_CONVERTER::fromLanguageCode);
         Collections.sort(languages);
         for (String language : languages) {
             System.out.println(language);
