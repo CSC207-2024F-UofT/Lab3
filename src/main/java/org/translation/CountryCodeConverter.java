@@ -36,14 +36,20 @@ public class CountryCodeConverter {
 
 
             for (String line : lines) {
-                String[] items = line.split("[\t ]+");
-                int i = 1;
-                String countr = items[0];
-                while (i < items.length - (1 + 1 + 1)) {
-                    countr += " " + items[i];
-                    i += 1;
+                String[] items = line.split("\t");
+//                int i = 1;
+//                String countr = items[0];
+//                while (i < items.length - (1 + 1 + 1)) {
+//                    countr += " " + items[i];
+//                    i += 1;
+//                }
+
+//                dictionary.put((items[items.length - 2]).toLowerCase(), countr);
+                if (items.length == 4) {
+                    String countryName = items[0];
+                    String alpha3Code = items[2].toLowerCase();
+                    dictionary.put(alpha3Code, countryName);
                 }
-                dictionary.put((items[items.length - 2]).toLowerCase(), countr);
             }
         }
         catch (IOException | URISyntaxException ex) {

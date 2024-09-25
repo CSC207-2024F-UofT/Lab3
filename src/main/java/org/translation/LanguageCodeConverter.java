@@ -36,7 +36,7 @@ public class LanguageCodeConverter {
             lines.remove(0);
 
             for (String line : lines) {
-                String[] items = line.split("[\t ]+");
+                String[] items = line.split("\t");
 
                 if (items.length == 2) {
                     dictionary.put(items[1], items[0]);

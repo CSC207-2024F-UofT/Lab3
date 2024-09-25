@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * An implementation of the Translator interface which reads in the translation
@@ -77,16 +78,12 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String country, String language) {
-        String alpha3 = "alpha3";
         for (int i = 0; i < jsonArray.length(); i++) {
-            if (jsonArray.getJSONObject(i).getString(alpha3).equals(country)) {
-                for (String key : jsonArray.getJSONObject(i).keySet()) {
-                    if (key.equals(language)) {
-                        return jsonArray.getJSONObject(i).getString(key);
-                    }
-                }
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.getString("alpha3").equals(country)) {
+                return jsonObject.getString(language.toLowerCase());
             }
         }
-        return null;
+        return "Country not found";
     }
 }
