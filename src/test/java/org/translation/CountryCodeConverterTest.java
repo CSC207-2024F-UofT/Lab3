@@ -17,4 +17,16 @@ public class CountryCodeConverterTest {
         CountryCodeConverter converter = new CountryCodeConverter();
         assertEquals(249, converter.getNumCountries());
     }
+
+    @Test
+    public void fromNameToCode() {
+        CountryCodeConverter converter = new CountryCodeConverter();
+        assertEquals("840", converter.fromCountry("United States of America (the)"));
+    }
+
+    @Test
+    public void specialCharacterInName() {
+        CountryCodeConverter converter = new CountryCodeConverter();
+        assertEquals("Côte d'Ivoire", converter.fromCountryCode("CIV"));
+    }
 }

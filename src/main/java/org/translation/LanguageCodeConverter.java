@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class provides the service of converting language codes to their names.
@@ -45,6 +44,9 @@ public class LanguageCodeConverter {
                 String[] words = oneRow.split("\t");
                 this.languageCode.put(words[0], words[1]);
             }
+        }
+        catch (IOException | URISyntaxException ex) {
+            throw new RuntimeException(ex);
         }
 
         catch (IOException | URISyntaxException ex) {
