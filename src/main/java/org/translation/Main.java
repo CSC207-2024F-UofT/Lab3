@@ -48,7 +48,7 @@ public class Main {
                 break;
             }
             else {
-                CountryCodeConverter converter = new CountryCodeConverter(country);
+                CountryCodeConverter converter = new CountryCodeConverter();
                 countryCode = converter.fromCountry(country);
             }
             //  Task: Once you switch promptForCountry so that it returns the country
@@ -60,7 +60,7 @@ public class Main {
                 break;
             }
             else {
-                LanguageCodeConverter converter = new LanguageCodeConverter(language);
+                LanguageCodeConverter converter = new LanguageCodeConverter();
                 languageCode = converter.fromLanguage(language);
             }
             //  Task: Once you switch promptForLanguage so that it returns the language
