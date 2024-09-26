@@ -37,14 +37,13 @@ public class CountryCodeConverter {
 
             countryToCode = new HashMap<>();
             codeToCountry = new HashMap<>();
-            for (String line : lines) {
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i).trim();
                 String[] parts = line.split("\t");
-                if (parts.length == 2) {
-                    String code = parts[0];
-                    String country = parts[1];
-                    codeToCountry.put(code, country);
-                    countryToCode.put(country, code);
-                }
+                String code = parts[2];
+                String country = parts[0];
+                codeToCountry.put(code, country);
+                countryToCode.put(country, code);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -59,7 +58,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return codeToCountry.get(code);
+        return codeToCountry.get(code.toUpperCase());
     }
 
     /**

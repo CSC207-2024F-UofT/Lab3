@@ -14,7 +14,6 @@ import java.util.Objects;
  */
 public class LanguageCodeConverter {
 
-    // TODO Task: pick appropriate instance variables to store the data necessary for this class
     private final Map<String, String> languageCodeMap;
 
     /**
@@ -32,18 +31,18 @@ public class LanguageCodeConverter {
      */
     public LanguageCodeConverter(String filename) {
 
-        languageCodeMap = new HashMap<>();
-
         try {
             List<String> lines = Files.readAllLines(Paths.get(Objects.requireNonNull(getClass()
                     .getClassLoader().getResource(filename)).toURI()));
 
             // TODO Task: use lines to populate the instance variable
             //           tip: you might find it convenient to create an iterator using lines.iterator()
-            for (String line : lines) {
-                String countryCode = line.substring(line.length() - 2);
-                String country = line.substring(0, line.length() - 2);
-                country = country.trim();
+            languageCodeMap = new HashMap<>();
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i).trim();
+                String[] parts = line.split("\t");
+                String countryCode = parts[1];
+                String country = parts[0];
                 languageCodeMap.put(countryCode, country);
             }
 
