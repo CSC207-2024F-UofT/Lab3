@@ -49,9 +49,15 @@ public class JSONTranslator implements Translator {
                 ids.add(jsonObject.getInt("id"));
                 countryCodes.add(jsonObject.getString("alpha3"));
                 Set<String> allKeys = jsonObject.keySet();
-
+                allKeys.remove("id");
+                allKeys.remove("alpha2");
+                allKeys.remove("alpha3");
+                for (String key : allKeys) {
+                    if (!this.languages.contains(key)) {
+                        this.languages.add(key);
+                    }
+                }
             }
-
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -62,14 +68,18 @@ public class JSONTranslator implements Translator {
     public List<String> getCountryLanguages(String country) {
         // TODO Task: return an appropriate list of language codes,
         //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        List<String> allLanguages = new ArrayList<String>();
+        for (String code : this.languages) {
+            allLanguages.add(new String(code));
+        }
+        return allLanguages;
     }
 
     @Override
     public List<String> getCountries() {
         // Done return an appropriate list of country codes,
         //            but make sure there is no aliasing to a mutable object
-        ArrayList<String> allCountries = new ArrayList<String>();
+        List<String> allCountries = new ArrayList<String>();
         for (String code : this.countryCodes) {
             allCountries.add(new String(code));
         }
