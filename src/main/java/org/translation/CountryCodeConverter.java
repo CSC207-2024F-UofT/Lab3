@@ -34,8 +34,9 @@ public class CountryCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
+            lines.remove(0);
             for (String line : lines) {
-                countries.put(line.split(" ")[0], line.split(" ")[1]);
+                countries.put(line.split("\t")[2], line.split("\t")[0]);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -50,7 +51,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return countries.get(code);
+        return countries.get(code.toUpperCase());
     }
 
     /**
