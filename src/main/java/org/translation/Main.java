@@ -38,7 +38,7 @@ public class Main {
      */
     public static void runProgram(Translator translator) {
         while (true) {
-            String quit = "quit";
+            String quit = new String("new quit");
             String country = promptForCountry(translator);
             if (country.equals(quit)) {
                 break;
@@ -60,7 +60,7 @@ public class Main {
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
 
-            if ("quit".equals(textTyped)) {
+            if (quit.equals(textTyped)) {
                 break;
             }
         }
