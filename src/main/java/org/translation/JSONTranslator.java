@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,10 +34,9 @@ public class JSONTranslator implements Translator {
         this.translations = new HashMap<>();
         try {
 
-            String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
-
+            String jsonString = Files.readString(Paths.get(Objects.requireNonNull(getClass()
+                    .getClassLoader().getResource(filename)).toURI()));
             JSONArray jsonArray = new JSONArray(jsonString);
-
             // TODO Task: use the data in the jsonArray to populate your instance variables
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
 
@@ -66,8 +62,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Task: return an appropriate list of language codes,
-        //            but make sure there is no aliasing to a mutable object
         if (translations.containsKey(country)) {
             return new ArrayList<>(translations.get(country).keySet());
         }
@@ -78,14 +72,11 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountries() {
-        // TODO Task: return an appropriate list of country codes,
-        //            but make sure there is no aliasing to a mutable object
         return new ArrayList<>(translations.keySet());
     }
 
     @Override
     public String translate(String country, String language) {
-        // TODO Task: complete this method using your instance variables as needed
         if (getCountries().contains(country) && getCountryLanguages(country).contains(language)) {
             return translations.get(country).get(language);
         }

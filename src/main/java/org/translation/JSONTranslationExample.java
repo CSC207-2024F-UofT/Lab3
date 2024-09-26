@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,7 +23,8 @@ public class JSONTranslationExample {
             // this next line of code reads in a file from the resources folder as a String,
             // which we then create a new JSONArray object from.
             String jsonString =
-                    Files.readString(Paths.get(getClass().getClassLoader().getResource("sample.json").toURI()));
+                    Files.readString(Paths.get(Objects.requireNonNull(getClass()
+                            .getClassLoader().getResource("sample.json")).toURI()));
             this.jsonArray = new JSONArray(jsonString);
         }
         catch (IOException | URISyntaxException ex) {
