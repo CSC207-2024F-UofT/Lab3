@@ -18,12 +18,13 @@ import javax.swing.text.html.HTMLDocument;
 public class JSONTranslator implements Translator {
 
     // TODO Task: pick appropriate instance variables for this class
-    private ArrayList<String> countryCodes = new ArrayList<String>();
-    private Map<String, ArrayList<String>> countryTolanguages = new HashMap<String, ArrayList<String>>();
-    private Map<String, HashMap<String, String>> countryTolangToTransl = new HashMap<String, HashMap<String, String>>();
+    private ArrayList<String> countryCodes = new ArrayList<>();
+    private Map<String, ArrayList<String>> countryToLanguages = new HashMap<>();
+    private Map<String, Map<String, String>> countryToLangToTransl = new HashMap<>();
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
+
     public JSONTranslator() {
         this("sample.json");
     }
@@ -60,8 +61,8 @@ public class JSONTranslator implements Translator {
 
                     }
                 }
-                this.countryTolanguages.put(c, lang);
-                this.countryTolangToTransl.put(c, (HashMap) a);
+                this.countryToLanguages.put(c, lang);
+                this.countryToLangToTransl.put(c, a);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -73,9 +74,7 @@ public class JSONTranslator implements Translator {
     public List<String> getCountryLanguages(String country) {
         // Done return an appropriate list of language codes,
         //            but make sure there is no aliasing to a mutable object
-        List<String> allLanguages = this.countryTolanguages.get(country);
-
-        return allLanguages;
+        return this.countryToLanguages.get(country);
     }
 
     @Override
@@ -92,9 +91,9 @@ public class JSONTranslator implements Translator {
     @Override
     public String translate(String country, String language) {
         // Done complete this method using your instance variables as needed
-        if (this.countryTolangToTransl.containsKey(country)) {
-            if (this.countryTolangToTransl.get(country).containsKey(language)) {
-                return this.countryTolangToTransl.get(country).get(language);
+        if (this.countryToLangToTransl.containsKey(country)) {
+            if (this.countryToLangToTransl.get(country).containsKey(language)) {
+                return this.countryToLangToTransl.get(country).get(language);
             }
         }
         return null;
