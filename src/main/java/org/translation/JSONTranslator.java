@@ -20,6 +20,7 @@ public class JSONTranslator implements Translator {
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
+
     public JSONTranslator() {
         this("sample.json");
     }
