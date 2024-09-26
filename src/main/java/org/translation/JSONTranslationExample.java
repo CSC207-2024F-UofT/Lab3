@@ -23,10 +23,11 @@ public class JSONTranslationExample {
             // which we then create a new JSONArray object from.
             // TODO CheckStyle: Line is longer than 120 characters
             //                  (note: you can split a line such that the next line starts with a .method()... call
-            String jsonString = Files.readString(Paths.get(getClass().getClassLoader().
-                    getResource("sample.json").toURI()));
+            String jsonString = Files.readString(Paths.get(getClass().getClassLoader()
+                    .getResource("sample.json").toURI()));
             this.jsonArray = new JSONArray(jsonString);
-        } catch (IOException | URISyntaxException ex) {
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -53,8 +54,7 @@ public class JSONTranslationExample {
      * @param languageCode the language to translate to, as its two-letter code.
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
-    public String getCountryNameTranslation(String countryCode, String languageCode)
-    {
+    public String getCountryNameTranslation(String countryCode, String languageCode) {
         // Iterate through for loop (enhanced for loop) until correct index is reached
         int index = 0;
 
@@ -64,26 +64,25 @@ public class JSONTranslationExample {
             JSONObject countryJSON = jsonArray.getJSONObject(i);
             if (countryJSON.getString("alpha3").equals(countryCode)) {
                 break;
+            }
 
-                // Find if alpha 3.equals(country code)
-
+            if (i == jsonArray.length() - 1) {
+                return "Country not found";
             }
         }
-            JSONObject finalCountryJson = jsonArray.getJSONObject(index);
-            return finalCountryJson.getString(languageCode);
+        JSONObject finalCountryJson = jsonArray.getJSONObject(index);
+        return finalCountryJson.getString(languageCode);
     }
 
-        /**
-         * Prints the Spanish translation of Canada.
-         * @param args not used
-         */
-        public static void main(String[] args)
-        {
-            JSONTranslationExample jsonTranslationExample = new JSONTranslationExample();
+    /**
+     * Prints the Spanish translation of Canada.
+     * @param args not used
+     */
+    public static void main(String[] args) {
+        JSONTranslationExample jsonTranslationExample = new JSONTranslationExample();
 
-            System.out.println(jsonTranslationExample.getCanadaCountryNameSpanishTranslation());
-            String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
-            System.out.println(translation);
-        }
+        System.out.println(jsonTranslationExample.getCanadaCountryNameSpanishTranslation());
+        String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
+        System.out.println(translation);
     }
-
+}
