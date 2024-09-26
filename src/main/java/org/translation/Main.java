@@ -25,7 +25,7 @@ public class Main {
         // TODO Task: once you finish the JSONTranslator,
         //            you can use it here instead of the InLabByHandTranslator
         //            to try out the whole program!
-        Translator translator = new JSONTranslator(null);
+        Translator translator = new JSONTranslator("sample.json");
 
         runProgram(translator);
     }
@@ -103,6 +103,9 @@ public class Main {
             languages.set(i, converter.fromLanguageCode(languages.get(i)));
         }
         Collections.sort(languages);
+        for (String language : languages) {
+            System.out.println(language);
+        }
 
         Scanner s = new Scanner(System.in);
         return s.nextLine();

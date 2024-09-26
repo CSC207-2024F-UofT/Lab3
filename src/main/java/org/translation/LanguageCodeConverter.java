@@ -49,10 +49,6 @@ public class LanguageCodeConverter {
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
-
-        catch (IOException | URISyntaxException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 
     /**
