@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * A minimal example of reading and using the JSON data from resources/sample.json.
@@ -20,9 +21,12 @@ public class JSONTranslationExample {
         try {
             // this next line of code reads in a file from the resources folder as a String,
             // which we then create a new JSONArray object from.
-
-            String jsonString = Files.readString(Paths.get(getClass().getClassLoader()
-                    .getResource("sample.json").toURI()));
+            String jsonString = Files.readString(
+                    Paths.get(getClass()
+                            .getClassLoader()
+                            .getResource("sample.json")
+                            .toURI())
+            );
             this.jsonArray = new JSONArray(jsonString);
         }
         catch (IOException | URISyntaxException ex) {
@@ -35,7 +39,9 @@ public class JSONTranslationExample {
      * @return the Spanish translation of Canada
      */
     public String getCanadaCountryNameSpanishTranslation() {
-        return jsonArray.getJSONObject(CANADA_INDEX).getString("es");
+        final int canadaIndex = CANADA_INDEX;
+        JSONObject canada = jsonArray.getJSONObject(canadaIndex);
+        return canada.getString("es");
     }
 
     /**
@@ -45,12 +51,21 @@ public class JSONTranslationExample {
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
+        JSONObject country = null;
         for (int i = 0; i < jsonArray.length(); i++) {
-            if (jsonArray.getJSONObject(i).getString("alpha3").equals(countryCode)) {
-                return jsonArray.getJSONObject(i).getString(languageCode);
+            JSONObject countryObject = jsonArray.getJSONObject(i);
+
+            if (countryObject.getString("alpha2").equals(countryCode)
+                    || countryObject.getString("alpha3").equals(countryCode)) {
+
+                country = countryObject;
+                break;
             }
         }
-        return "Country not found";
+        if (country == null) {
+            return "Country not found";
+        }
+        return country.optString(languageCode, "Language not found");
     }
 
     /**
@@ -61,7 +76,7 @@ public class JSONTranslationExample {
         JSONTranslationExample jsonTranslationExample = new JSONTranslationExample();
 
         System.out.println(jsonTranslationExample.getCanadaCountryNameSpanishTranslation());
-        String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
+        String translation = jsonTranslationExample.getCountryNameTranslation("can", "ja");
         System.out.println(translation);
     }
 }
