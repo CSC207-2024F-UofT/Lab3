@@ -13,15 +13,12 @@ import java.util.Map;
  * This class provides the service of converting language codes to their names.
  */
 public class LanguageCodeConverter {
-
-    // TODO Task: pick appropriate instance variables to store the data necessary for this class
-    private int numLanguages;
-    private String[][] languageCode = String[37][2];
-
+    // (Implemented) Private Attributes
+    private Map<String, String> languageCode;
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
-     * in the resources folder.
+     * in the resources' folder.
      */
     public LanguageCodeConverter() {
         this("language-codes.txt");
@@ -33,25 +30,26 @@ public class LanguageCodeConverter {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public LanguageCodeConverter(String filename) {
-
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            Iterator<String> linesIterator = lines.iterator();
+            this.languageCode = new HashMap<>();
 
+            // Tip using lines.iterator()
+
+            Iterator<String> linesIterator = lines.iterator();
+            linesIterator.next();
             while (linesIterator.hasNext()) {
                 String oneRow = linesIterator.next();
+                String[] words = oneRow.split("\t");
+                this.languageCode.put(words[0], words[1]);
             }
-
-            // TODO Task: use lines to populate the instance variable
-            //           tip: you might find it convenient to create an iterator using lines.iterator()
-
-        // TODO Checkstyle: '}' on next line should be alone on a line.
-        } catch (IOException | URISyntaxException ex) {
-            throw new RuntimeException(ex);
         }
 
+        catch (IOException | URISyntaxException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     /**
@@ -60,9 +58,9 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        for (int i = 0; i < numLanguages; i++) {
-            if (languageCode[i][1].equals(code)) {
-                return languageCode[i][0];
+        for (Map.Entry<String, String> entry : this.languageCode.entrySet()) {
+            if (entry.getValue().equals(code)) {
+                return entry.getKey();
             }
         }
 
@@ -75,13 +73,7 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        for (String[] strings : languageCode) {
-            if (strings[0].equals(language)) {
-                return strings[1];
-            }
-        }
-
-        return null;
+        return this.languageCode.get(language);
     }
 
     /**
@@ -89,12 +81,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        return numLanguages;
+        return this.languageCode.size();
     }
-
-    /*
-    public static void main(String[] args) {
-        System.out.println("test");
-    }
-     */
 }
