@@ -32,6 +32,7 @@ public class LanguageCodeConverter {
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
+            lines.remove("ISO Language Names  Code");
             for (String line : lines) {
                 String[] split = line.split("\t");
                 languageToCode.put(split[0], split[1]);
