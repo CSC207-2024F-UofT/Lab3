@@ -24,7 +24,11 @@ public class InLabByHandTranslator implements Translator {
     public List<String> getCountryLanguages(String country) {
         // Done: The String "can" appears 4 times in the file.
         if (can.equals(country)) {
+
             return new ArrayList<>(List.of("de", "en", "zh", "es", "et", "ja", "fa", "ko"));
+
+            return new ArrayList<>(List.of("de", "en", "zh"));
+
         }
         return new ArrayList<>();
     }
@@ -50,6 +54,10 @@ public class InLabByHandTranslator implements Translator {
     @Override
     public String translate(String country, String language) {
 
+
+
+        // TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
+
         // Done String literal expressions should be on the left side of an equals comparison
         String value = null;
         if (!can.equals(country)) {
@@ -63,6 +71,7 @@ public class InLabByHandTranslator implements Translator {
         }
         else if ("zh".equals(language)) {
             value = "加拿大";
+
         }
         else if ("es".equals(language)) {
             value = "Canadá";
@@ -78,6 +87,9 @@ public class InLabByHandTranslator implements Translator {
         }
         else if ("ja".equals(language)) {
             value = "カナダ";
+        }
+
+
         }
 
         return value;

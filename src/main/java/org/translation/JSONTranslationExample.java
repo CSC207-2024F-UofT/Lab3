@@ -36,6 +36,7 @@ public class JSONTranslationExample {
      * Returns the Spanish translation of Canada.
      * @return the Spanish translation of Canada
      */
+    @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:SuppressWarnings"})
     public String getCanadaCountryNameSpanishTranslation() {
 
         final int a = 100;
