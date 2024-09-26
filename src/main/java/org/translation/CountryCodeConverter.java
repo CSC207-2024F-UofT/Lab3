@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides the service of converting country codes to their names.
@@ -71,8 +75,8 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         for (Map.Entry<String, List<String>> entry : countryDictionary.entrySet()) {
-            if (entry.getKey().equals(country)) {
-                return entry.getValue().get(COUNTRY_CODE_INDEX);
+            if (entry.getKey().equalsIgnoreCase(country)) {
+                return entry.getValue().get(COUNTRY_CODE_INDEX).toLowerCase();
             }
         }
         return "Country Not Found";
