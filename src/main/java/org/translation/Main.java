@@ -1,5 +1,6 @@
 package org.translation;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -46,6 +47,9 @@ public class Main {
             // TODO Task: Once you switch promptForCountry so that it returns the country
             //            name rather than the 3-letter country code, you will need to
             //            convert it back to its 3-letter country code when calling promptForLanguage
+            CountryCodeConverter converter = new CountryCodeConverter();
+            converter.fromCountry(country);
+
             String language = promptForLanguage(translator, country);
             if (language.equals(a)) {
                 break;
@@ -55,6 +59,15 @@ public class Main {
             //            convert it back to its 2-letter language code when calling translate.
             //            Note: you should use the actual names in the message printed below though,
             //            since the user will see the displayed message.
+
+            int code_index = 0;
+            for (int i = 0; i < converter.country_name.size(); i++) {
+                if (country.equals(converter.country_name.get(i))) {
+                    code_index = i;
+                }
+            }
+            country = converter.alpha2.get(code_index);
+
             System.out.println(country + " in " + language + " is " + translator.translate(country, language));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
@@ -73,7 +86,10 @@ public class Main {
         //            and print them out; one per line
         //      hint: class Collections provides a static sort method
         // TODO Task: convert the country codes to the actual country names before sorting
-        System.out.println(countries);
+        Collections.sort(countries);
+        for (String country : countries) {
+            System.out.println(country);
+        }
 
         System.out.println("select a country from above:");
 
