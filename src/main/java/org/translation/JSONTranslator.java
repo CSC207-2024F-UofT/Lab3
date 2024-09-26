@@ -20,7 +20,7 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    // TODO Task: pick appropriate instance variables for this class
+    // Done Task: pick appropriate instance variables for this class
     private ArrayList<String> countryCodes = new ArrayList<>();
     private Map<String, ArrayList<String>> countryToLanguages = new HashMap<>();
     private Map<String, Map<String, String>> countryToLangToTransl = new HashMap<>();
@@ -45,7 +45,7 @@ public class JSONTranslator implements Translator {
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            // TODO Task: use the data in the jsonArray to populate your instance variables
+            // Done use the data in the jsonArray to populate your instance variables
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
