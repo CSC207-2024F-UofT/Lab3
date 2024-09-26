@@ -20,8 +20,7 @@ public class JSONTranslator implements Translator {
     // TODO Task: pick appropriate instance variables for this class
     private ArrayList<String> countryCodes = new ArrayList<String>();
     private Map<String, ArrayList<String>> countryTolanguages = new HashMap<String, ArrayList<String>>();
-    private ArrayList<Integer> ids = new ArrayList<Integer>();
-
+    private Map<String, HashMap<String, String>> countryTolangToTransl = new HashMap<String, HashMap<String, String>>();
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
@@ -46,7 +45,6 @@ public class JSONTranslator implements Translator {
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                ids.add(jsonObject.getInt("id"));
                 String c = jsonObject.getString("alpha3");
                 countryCodes.add(c);
                 Set<String> allKeys = jsonObject.keySet();
@@ -54,12 +52,16 @@ public class JSONTranslator implements Translator {
                 allKeys.remove("alpha2");
                 allKeys.remove("alpha3");
                 ArrayList<String> lang = new ArrayList<String>();
+                Map<String, String> a = new HashMap<String, String>();
                 for (String key : allKeys) {
                     if (jsonObject.has(key)) {
                         lang.add(key);
+                        a.put(key, jsonObject.getString(key));
+
                     }
                 }
                 this.countryTolanguages.put(c, lang);
+                this.countryTolangToTransl.put(c, (HashMap) a);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -89,8 +91,12 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String country, String language) {
-        // TODO Task: complete this method using your instance variables as needed
-
+        // Done complete this method using your instance variables as needed
+        if (this.countryTolangToTransl.containsKey(country)) {
+            if (this.countryTolangToTransl.get(country).containsKey(language)) {
+                return this.countryTolangToTransl.get(country).get(language);
+            }
+        }
         return null;
     }
 }
