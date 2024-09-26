@@ -8,7 +8,8 @@ import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import java.io.IOException;
+import java.net.URISyntaxException;
 /**
  * An implementation of the Translator interface which reads in the translation
  * data from a JSON file. The data is read in once each time an instance of this class is constructed.
@@ -65,7 +66,6 @@ public class JSONTranslator implements Translator {
                 countriesToLang.put(countryCode, languages);
             }
         }
-
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
