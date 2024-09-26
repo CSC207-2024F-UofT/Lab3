@@ -21,7 +21,6 @@ public class JSONTranslationExample {
         try {
             // this next line of code reads in a file from the resources folder as a String,
             // which we then create a new JSONArray object from.
-
             String jsonString =
                     Files.readString(Paths.get(getClass().getClassLoader().getResource("sample.json").toURI()));
             this.jsonArray = new JSONArray(jsonString);
@@ -36,13 +35,9 @@ public class JSONTranslationExample {
      * @return the Spanish translation of Canada
      */
     public String getCanadaCountryNameSpanishTranslation() {
-
         JSONObject canada = jsonArray.getJSONObject(CANADA_INDEX);
         return canada.getString("es");
     }
-
-    // TODO Task: Complete the method below to generalize the above to get the country name
-    //            for any country code and language code from sample.json.
 
     /**
      * Returns the name of the country based on the provided country and language codes.
@@ -51,6 +46,12 @@ public class JSONTranslationExample {
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
+        for (int n = 0; n < jsonArray.length(); n++) {
+            JSONObject country = jsonArray.getJSONObject(n);
+            if (countryCode.equals(country.getString("alpha3"))) {
+                return country.optString(languageCode, "Country not found");
+            }
+        }
         return "Country not found";
     }
 
