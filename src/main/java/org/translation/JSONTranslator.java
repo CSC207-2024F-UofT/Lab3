@@ -19,7 +19,7 @@ public class JSONTranslator implements Translator {
 
     // TODO Task: pick appropriate instance variables for this class
     private ArrayList<String> countryCodes = new ArrayList<String>();
-    private ArrayList<String> languages = new ArrayList<String>();
+    private Map<String, ArrayList<String>> countryTolanguages = new HashMap<String, ArrayList<String>>();
     private ArrayList<Integer> ids = new ArrayList<Integer>();
 
     /**
@@ -47,16 +47,19 @@ public class JSONTranslator implements Translator {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ids.add(jsonObject.getInt("id"));
-                countryCodes.add(jsonObject.getString("alpha3"));
+                String c = jsonObject.getString("alpha3");
+                countryCodes.add(c);
                 Set<String> allKeys = jsonObject.keySet();
                 allKeys.remove("id");
                 allKeys.remove("alpha2");
                 allKeys.remove("alpha3");
+                ArrayList<String> lang = new ArrayList<String>();
                 for (String key : allKeys) {
-                    if (!this.languages.contains(key)) {
-                        this.languages.add(key);
+                    if (jsonObject.has(key)) {
+                        lang.add(key);
                     }
                 }
+                this.countryTolanguages.put(c, lang);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -66,12 +69,10 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Task: return an appropriate list of language codes,
+        // Done return an appropriate list of language codes,
         //            but make sure there is no aliasing to a mutable object
-        List<String> allLanguages = new ArrayList<String>();
-        for (String code : this.languages) {
-            allLanguages.add(new String(code));
-        }
+        List<String> allLanguages = this.countryTolanguages.get(country);
+
         return allLanguages;
     }
 
@@ -89,6 +90,7 @@ public class JSONTranslator implements Translator {
     @Override
     public String translate(String country, String language) {
         // TODO Task: complete this method using your instance variables as needed
+
         return null;
     }
 }
