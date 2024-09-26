@@ -17,8 +17,8 @@ import org.json.JSONObject;
 public class JSONTranslator implements Translator {
 
     // TODO Task: pick appropriate instance variables for this class
-    private ArrayList<String> countryCodes= new ArrayList<String>();
-    private ArrayList<String> languages= new ArrayList<String>();
+    private ArrayList<String> countryCodes = new ArrayList<String>();
+    private ArrayList<String> languages = new ArrayList<String>();
     private ArrayList<Integer> ids = new ArrayList<Integer>();
 
     /**
@@ -46,6 +46,8 @@ public class JSONTranslator implements Translator {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ids.add(jsonObject.getInt("id"));
+                countryCodes.add(jsonObject.getString("alpha3"));
+
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -64,7 +66,11 @@ public class JSONTranslator implements Translator {
     public List<String> getCountries() {
         // TODO Task: return an appropriate list of country codes,
         //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        ArrayList<String> allCountries = new ArrayList<String>();
+        for (String code : this.countryCodes) {
+            allCountries.add(new String(code));
+        }
+        return allCountries;
     }
 
     @Override
