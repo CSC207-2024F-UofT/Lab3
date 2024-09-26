@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import javax.swing.text.html.HTMLDocument;
 
 /**
  * An implementation of the Translator interface which reads in the translation
@@ -47,8 +48,10 @@ public class JSONTranslator implements Translator {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ids.add(jsonObject.getInt("id"));
                 countryCodes.add(jsonObject.getString("alpha3"));
+                Set<String> allKeys = jsonObject.keySet();
 
             }
+
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
