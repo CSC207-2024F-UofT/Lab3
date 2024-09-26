@@ -40,6 +40,7 @@ public class JSONTranslator implements Translator {
 
             String jsonString = Files.readString(Paths.get(Objects.requireNonNull(getClass()
                     .getClassLoader().getResource(filename)).toURI()));
+
             JSONArray jsonArray = new JSONArray(jsonString);
 
             for (int i = 0; i < jsonArray.length(); i++) {
