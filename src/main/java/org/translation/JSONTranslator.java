@@ -41,8 +41,6 @@ public class JSONTranslator implements Translator {
             String jsonString = Files.readString(Paths.get(Objects.requireNonNull(getClass()
                     .getClassLoader().getResource(filename)).toURI()));
             JSONArray jsonArray = new JSONArray(jsonString);
-            // TODO Task: use the data in the jsonArray to populate your instance variables
-            //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
