@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public class CountryCodeConverter {
 
-    private final Map<String, String> countriesCode = new HashMap<String, String>();
-    private final Map<String, String> countriesName = new HashMap<String, String>();
+    private final Map<String, String> countriesCode = new HashMap<>();
+    private final Map<String, String> countriesName = new HashMap<>();
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
      * in the resources folder.
@@ -37,9 +37,9 @@ public class CountryCodeConverter {
 
             for (int i = 1; i < lines.size(); i++) {
                 String line = lines.get(i);
-                String[] linesep = line.split("\t");
-                countriesCode.put(linesep[2], linesep[0]);
-                countriesName.put(linesep[0], linesep[2]);
+                String[] lineSep = line.split("\t");
+                countriesCode.put(lineSep[2], lineSep[0]);
+                countriesName.put(lineSep[0], lineSep[2]);
             }
 
         }
