@@ -18,7 +18,7 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    // TODO Task: pick appropriate instance variables for this class
+    // Task: pick appropriate instance variables for this class
     private static final String ALPHA3_CODE = "alpha3";
     private final Map<String, Map<String, String>> countries = new HashMap<>();
 
@@ -56,7 +56,7 @@ public class JSONTranslator implements Translator {
                 }
                 countries.put(country, translations);
             }
-            // TODO Task: use the data in the jsonArray to populate your instance variables
+            // Task: use the data in the jsonArray to populate your instance variables
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
 
         }
@@ -72,7 +72,7 @@ public class JSONTranslator implements Translator {
         for (String language : languages.keySet()) {
             languageCodes.add(language);
         }
-        // TODO Task: return an appropriate list of language codes,
+        // Task: return an appropriate list of language codes,
         //            but make sure there is no aliasing to a mutable object
         return new ArrayList<>(languageCodes);
     }
@@ -85,7 +85,7 @@ public class JSONTranslator implements Translator {
                 countryCodes.add(country);
             }
         }
-        // TODO Task: return an appropriate list of country codes,
+        // Task: return an appropriate list of country codes,
         //            but make sure there is no aliasing to a mutable object
         return new ArrayList<>(countryCodes);
     }
@@ -98,7 +98,7 @@ public class JSONTranslator implements Translator {
                 return languages.get(language);
             }
         }
-        // TODO Task: complete this method using your instance variables as needed
+        // Task: complete this method using your instance variables as needed
         return null;
     }
 }

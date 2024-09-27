@@ -1,3 +1,4 @@
+
 package org.translation;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class CountryCodeConverter {
      * Default constructor which will load the country codes from "country-codes.txt"
      * in the resources folder.
      */
+
     public CountryCodeConverter() {
         this("country-codes.txt");
     }
@@ -55,7 +57,8 @@ public class CountryCodeConverter {
                 nameCode.put(countryName, alpha3Code);
                 codeName.put(alpha3Code, countryName);
             }
-        } catch (IOException | URISyntaxException ex) {
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -80,7 +83,9 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        if (country == null) return null;
+        if (country == null) {
+            return null;
+        }
         return nameCode.get(country.trim());
     }
 
