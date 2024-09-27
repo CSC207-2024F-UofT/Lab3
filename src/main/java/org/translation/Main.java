@@ -1,5 +1,6 @@
 package org.translation;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +29,7 @@ public class Main {
         //            to try out the whole program!
         // Translator translator = new JSONTranslator();
         Translator translator = new InLabByHandTranslator();
-        CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+        CountryCodeConverter countryCodeConverter = new CountryCodeConverter("country-codes.txt");
         LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
 
         runProgram(translator, countryCodeConverter, languageCodeConverter);
@@ -53,7 +54,7 @@ public class Main {
                 break;
             }
             String countryCode = countryCodeConverter.fromCountry(country);
-            String language = promptForLanguage(translator, countryCode);
+            String language = promptForLanguage(translator, countryCode, languageCodeConverter);
             if (quit.equals(language)) {
                 break;
             }
@@ -93,12 +94,15 @@ public class Main {
     }
 
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
-    private static String promptForLanguage(Translator translator, String country) {
+    private static String promptForLanguage(Translator translator,
+                                            String country,
+                                            LanguageCodeConverter languageCodeConverter) {
+
         List<String> languageCodes = translator.getCountryLanguages(country);
         List<String> languageNames = new ArrayList<>();
 
         for (String languageCode : languageCodes) {
-            String languageName = translator.translate(languageCode, "en");
+            String languageName = languageCodeConverter.fromLanguageCode(languageCode);
             if (languageName != null) {
                 languageNames.add(languageName);
             }
