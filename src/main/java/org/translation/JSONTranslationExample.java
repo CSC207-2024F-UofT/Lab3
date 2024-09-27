@@ -40,7 +40,7 @@ public class JSONTranslationExample {
         return canada.getString("es");
     }
 
-    // TODO Task: Complete the method below to generalize the above to get the country name
+    // 1st attempt: Complete the method below to generalize the above to get the country name
     //            for any country code and language code from sample.json.
 
     /**
@@ -50,8 +50,18 @@ public class JSONTranslationExample {
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
-        JSONObject country = jsonArray.getJSONObject();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject country = jsonArray.getJSONObject(i);
+
+            if (country.getString("alpha3").equalsIgnoreCase(countryCode)) {
+                String translation = country.optString(languageCode, "");
+                if (!translation.isEmpty()) {
+                    return translation;
+                }
+            }
+        }
         return "Country not found";
+
     }
 
     /**
