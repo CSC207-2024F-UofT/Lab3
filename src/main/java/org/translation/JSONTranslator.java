@@ -16,8 +16,6 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    // TODO Task: pick appropriate instance variables for this class
-
     private static ArrayList<JSONObject> countryArray = new ArrayList<>();
 
     /**
@@ -40,8 +38,6 @@ public class JSONTranslator implements Translator {
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            // TODO Task: use the data in the jsonArray to populate your instance variables
-            //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
             for (int i = 0; i < jsonArray.length(); i++) {
                 countryArray.add(jsonArray.getJSONObject(i));
             }
@@ -53,8 +49,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Task: return an appropriate list of language codes,
-        //            but make sure there is no aliasing to a mutable object
         List<String> countryLanguages = new ArrayList<>();
         for (int j = 0; j < countryArray.size(); j++) {
             JSONObject countryObject = countryArray.get(j);
@@ -75,8 +69,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountries() {
-        // TODO Task: return an appropriate list of country codes,
-        //            but make sure there is no aliasing to a mutable object
         List<String> countryCodes = new ArrayList<>();
         for (JSONObject country : countryArray) {
             String countryCode = country.getString("alpha3");
@@ -87,7 +79,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String country, String language) {
-        // TODO Task: complete this method using your instance variables as needed
         for (JSONObject obj : countryArray) {
             if (country.equals(obj.getString("alpha3"))) {
                 return obj.getString(language);
