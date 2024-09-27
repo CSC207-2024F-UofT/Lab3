@@ -1,4 +1,4 @@
-# Lab 3: Maven Project, Checkstyle, and JSON file reading
+2# Lab 3: Maven Project, Checkstyle, and JSON file reading
 
 In today's lab, your group will be cleaning up and adding to a small program
 which translates country names into different languages.
