@@ -73,7 +73,13 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // maybe did: update this code to use an instance variable to return the correct value
-        return country_codes.get(code);
+        String uppercase_Code = code.toUpperCase();
+        for(Map.Entry<String,String> entry : country_codes.entrySet()) {
+            if(uppercase_Code.equals(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+        return "N/A";
     }
 
     /**
