@@ -16,7 +16,10 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    private static ArrayList<JSONObject> countryArray = new ArrayList<>();
+    private static JSONTranslator instance; // Singleton instance
+    private ArrayList<JSONObject> countryArray = new ArrayList<>(); // Instance variable
+
+    // private static ArrayList<JSONObject> countryArray = new ArrayList<>();
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
