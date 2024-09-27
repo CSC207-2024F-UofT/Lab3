@@ -12,8 +12,8 @@ import java.util.Map;
  * This class provides the service of converting language codes to their names.
  */
 public class LanguageCodeConverter {
-
-    // TODO Task: pick appropriate instance variables to store the data necessary for this class
+    private static Map<String, String> dictionary = new HashMap<>() {
+    };
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -33,15 +33,28 @@ public class LanguageCodeConverter {
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
+            lines.remove(0);
 
-            // TODO Task: use lines to populate the instance variable
-            //           tip: you might find it convenient to create an iterator using lines.iterator()
+            for (String line : lines) {
+                String[] items = line.split("\t");
 
-        // TODO Checkstyle: '}' on next line should be alone on a line.
-        } catch (IOException | URISyntaxException ex) {
+                if (items.length == 2) {
+                    dictionary.put(items[1], items[0]);
+                }
+                else {
+                    int i = 1;
+                    String countries = items[0];
+                    while (i < items.length - 1) {
+                        countries += " " + items[i];
+                        i += 1;
+                    }
+                    dictionary.put(items[items.length - 1], countries);
+                }
+            }
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
     /**
@@ -49,19 +62,26 @@ public class LanguageCodeConverter {
      * @param code the language code
      * @return the name of the language corresponding to the code
      */
-    public String fromLanguageCode(String code) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+    public static String fromLanguageCode(String code) {
+        String lang = dictionary.get(code);
+        if (lang != null) {
+            return lang;
+        }
+        return "Language not found.";
     }
 
     /**
      * Returns the code of the language for the given language name.
      * @param language the name of the language
      * @return the 2-letter code of the language
-     */
-    public String fromLanguage(String language) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return language;
+     * */
+    public static String fromLanguage(String language) {
+        for (String key : dictionary.keySet()) {
+            if (dictionary.get(key).equals(language)) {
+                return key;
+            }
+        }
+        return "Language code not found.";
     }
 
     /**
@@ -69,7 +89,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return 0;
+        return dictionary.size();
     }
 }
