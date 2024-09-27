@@ -38,6 +38,7 @@ public class Main {
         while (true) {
             String quit = new String("quit");
             String country = promptForCountry(translator);
+
             if (country.equals(quit)) {
                 break;
             }
@@ -47,6 +48,7 @@ public class Main {
             CountryCodeConverter ccc = new CountryCodeConverter("country-codes.txt");
             LanguageCodeConverter lcc = new LanguageCodeConverter("language-codes.txt");
             String language = promptForLanguage(translator, ccc.fromCountry(country));
+
             if (language.equals(quit)) {
                 break;
             }
@@ -60,7 +62,7 @@ public class Main {
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
 
-            if ("quit".equals(textTyped)) {
+            if (quit.equals(textTyped)) {
                 break;
             }
         }
@@ -96,6 +98,7 @@ public class Main {
         for (String language : languages) {
             System.out.println(language);
         }
+
 
         System.out.println("select a language from above:");
 
