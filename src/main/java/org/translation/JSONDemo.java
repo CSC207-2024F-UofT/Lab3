@@ -8,6 +8,7 @@ import org.json.JSONObject;
  * Each object has two key-value pairs in it.
  */
 public class JSONDemo {
+
     /**
      * A first example of working with JSON data.
      * @param args not used

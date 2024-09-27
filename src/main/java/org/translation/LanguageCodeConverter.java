@@ -36,6 +36,7 @@ public class LanguageCodeConverter {
                     .getClassLoader().getResource(filename)).toURI()));
 
             languageCodeMap = new HashMap<>();
+
             for (int i = 1; i < lines.size(); i++) {
                 String line = lines.get(i).trim();
                 String[] parts = line.split("\t");

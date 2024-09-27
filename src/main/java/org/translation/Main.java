@@ -15,6 +15,7 @@ import java.util.Scanner;
  * - at any time, the user can type quit to quit the program<br/>
  */
 public class Main {
+
     /**
      * Command used to quit the program.
      */
@@ -38,7 +39,6 @@ public class Main {
      * See the class Javadoc for a summary of what the program will do.
      * @param translator the Translator implementation to use in the program
      */
-
     public static void runProgram(Translator translator) {
         while (true) {
             String country = promptForCountry(translator);

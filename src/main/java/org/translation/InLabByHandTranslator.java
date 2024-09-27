@@ -10,6 +10,7 @@ import java.util.List;
  * the country code "can" to several languages.
  */
 public class InLabByHandTranslator implements Translator {
+
     /**
      * Returns the language abbreviations for all languages whose translations are
      * available for the given country.
@@ -17,7 +18,6 @@ public class InLabByHandTranslator implements Translator {
      * @param country the country
      * @return list of language abbreviations which are available for this country
      */
-
     public static final String CANADA = "can";
 
     @Override
