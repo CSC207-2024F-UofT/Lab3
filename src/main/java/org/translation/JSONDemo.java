@@ -34,7 +34,8 @@ public class JSONDemo {
      */
     public static String getKeyOneOfSecond(JSONArray jsonArray) {
         // TODO: Complete this method.
-        return "";
+        Integer key11 = jsonArray.getJSONObject(0).getInt("key1");
+        return String.valueOf(key11);
     }
 
 }
