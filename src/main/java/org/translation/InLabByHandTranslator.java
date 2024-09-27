@@ -27,8 +27,6 @@ public class InLabByHandTranslator implements Translator {
 
             return new ArrayList<>(List.of("de", "en", "zh", "es", "et", "ja", "fa", "ko"));
 
-            return new ArrayList<>(List.of("de", "en", "zh"));
-
         }
         return new ArrayList<>();
     }
@@ -84,9 +82,6 @@ public class InLabByHandTranslator implements Translator {
         }
         else if ("ja".equals(language)) {
             value = "カナダ";
-        }
-
-
         }
 
         return value;

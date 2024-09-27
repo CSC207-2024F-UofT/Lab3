@@ -21,7 +21,7 @@ public class Main {
      * @param args not used by the program
      */
     public static void main(String[] args) {
-        Translator translator = new JSONTranslator(null);
+        Translator translator = new JSONTranslator();
         runProgram(translator);
     }
 
