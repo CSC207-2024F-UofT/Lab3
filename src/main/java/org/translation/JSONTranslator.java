@@ -35,9 +35,10 @@ public class JSONTranslator implements Translator {
      * @param filename the name of the file in resources to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
-    @SuppressWarnings("checkstyle:EqualsAvoidNull")
+
     public JSONTranslator(String filename) {
         // read the file to get the data to populate things...
+        final String alpha3 = "alpha3";
         try {
 
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
@@ -50,13 +51,16 @@ public class JSONTranslator implements Translator {
             // Code to populate countryLanguages and totalCountries
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject country = jsonArray.getJSONObject(i);
-                String countryCode = country.getString("alpha3");
-                this.totalCountries.add(countryCode);
+                String countryCode = country.getString(alpha3);
+
+                if (!" ".equals(countryCode)) {
+                    this.totalCountries.add(countryCode);
+                }
 
                 ArrayList<String> languages = new ArrayList<>();
 
                 for (String key : country.keySet()) {
-                    if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
+                    if (!"id".equals(key) && !"alpha2".equals(key) && !alpha3.equals(key)) {
                         languages.add(key);
                     }
                 }
