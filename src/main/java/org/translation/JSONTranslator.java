@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * An implementation of the Translator interface which reads in the translation
@@ -16,6 +16,7 @@ import org.json.JSONArray;
 public class JSONTranslator implements Translator {
 
     // TODO Task: pick appropriate instance variables for this class
+    private List<JSONObject> countryList = new ArrayList<>();
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -37,8 +38,10 @@ public class JSONTranslator implements Translator {
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            // TODO Task: use the data in the jsonArray to populate your instance variables
-            //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject country = jsonArray.getJSONObject(i);
+                countryList.add(country);
+            }
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -48,21 +51,51 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Task: return an appropriate list of language codes,
-        //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        List<String> keysList = new ArrayList<>();
+        Set<String> ignoredKeys = new HashSet<>();
+        ignoredKeys.add("id");
+        ignoredKeys.add("alpha2");
+        ignoredKeys.add("alpha3");
+        for (JSONObject jsonObject : countryList) {
+            if (jsonObject.getString("alpha3").equals(country)) {
+                Iterator<String> keys = jsonObject.keys();
+
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    // Only add the key if it is not in the ignoredKeys set
+                    if (!ignoredKeys.contains(key)) {
+                        keysList.add(key);
+                    }
+
+                }
+
+            }
+
+            // TODO Task: return an appropriate list of language codes,
+            //            but make sure there is no aliasing to a mutable object
+
+        }
+        return keysList;
     }
 
     @Override
     public List<String> getCountries() {
         // TODO Task: return an appropriate list of country codes,
         //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        List<String> countriesList = new ArrayList<>();
+        for (JSONObject jsonObject : countryList) {
+            countriesList.add(jsonObject.getString("alpha3"));
+        }
+        return countriesList;
     }
 
     @Override
     public String translate(String country, String language) {
-        // TODO Task: complete this method using your instance variables as needed
+        for (JSONObject jsonObject : countryList) {
+            if (jsonObject.getString("alpha3").equals(country)) {
+                return jsonObject.getString(language);
+            }
+        }
         return null;
     }
 }
