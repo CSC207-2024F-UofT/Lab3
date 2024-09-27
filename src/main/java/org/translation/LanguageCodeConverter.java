@@ -19,7 +19,7 @@ public class LanguageCodeConverter {
         System.out.println(converter.fromLanguageCode("el"));
         System.out.println(converter.fromLanguage("Albanian"));
     }
-     */
+    */
 
     private final Map<String, String> dictionary = new HashMap<>();
 
@@ -67,7 +67,6 @@ public class LanguageCodeConverter {
                 return key;
             }
         }
-
         return "Code does not exist";
     }
 

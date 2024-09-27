@@ -36,8 +36,6 @@ public class JSONDemo {
         // Done
         JSONObject jsonObject = jsonArray.getJSONObject(1);
         return jsonObject.getString("key1");
-
-
     }
 
 }
