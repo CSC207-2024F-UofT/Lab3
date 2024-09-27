@@ -14,6 +14,7 @@ import org.json.JSONObject;
 public class JSONTranslationExample {
 
     public static final int CANADA_INDEX = 30;
+    public static final int AUSTRALIA_INDEX = 8;
     private final JSONArray jsonArray;
 
     // Note: CheckStyle is configured so that we are allowed to omit javadoc for constructors
@@ -41,6 +42,16 @@ public class JSONTranslationExample {
     }
 
     /**
+     * Returns the Japanese translation of Australia.
+     * @return the Japanese translation of Australia
+     */
+    public String getAustraliaCountryNameJapaneseTranslation() {
+
+        JSONObject australia = jsonArray.getJSONObject(AUSTRALIA_INDEX);
+        return australia.getString("ja");
+    }
+
+    /**
      * Returns the name of the country based on the provided country and language codes.
      * @param countryCode the country, as its three-letter code.
      * @param languageCode the language to translate to, as its two-letter code.
@@ -56,7 +67,8 @@ public class JSONTranslationExample {
         }
         if (country == null || !country.has(languageCode)) {
             return "Country not found";
-        } else {
+        }
+        else {
             return country.getString(languageCode);
         }
     }
@@ -71,5 +83,9 @@ public class JSONTranslationExample {
         System.out.println(jsonTranslationExample.getCanadaCountryNameSpanishTranslation());
         String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
         System.out.println(translation);
+
+        System.out.println(jsonTranslationExample.getAustraliaCountryNameJapaneseTranslation());
+        String translation2 = jsonTranslationExample.getCountryNameTranslation("aus", "ja");
+        System.out.println(translation2);
     }
 }
