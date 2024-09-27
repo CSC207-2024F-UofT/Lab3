@@ -18,7 +18,10 @@ import org.json.JSONObject;
  */
 @SuppressWarnings({"checkstyle:RegexpMultiline", "checkstyle:SuppressWarnings"})
 public class JSONTranslator implements Translator {
-    private Map<String, String> translations;
+
+    private Map<String, Map<String, String>> countrylanguage = new HashMap<>();
+    private List<String> countries = new ArrayList<>();
+
 
     // Task: pick appropriate instance variables for this class
 
@@ -34,21 +37,26 @@ public class JSONTranslator implements Translator {
      * @param filename the name of the file in resources to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
+    @SuppressWarnings("checkstyle:HiddenField")
     public JSONTranslator(String filename) {
-        translations = new HashMap<>();
         // read the file to get the data to populate things...
         try {
-
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject obj = jsonArray.getJSONObject(i);
+                JSONObject countryObject = jsonArray.getJSONObject(i);
+                String country = countryObject.getString("alpha3");
+                countries.add(country);
 
-                for (String key : obj.keySet()) {
-                    translations.put(key, obj.getString(key));
+                Map<String, String> translations = new HashMap<>();
+                for (String key : countryObject.keySet()) {
+                    if (!"alpha2".equals(key) && !"alpha3".equals(key) && !"id".equals(key)) {
+                        translations.put(key, countryObject.getString(key));
+                    }
                 }
+                countrylanguage.put(country, translations);
             }
 
             // Task: use the data in the jsonArray to populate your instance variables
