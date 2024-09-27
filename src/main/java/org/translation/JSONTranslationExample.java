@@ -51,18 +51,31 @@ public class JSONTranslationExample {
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
-        return "Country not found";
+            String lower_case = countryCode.toLowerCase();
+            int  i = 0;
+            for (i = 0; i < jsonArray.length(); i++) {
+                JSONObject first = jsonArray.getJSONObject(i);
+
+                if (first.has(lower_case)) {
+                    if (first.getString(languageCode) == null) {
+                        return "Country not found";
+                    }
+                    else { return first.getString(languageCode); }
+            }
+                i = i + 1;
     }
+        // so in this we have to work as the
 
     /**
      * Prints the Spanish translation of Canada.
      * @param args not used
      */
-    public static void main(String[] args) {
-        JSONTranslationExample jsonTranslationExample = new JSONTranslationExample();
 
-        System.out.println(jsonTranslationExample.getCanadaCountryNameSpanishTranslation());
-        String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
-        System.out.println(translation);
+    public static void main(String[] args) {
+            JSONTranslationExample jsonTranslationExample = new JSONTranslationExample();
+
+            System.out.println(jsonTranslationExample.getCanadaCountryNameSpanishTranslation());
+            String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
+            System.out.println(translation);
+        }
     }
-}

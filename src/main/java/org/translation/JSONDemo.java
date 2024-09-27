@@ -22,7 +22,7 @@ public class JSONDemo {
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         System.out.println(jsonObject);
         System.out.println(jsonObject.getString("key1"));
-        System.out.println(jsonObject.getInt("key2"));
+        System.out.println(jsonObject.getInt("key2"));  // but here we assumed that there is
         System.out.println(getKeyOneOfSecond(jsonArray));
     }
 
@@ -33,8 +33,8 @@ public class JSONDemo {
      * @return value of key "key1" from the second object in the given jsonArray
      */
     public static String getKeyOneOfSecond(JSONArray jsonArray) {
-        // TODO: Complete this method.
-        return "";
+        JSONObject first = jsonArray.getJSONObject(1);
+        return first.getString("key1");
     }
 
 }
