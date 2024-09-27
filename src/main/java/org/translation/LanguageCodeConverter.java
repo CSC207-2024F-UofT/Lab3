@@ -5,7 +5,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -13,9 +12,9 @@ import java.util.List;
  */
 public class LanguageCodeConverter {
 
-    private static int numLanguages = 0;
-    private static ArrayList<String> langname = new ArrayList<>();
-    private static ArrayList<String> langcode = new ArrayList<>();
+    private int numLanguages = 0;
+    private final ArrayList<String> langname = new ArrayList<>();
+    private final ArrayList<String> langcode = new ArrayList<>();
 
 
     /**
@@ -37,15 +36,6 @@ public class LanguageCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-//            Iterator<String> line = lines.iterator();
-//            numLanguages --;
-//            while(line.hasNext()){
-//
-//                List<String> lists = List.of(line.toString().split("\t"));
-//                langname.add(lists.get(0));
-//                langcode.add(lists.get(1));
-//                line.next();
-//            }
             lines.remove(0);
             numLanguages = lines.size();
 

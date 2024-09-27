@@ -13,9 +13,9 @@ import java.util.List;
 public class CountryCodeConverter {
 
     private int countCountry;
-    private ArrayList<String> countryName = new ArrayList<>();
-    private ArrayList<String> countryAlpha3Code = new ArrayList<>();
-    private ArrayList<String> countryNumeric = new ArrayList<>();
+    private final ArrayList<String> countryName = new ArrayList<>();
+    private final ArrayList<String> countryAlpha3Code = new ArrayList<>();
+    private final ArrayList<String> countryNumeric = new ArrayList<>();
     private int countryIndex = 3;
 
     /**
