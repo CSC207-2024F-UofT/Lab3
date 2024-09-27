@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class LanguageCodeConverter {
 
-    private Map<String, String> codeToLanguageMap; // Map for code -> language
+    private static Map<String, String> codeToLanguageMap; // Map for code -> language
     private Map<String, String> languageToCodeMap;
 
     /**
@@ -59,8 +59,7 @@ public class LanguageCodeConverter {
      * @param code the language code
      * @return the name of the language corresponding to the code
      */
-    public String fromLanguageCode(String code) {
-        // TODO Task: update this code to use your instance variable to return the correct value
+    public static String fromLanguageCode(String code) {
         return codeToLanguageMap.getOrDefault(code, "English");
     }
 
@@ -70,7 +69,6 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        // TODO Task: update this code to use your instance variable to return the correct value
         return languageToCodeMap.getOrDefault(language, "Unknown Language");
     }
 
@@ -79,7 +77,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        // TODO Task: update this code to use your instance variable to return the correct value
         return codeToLanguageMap.size();
     }
 }

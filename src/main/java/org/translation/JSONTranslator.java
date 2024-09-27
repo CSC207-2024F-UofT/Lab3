@@ -15,7 +15,6 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    // TODO Task: pick appropriate instance variables for this class
     private List<JSONObject> countryList = new ArrayList<>();
 
     /**
@@ -71,17 +70,12 @@ public class JSONTranslator implements Translator {
 
             }
 
-            // TODO Task: return an appropriate list of language codes,
-            //            but make sure there is no aliasing to a mutable object
-
         }
         return keysList;
     }
 
     @Override
     public List<String> getCountries() {
-        // TODO Task: return an appropriate list of country codes,
-        //            but make sure there is no aliasing to a mutable object
         List<String> countriesList = new ArrayList<>();
         for (JSONObject jsonObject : countryList) {
             countriesList.add(jsonObject.getString("alpha3"));

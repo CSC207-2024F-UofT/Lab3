@@ -1,7 +1,9 @@
 package org.translation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Collections;
 
 /**
  * Main class for this program.
@@ -24,8 +26,8 @@ public class Main {
         // TODO Task: once you finish the JSONTranslator,
         //            you can use it here instead of the InLabByHandTranslator
         //            to try out the whole program!
-        // Translator translator = new JSONTranslator(null);
-        Translator translator = new InLabByHandTranslator();
+       Translator translator = new JSONTranslator("sample.json");
+//         Translator translator = new InLabByHandTranslator();
 
         runProgram(translator);
     }
@@ -69,27 +71,54 @@ public class Main {
 
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForCountry(Translator translator) {
-        List<String> countries = translator.getCountries();
-        // TODO Task: replace the following println call, sort the countries alphabetically,
-        //            and print them out; one per line
-        //      hint: class Collections provides a static sort method
-        // TODO Task: convert the country codes to the actual country names before sorting
-        System.out.println(countries);
+        // Assuming 'translator' is an instance of a class that provides country codes
+        List<String> countries = translator.getCountries(); // Get the country codes
+        List<String> longCountries = new ArrayList<>();
 
-        System.out.println("select a country from above:");
+        CountryCodeConverter countryCodeConverter = new CountryCodeConverter("country-codes.txt");
+        // Convert country codes to country names
 
+        for (String countryCode : countries) {
+            String countryName = CountryCodeConverter.fromCountryCode(countryCode);
+            System.out.println(countryName);
+            longCountries.add(countryName); // Use add instead of set
+        }
+
+        // Sort the countries alphabetically
+        Collections.sort(longCountries);
+
+        // Print each country line by line
+//        for (String longCountry : longCountries) {
+//            System.out.println(longCountry);
+//        }
+
+        System.out.println("Select a country from above:");
+
+        // Use Scanner to get user input
         Scanner s = new Scanner(System.in);
-        return s.nextLine();
+        String selectedCountry = s.nextLine();
+
+        return selectedCountry;
 
     }
 
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
 
-        // TODO Task: replace the line below so that we sort the languages alphabetically
+        // Attempted TODO Task: replace the line below so that we sort the languages alphabetically
         //  and print them out; one per line
         // TODO Task: convert the language codes to the actual language names before sorting
-        System.out.println(translator.getCountryLanguages(country));
+        List<String> langCode = translator.getCountryLanguages(country);
+        List<String> language = new ArrayList<String>();
+        for (int i = 0; i < langCode.size(); i++){
+            language.set(i, LanguageCodeConverter.fromLanguageCode(langCode.get(i)));
+        }
+
+        Collections.sort(language);
+
+        for (int i = 0; i < language.size(); i++){
+            System.out.println(language.get(i));
+        }
 
         System.out.println("select a language from above:");
 
