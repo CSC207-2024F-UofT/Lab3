@@ -75,21 +75,5 @@ public class CountryCodeConverter {
         return countriesCode.size();
     }
 
-    public static void main(String[] args) {
-        // Create an instance of CountryCodeConverter
-        CountryCodeConverter converter = new CountryCodeConverter();
-
-        // Test the conversion from country code to country name
-        String countryName = converter.fromCountryCode("USA");
-        System.out.println("Country name for code 'USA': " + countryName);
-
-        // Test the conversion from country name to country code
-        String countryCode = converter.fromCountry("Canada");
-        System.out.println("Country code for 'United States': " + countryCode);
-
-        // Print the total number of countries in the converter
-        int totalCountries = converter.getNumCountries();
-        System.out.println("Total number of countries: " + totalCountries);
-    }
 }
 
