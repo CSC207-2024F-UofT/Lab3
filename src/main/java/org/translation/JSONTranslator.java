@@ -85,7 +85,7 @@ public class JSONTranslator implements Translator {
 
         int checkCountryId = -1;
         for (int i = 0; i < countryIds.length; i++) {
-            if (countryIds[i].equals(country)) {
+            if (countryIds[i].toLowerCase().equals(country.toLowerCase())) {
                 checkCountryId = i;
                 break;
             }
@@ -117,7 +117,7 @@ public class JSONTranslator implements Translator {
 
         int checkCountryId = -1;
         for (int i = 0; i < countryIds.length; i++) {
-            if (countryIds[i].equals(country)) {
+            if (countryIds[i].toLowerCase().equals(country.toLowerCase())) {
                 checkCountryId = i;
                 break;
             }

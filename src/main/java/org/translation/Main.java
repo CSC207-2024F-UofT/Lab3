@@ -59,7 +59,7 @@ public class Main {
             //            since the user will see the displayed message.
             LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
             String languageCode = languageCodeConverter.fromLanguage(language);
-            System.out.println(country + " in " + language + " is " + translator.translate(country, languageCode));
+            System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -86,6 +86,8 @@ public class Main {
             System.out.println(country);
         }
 
+        System.out.println("select a country from above:");
+
         Scanner s = new Scanner(System.in);
         return s.nextLine();
 
@@ -106,6 +108,8 @@ public class Main {
         for (String language : languages) {
             System.out.println(language);
         }
+
+        System.out.println("select a language from above:");
 
         Scanner s = new Scanner(System.in);
         return s.nextLine();

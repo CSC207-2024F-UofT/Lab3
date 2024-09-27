@@ -13,7 +13,7 @@ public class CountryCodeConverter {
 
     private String[] codes;
     private int lengthCountries;
-    private final int positionCode = 3;
+    private final int positionCode = 2;
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -33,10 +33,9 @@ public class CountryCodeConverter {
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
-
+            lines.remove(0);
             codes = lines.toArray(new String[0]);
             lengthCountries = codes.length;
-
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
