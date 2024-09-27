@@ -1,5 +1,6 @@
 package org.translation;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class InLabByHandTranslator implements Translator {
      * @return list of language abbreviations which are available for this country
      */
     public static final String CANADA = "can";
-    public static final int THE_RANGE = 5;
+    public static final int THE_RANGE = 7;
 
     @Override
     public List<String> getCountryLanguages(String country) {
@@ -52,15 +53,12 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public String translate(String country, String language) {
-        // TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
-        // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
-
         if (country.equals(CANADA)) {
-            ArrayList<String> countrylist = getCountryLanguages("can");
+            ArrayList<String> countrylist = (ArrayList<String>) getCountryLanguages("can");
             ArrayList<String> translatelist = new ArrayList<>(List.of("Kanada", "Canada", "加拿大", "Canadá", "カナダ"));
             for (int i = 0; i < THE_RANGE; i++) {
-                if (language.equlas(countrylist[i])) {
-                    return translatelist[i];
+                if (language.equals(countrylist.get(i))) {
+                    return translatelist.get(i);
                 }
             }
         }
