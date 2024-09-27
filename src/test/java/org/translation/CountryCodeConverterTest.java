@@ -13,6 +13,18 @@ public class CountryCodeConverterTest {
     }
 
     @Test
+    public void fromCountryCodeCanada() {
+        CountryCodeConverter converter = new CountryCodeConverter();
+        assertEquals("Canada", converter.fromCountryCode("can"));
+    }
+
+    @Test
+    public void fromCountry() {
+        CountryCodeConverter converter = new CountryCodeConverter();
+        assertEquals("CAN", converter.fromCountry("Canada"));
+    }
+
+    @Test
     public void fromCountryCodeAllLoaded() {
         CountryCodeConverter converter = new CountryCodeConverter();
         assertEquals(249, converter.getNumCountries());
