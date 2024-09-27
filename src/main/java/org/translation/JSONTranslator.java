@@ -17,9 +17,9 @@ import org.json.JSONObject;
 public class JSONTranslator implements Translator {
 
     // TODO Task: pick appropriate instance variables for this class
-    private List<String> codes = new ArrayList<>();
-    private List<String[]> translations = new ArrayList<>();
-    private List<String> languageCodes = new ArrayList<>();
+    private final List<String> codes = new ArrayList<>();
+    private final List<String[]> translations = new ArrayList<>();
+    private final List<String> languageCodes = new ArrayList<>();
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
