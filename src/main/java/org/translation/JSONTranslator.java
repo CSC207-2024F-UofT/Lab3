@@ -5,9 +5,14 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * An implementation of the Translator interface which reads in the translation
@@ -15,11 +20,14 @@ import org.json.JSONArray;
  */
 public class JSONTranslator implements Translator {
 
-    // TODO Task: pick appropriate instance variables for this class
+    // Instance variables
+    private final Map<String, Map<String, String>> countryTranslations;
+    private final List<String> countries;
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
+
     public JSONTranslator() {
         this("sample.json");
     }
@@ -37,8 +45,30 @@ public class JSONTranslator implements Translator {
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            // TODO Task: use the data in the jsonArray to populate your instance variables
-            //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
+            // Initialize the data structures
+            countryTranslations = new HashMap<>();
+            countries = new ArrayList<>();
+            Set<String> languageCodes = new HashSet<>();
+
+            // Populate the structures from JSON
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject countryObject = jsonArray.getJSONObject(i);
+                String countryCode = countryObject.getString("alpha2");
+                Map<String, String> translations = new HashMap<>();
+
+                // Add all language translations for the country
+                for (String key : countryObject.keySet()) {
+                    if (!"id".equals(key) && !"alpha2".equals(key) && !"alpha3".equals(key)) {
+                        translations.put(key, countryObject.getString(key));
+                        // Collect all language codes
+                        languageCodes.add(key);
+                    }
+                }
+
+                countryTranslations.put(countryCode, translations);
+                countries.add(countryCode);
+
+            }
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -48,21 +78,35 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Task: return an appropriate list of language codes,
-        //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        // Check if the country exists in the map
+        if (countryTranslations.containsKey(country)) {
+            // Return the list of language codes for that country
+            return new ArrayList<>(countryTranslations.get(country).keySet());
+        }
+        else {
+            // If country not found, return an empty list
+            return new ArrayList<>();
+        }
     }
 
     @Override
     public List<String> getCountries() {
-        // TODO Task: return an appropriate list of country codes,
-        //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        // Return a new copy of the countries list to avoid aliasing
+        return new ArrayList<>(countries);
     }
 
     @Override
     public String translate(String country, String language) {
-        // TODO Task: complete this method using your instance variables as needed
-        return null;
+        // Check if the country exists in the map
+        if (countryTranslations.containsKey(country)) {
+            Map<String, String> translations = countryTranslations.get(country);
+            // Check if the language exists for the country
+            // If the language doesn't exist, return null or a default message
+            return translations.getOrDefault(language, "Translation not available for this language.");
+        }
+        else {
+            // If the country doesn't exist, return null or a default message
+            return "Country not found.";
+        }
     }
 }
