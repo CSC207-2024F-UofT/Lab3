@@ -23,12 +23,12 @@ public class InLabByHandTranslator implements Translator {
      * @return list of language abbreviations which are available for this country
      */
     public static final String CANADA = "can";
-    public static final int THE_RANGE = 7;
+    public static final int THE_RANGE = 6;
 
     @Override
     public List<String> getCountryLanguages(String country) {
         if (CANADA.equals(country)) {
-            return new ArrayList<>(List.of("de", "en", "zh", "es", "ja"));
+            return new ArrayList<>(List.of("de", "en", "zh", "es", "ja", "ko"));
         }
         return new ArrayList<>();
     }
@@ -55,7 +55,7 @@ public class InLabByHandTranslator implements Translator {
     public String translate(String country, String language) {
         if (country.equals(CANADA)) {
             ArrayList<String> countrylist = (ArrayList<String>) getCountryLanguages("can");
-            ArrayList<String> translatelist = new ArrayList<>(List.of("Kanada", "Canada", "加拿大", "Canadá", "カナダ"));
+            ArrayList<String> translatelist = new ArrayList<>(List.of("Kanada", "Canada", "加拿大", "Canadá", "カナダ", "캐나다"));
             for (int i = 0; i < THE_RANGE; i++) {
                 if (language.equals(countrylist.get(i))) {
                     return translatelist.get(i);
