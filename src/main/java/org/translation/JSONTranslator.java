@@ -22,9 +22,6 @@ public class JSONTranslator implements Translator {
     private Map<String, Map<String, String>> countrylanguage = new HashMap<>();
     private List<String> countries = new ArrayList<>();
 
-
-    // Task: pick appropriate instance variables for this class
-
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
@@ -59,7 +56,6 @@ public class JSONTranslator implements Translator {
                 countrylanguage.put(country, translations);
             }
 
-            // Task: use the data in the jsonArray to populate your instance variables
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
 
         }
