@@ -18,7 +18,6 @@ import org.json.JSONObject;
  */
 @SuppressWarnings({"checkstyle:RegexpMultiline", "checkstyle:SuppressWarnings"})
 public class JSONTranslator implements Translator {
-
     private Map<String, Map<String, String>> countrylanguage = new HashMap<>();
     private List<String> countries = new ArrayList<>();
 
