@@ -1,3 +1,5 @@
+// Commit this file
+
 package org.translation;
 
 import java.io.IOException;
@@ -5,9 +7,10 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-// TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
-import java.util.HashMap;
-import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
+// import java.util.HashMap;
+// import java.util.Map;
 
 /**
  * This class provides the service of converting country codes to their names.
@@ -15,6 +18,10 @@ import java.util.Map;
 public class CountryCodeConverter {
 
     // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
+    private String countryName;
+    private String alpha2Code;
+    private String alpha3Code;
+    private Integer numericCode;
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -29,16 +36,23 @@ public class CountryCodeConverter {
      * @param filename the name of the file in the resources folder to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
-    public CountryCodeConverter(String filename) {
+    public CountryCodeConverter(String filename)
+    {
 
-        try {
+        try
+        {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
+            countryName = lines.get(0);
+            alpha2Code = lines.get(1);
+            alpha3Code = lines.get(2);
+            numericCode = Integer.valueOf(lines.get(3));
             // TODO Task: use lines to populate the instance variable(s)
 
         }
-        catch (IOException | URISyntaxException ex) {
+        catch (IOException | URISyntaxException ex)
+        {
             throw new RuntimeException(ex);
         }
 
@@ -49,8 +63,12 @@ public class CountryCodeConverter {
      * @param code the 3-letter code of the country
      * @return the name of the country corresponding to the code
      */
-    public String fromCountryCode(String code) {
+    public String fromCountryCode(String code)
+    {
         // TODO Task: update this code to use an instance variable to return the correct value
+
+        JSONObject country_json = new JSONObject();
+
         return code;
     }
 
