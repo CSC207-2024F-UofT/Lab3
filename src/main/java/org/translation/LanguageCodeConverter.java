@@ -59,7 +59,7 @@ public class LanguageCodeConverter {
      */
     public String fromLanguageCode(String code) {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return languageCode.get(code);
+        return languageCode.get(code).toLowerCase();
     }
 
     /**
