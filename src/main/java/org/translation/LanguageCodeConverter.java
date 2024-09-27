@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,8 @@ import java.util.List;
 public class LanguageCodeConverter {
 
     // TODO Task: pick appropriate instance variables to store the data necessary for this class
+    private final List<String> languageNames = new ArrayList<>();
+    private final List<String> languageCodes = new ArrayList<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -35,6 +38,13 @@ public class LanguageCodeConverter {
             // TODO Task: use lines to populate the instance variable
             //           tip: you might find it convenient to create an iterator using lines.iterator()
 
+            lines.remove(0);
+
+            for (String line : lines) {
+                List<String> splitLine = List.of(line.split("\t"));
+                this.languageNames.add(splitLine.get(0));
+                this.languageCodes.add(splitLine.get(1));
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -49,7 +59,9 @@ public class LanguageCodeConverter {
      */
     public String fromLanguageCode(String code) {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+        final int index = this.languageCodes.indexOf(code);
+
+        return this.languageNames.get(index);
     }
 
     /**
@@ -59,7 +71,9 @@ public class LanguageCodeConverter {
      */
     public String fromLanguage(String language) {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return language;
+        final int index = this.languageNames.indexOf(language);
+
+        return this.languageCodes.get(index);
     }
 
     /**
@@ -68,6 +82,11 @@ public class LanguageCodeConverter {
      */
     public int getNumLanguages() {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return 0;
+        if (this.languageCodes.isEmpty()) {
+            return 0;
+        }
+        else {
+            return this.languageCodes.size();
+        }
     }
 }
