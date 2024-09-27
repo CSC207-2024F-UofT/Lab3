@@ -3,7 +3,7 @@ package org.translation;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO Task: modify this class so that it also supports the Spanish language code "es" and
+// COME BACK TO CHECK: modify this class so that it also supports the Spanish language code "es" and
 //            one more language code of your choice. Each member of your group should add
 //            support for one additional langauge code on a branch; then push and create a pull request on GitHub.
 
@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class InLabByHandTranslator implements Translator {
     public static final String CANADA = "can";
-
     /**
      * Returns the language abbreviations for all languages whose translations are
      * available for the given country.
@@ -26,11 +25,10 @@ public class InLabByHandTranslator implements Translator {
     @Override
     public List<String> getCountryLanguages(String country) {
         if (CANADA.equals(country)) {
-            return new ArrayList<>(List.of("de", "en", "zh"));
+            return new ArrayList<>(List.of("de", "en", "zh", "es", "ar", "el", "hi", "zu"));
         }
         return new ArrayList<>();
     }
-
     /**
      * Returns the country abbreviations for all countries whose translations are
      * available from this Translator.
@@ -51,11 +49,31 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public String translate(String country, String language) {
+        String translation = null;
         if ("de".equals(language)) {
-            return "Kanada";
+            translation = "Kanada";
         }
-        else {
-            return null;
+        else if ("en".equals(language)) {
+            translation = "Canada";
         }
+        else if ("zh".equals(language)) {
+            translation = "加拿大";
+        }
+        else if ("es".equals(language)) {
+            translation = "Canadá";
+        }
+        else if ("ar".equals(language)) {
+            translation = "كندا";
+        }
+        else if ("el".equals(language)) {
+            translation = "Καναδάς";
+        }
+        else if ("hi".equals(language)) {
+            translation = "कनाडा";
+        }
+        else if ("zu".equals(language)) {
+            translation = "eCanada";
+        }
+        return translation;
     }
 }

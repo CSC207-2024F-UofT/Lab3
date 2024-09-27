@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
- import java.util.HashMap;
- import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -15,9 +12,7 @@ import java.util.List;
  */
 public class LanguageCodeConverter {
 
-    public static Map<String,String> country_codes = new HashMap<>();
-
-    // TODO Task: pick appropriate instance variables to store the data necessary for this class
+    public static Map<String,String> language_codes = new HashMap<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -38,8 +33,6 @@ public class LanguageCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // TODO Task: use lines to populate the instance variable
-            //           tip: you might find it convenient to create an iterator using lines.iterator()
             var iterator = lines.iterator();
 
             // skips header
@@ -47,23 +40,17 @@ public class LanguageCodeConverter {
                 iterator.next();
             }
 
-            while(iterator.hasNext()){
+            while(iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
-                if(parts.length == 2){
-                    country_codes.put(parts[0],parts[1]);
+                if (parts.length == 2) {
+                    language_codes.put(parts[0], parts[1]);
+                } else {
+                    String[] countries = Arrays.copyOfRange(parts, 0, parts.length - 1);
+                    String country_strings = String.join(" ", countries);
+                    language_codes.put(country_strings, parts[language_codes.size() - 1]);
                 }
-                else{
-                    String[] countries = parts[0, country_codes.length() - 2];
-
-
-                    var countries = String.join(" ",parts.copyOfRange(0,3));
-                    country_codes.put(countries,parts[country_codes.size() -1]);
-                }
-
             }
-
-
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -77,8 +64,12 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+        for(Map.Entry<String,String> entry : language_codes.entrySet()){
+            if(entry.getValue().equals(code)){
+                return entry.getKey();
+            }
+        }
+        return "N/A";
     }
 
     /**
@@ -87,8 +78,7 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return language;
+        return language_codes.getOrDefault(language, "code not found");
     }
 
     /**
@@ -96,7 +86,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return 0;
+        return language_codes.size();
     }
 }

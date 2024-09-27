@@ -15,7 +15,7 @@ import java.util.Map;
 public class CountryCodeConverter {
 
     // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
-    String countryCode = new String;
+    public static Map<String,String> country_codes = new HashMap<>();
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -37,6 +37,23 @@ public class CountryCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             // TODO Task: use lines to populate the instance variable(s)
+            var iterator = lines.iterator();
+
+            // skips header
+            if (iterator.hasNext()) {
+                iterator.next();
+            }
+
+            while(iterator.hasNext()) {
+                String line = iterator.next();
+                String[] parts = line.split("\t");
+                if (parts.length == 4) {
+                    country_codes.put(parts[2], parts[0]);
+                }
+                else {
+                    String[] countries = Arrays.copyOfRange(parts, 0, parts.length - 1)
+                }
+            }
 
         }
         catch (IOException | URISyntaxException ex) {
