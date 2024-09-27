@@ -13,10 +13,11 @@ import java.util.List;
 public class CountryCodeConverter {
 
     // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
-    private static int countCountry = 0;
-    private static List countryName;
+    private static int countCountry;
+    private static List<String> countryName;
     // private static List countryAlpha3Code;
-    private static List countryNumeric;
+    private static List<String> countryNumeric;
+    private static int countryIndex = 3;
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -39,10 +40,10 @@ public class CountryCodeConverter {
 
             countCountry = lines.size();
 
-            for(String line:lines){
-                List<String> lists = line.split(" ");
+            for (String line:lines) {
+                List<String> lists = line.split("\t");
                 countryName.add(lists.get(0));
-                countryNumeric.add(lists.get(3));
+                countryNumeric.add(lists.get(countryIndex));
 
             }
             //Done TODO Task: use lines to populate the instance variable(s)
