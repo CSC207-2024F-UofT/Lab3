@@ -9,7 +9,7 @@ public class CountryCodeConverterTest {
     @Test
     public void fromCountryCodeUSA() {
         CountryCodeConverter converter = new CountryCodeConverter();
-        assertEquals("Invalid code", converter.fromCountryCode("usa"));
+        assertEquals("United States of America (the)", converter.fromCountryCode("usa"));
     }
 
     @Test
