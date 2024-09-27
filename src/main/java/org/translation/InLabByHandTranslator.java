@@ -3,7 +3,7 @@ package org.translation;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO Task: modify this class so that it also supports the Spanish language code "es" and
+// Task: modify this class so that it also supports the Spanish language code "es" and
 //            one more language code of your choice. Each member of your group should add
 //            support for one additional langauge code on a branch; then push and create a pull request on GitHub.
 
@@ -15,6 +15,11 @@ import java.util.List;
  */
 public class InLabByHandTranslator implements Translator {
     public static final String CANADA = "can";
+    public static final String JAPAN = "jpn";
+    public static final String DE = "de";
+    public static final String EN = "en";
+    public static final String ZH = "zh";
+    public static final String ES = "es";
     /**
      * Returns the language abbreviations for all languages whose translations are
      * available for the given country.
@@ -26,7 +31,7 @@ public class InLabByHandTranslator implements Translator {
     @Override
     public List<String> getCountryLanguages(String country) {
         if (CANADA.equals(country)) {
-            return new ArrayList<>(List.of("de", "en", "zh"));
+            return new ArrayList<>(List.of(DE, EN, ZH, ES));
         }
         return new ArrayList<>();
     }
@@ -39,7 +44,7 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public List<String> getCountries() {
-        return new ArrayList<>(List.of(CANADA));
+        return new ArrayList<>(List.of(CANADA, JAPAN));
     }
 
     /**
@@ -52,17 +57,37 @@ public class InLabByHandTranslator implements Translator {
     @Override
     public String translate(String country, String language) {
         String tempString = null;
-        if (!country.equals(CANADA)) {
-            return null;
+        if (country.equals(CANADA)) {
+            switch (language) {
+                case DE:
+                    tempString = "Kanada";
+                    break;
+                case EN:
+                    tempString = "Kanada";
+                    break;
+                case ZH:
+                    tempString = "加拿大";
+                    break;
+                case ES:
+                    tempString = "Canadá";
+                    break;
+                default:
+                    break;
+            }
         }
-        if ("de".equals(language)) {
-            tempString = "Kanada";
-        }
-        else if ("en".equals(language)) {
-            tempString = "Canada";
-        }
-        else if ("zh".equals(language)) {
-            tempString = "加拿大";
+        else if (country.equals(JAPAN)) {
+            if (DE.equals(language)) {
+                tempString = "Japan";
+            }
+            else if (EN.equals(language)) {
+                tempString = "Japan";
+            }
+            else if (ZH.equals(language)) {
+                tempString = "日本";
+            }
+            else if (ES.equals(language)) {
+                tempString = "Japón";
+            }
         }
         return tempString;
     }
