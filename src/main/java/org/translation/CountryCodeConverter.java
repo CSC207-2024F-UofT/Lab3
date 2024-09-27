@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-// TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,17 +30,29 @@ public class CountryCodeConverter {
         alpha2ToCountry = new HashMap<>();
         alpha3ToCountry = new HashMap<>();
         countryToAlpha = new HashMap<>();
+        final int three = 3;
+        final int four = 4;
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
-            for (int i= 1; i<lines.size(); i++) {
+            for (int i = 1; i < lines.size(); i++) {
                 String line = lines.get(i);
                 numCountries += 1;
-                String[] split = line.split("\t");
-                String[] split3countrycode = split[2].split(" ");
-                alpha2ToCountry.put(split[1], split[0]);
-                alpha3ToCountry.put(split3countrycode[0], split[0]);
-                countryToAlpha.put(split[0], split3countrycode[0]);
+                String[] parts = line.trim().split("\\s+");
+                String alpha2Code = parts[parts.length - three];
+                String alpha3Code = parts[parts.length - 2];
+                String numericCode = parts[parts.length - 1];
+                StringBuilder countryNameBuilder = new StringBuilder();
+                for (int j = 0; j < parts.length - three; j++) {
+                    countryNameBuilder.append(parts[j]);
+                    if (j < parts.length - four) {
+                        countryNameBuilder.append(" ");
+                    }
+                }
+                String countryName = countryNameBuilder.toString();
+                alpha2ToCountry.put(alpha2Code, countryName);
+                alpha3ToCountry.put(alpha3Code, countryName);
+                countryToAlpha.put(countryName, alpha3Code);
 
             }
         }
@@ -57,8 +68,8 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        if (alpha3ToCountry.containsKey(code)) {
-            return alpha3ToCountry.get(code);
+        if (alpha3ToCountry.containsKey(code.toUpperCase())) {
+            return alpha3ToCountry.get(code.toUpperCase());
         }
         else {
             return "Invalid code";
