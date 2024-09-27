@@ -21,7 +21,7 @@ public class LanguageCodeConverter {
     }
      */
 
-    private Map<String, String> dictionary = new HashMap<>();
+    private final Map<String, String> dictionary = new HashMap<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
