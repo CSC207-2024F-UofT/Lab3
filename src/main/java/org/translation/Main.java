@@ -24,11 +24,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // TODO Task: once you finish the JSONTranslator,
-        //            you can use it here instead of the InLabByHandTranslator
-        //            to try out the whole program!
-        // Translator translator = new JSONTranslator();
-        Translator translator = new InLabByHandTranslator();
+        Translator translator = new JSONTranslator();
         CountryCodeConverter countryCodeConverter = new CountryCodeConverter("country-codes.txt");
         LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
 
@@ -55,10 +51,12 @@ public class Main {
             }
             String countryCode = countryCodeConverter.fromCountry(country);
             String language = promptForLanguage(translator, countryCode, languageCodeConverter);
+
             if (quit.equals(language)) {
                 break;
             }
             String languageCode = languageCodeConverter.fromLanguage(language);
+
             System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
@@ -98,7 +96,7 @@ public class Main {
                                             String country,
                                             LanguageCodeConverter languageCodeConverter) {
 
-        List<String> languageCodes = translator.getCountryLanguages(country);
+        List<String> languageCodes = translator.getCountryLanguages(country.toLowerCase());
         List<String> languageNames = new ArrayList<>();
 
         for (String languageCode : languageCodes) {
