@@ -12,12 +12,11 @@ import java.util.List;
  */
 public class CountryCodeConverter {
 
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
-    private static int countCountry;
-    private static List<String> countryName;
-    // private static List countryAlpha3Code;
-    private static List<String> countryNumeric;
-    private static int countryIndex = 3;
+    private int countCountry;
+    private ArrayList<String> countryName = new ArrayList<>();
+    private ArrayList<String> countryAlpha3Code = new ArrayList<>();
+    private ArrayList<String> countryNumeric = new ArrayList<>();
+    private int countryIndex = 3;
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -38,15 +37,15 @@ public class CountryCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            countCountry = lines.size();
+            countCountry = lines.size()-1;
 
             for (String line:lines) {
-                List<String> lists = line.split("\t");
+                List<String> lists = List.of(line.split("\t"));
                 countryName.add(lists.get(0));
+                countryAlpha3Code.add(lists.get(2));
                 countryNumeric.add(lists.get(countryIndex));
 
             }
-            //Done TODO Task: use lines to populate the instance variable(s)
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -61,8 +60,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // Done TODO Task: update this code to use an instance variable to return the correct value
-        return countryName.get(countryNumeric.indexOf(code));
+        return countryName.get(countryAlpha3Code.indexOf(code.toUpperCase()));
     }
 
     /**
@@ -71,7 +69,6 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // Done TODO Task: update this code to use an instance variable to return the correct value
         return countryNumeric.get(countryName.indexOf(country));
     }
 
@@ -80,7 +77,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // Done TODO Task: update this code to use an instance variable to return the correct value
         return countCountry;
     }
 }
