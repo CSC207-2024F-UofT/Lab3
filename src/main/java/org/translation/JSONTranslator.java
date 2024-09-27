@@ -44,8 +44,8 @@ public class JSONTranslator implements Translator {
                 String country = jsonObject.getString("alpha3");
                 Map<String, String> languages = new HashMap<>();
                 for (String key:jsonObject.keySet()) {
-                    String languageCode = jsonObject.getString(key);
                     if (!("id".equals(key) || "alpha2".equals(key) || "alpha3".equals(key))) {
+                        String languageCode = jsonObject.getString(key);
                         languages.put(key, languageCode);
                     }
                 }
@@ -72,7 +72,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String country, String language) {
-        if (!countryLanguages.containsKey(country)) {
+        if (countryLanguages.containsKey(country)) {
             return countryLanguages.get(country).get(language);
         }
         return null;
