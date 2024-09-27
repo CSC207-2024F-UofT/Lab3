@@ -5,17 +5,22 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * An implementation of the Translator interface which reads in the translation
  * data from a JSON file. The data is read in once each time an instance of this class is constructed.
  */
+@SuppressWarnings({"checkstyle:RegexpMultiline", "checkstyle:SuppressWarnings"})
 public class JSONTranslator implements Translator {
+    private Map<String, String> translations;
 
-    // TODO Task: pick appropriate instance variables for this class
+    // Task: pick appropriate instance variables for this class
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -30,6 +35,7 @@ public class JSONTranslator implements Translator {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public JSONTranslator(String filename) {
+        translations = new HashMap<>();
         // read the file to get the data to populate things...
         try {
 
@@ -37,7 +43,15 @@ public class JSONTranslator implements Translator {
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            // TODO Task: use the data in the jsonArray to populate your instance variables
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+
+                for (String key : obj.keySet()) {
+                    translations.put(key, obj.getString(key));
+                }
+            }
+
+            // Task: use the data in the jsonArray to populate your instance variables
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
 
         }
