@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
-// import java.util.HashMap;
-// import java.util.Map;
+import java.util.Map;
 // note one of the TODOs was that hashMap has to be above util.list, fix it if you need it.
 
 /**
@@ -15,6 +15,7 @@ import java.util.List;
 public class CountryCodeConverter {
 
     // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
+    String countryCode = new String;
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
