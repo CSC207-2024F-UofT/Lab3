@@ -23,7 +23,8 @@ public class JSONTranslationExample {
             // which we then create a new JSONArray object from.
             // TODO CheckStyle: Line is longer than 120 characters
             //                  (note: you can split a line such that the next line starts with a .method()... call
-            String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource("sample.json").toURI()));
+            String jsonString = Files.readString(Paths.get(getClass().getClassLoader()
+                    .getResource("sample.json").toURI()));
             this.jsonArray = new JSONArray(jsonString);
         }
         catch (IOException | URISyntaxException ex) {
@@ -33,12 +34,13 @@ public class JSONTranslationExample {
 
     /**
      * Returns the Spanish translation of Canada.
+     *
      * @return the Spanish translation of Canada
      */
     public String getCanadaCountryNameSpanishTranslation() {
 
         // TODO Checkstyle: '30' is a magic number.
-        JSONObject canada = jsonArray.getJSONObject(30);
+        JSONObject canada = jsonArray.getJSONObject(CANADA_INDEX);
         return canada.getString("es");
     }
 
@@ -47,12 +49,29 @@ public class JSONTranslationExample {
 
     /**
      * Returns the name of the country based on the provided country and language codes.
-     * @param countryCode the country, as its three-letter code.
+     *
+     * @param countryCode  the country, as its three-letter code.
      * @param languageCode the language to translate to, as its two-letter code.
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
-        return "Country not found";
+        // Iterate through for loop (enhanced for loop) until correct index is reached
+        int index = 0;
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            index = i;
+
+            JSONObject countryJSON = jsonArray.getJSONObject(i);
+            if (countryJSON.getString("alpha3").equals(countryCode)) {
+                break;
+            }
+
+            if (i == jsonArray.length() - 1) {
+                return "Country not found";
+            }
+        }
+        JSONObject finalCountryJson = jsonArray.getJSONObject(index);
+        return finalCountryJson.getString(languageCode);
     }
 
     /**
