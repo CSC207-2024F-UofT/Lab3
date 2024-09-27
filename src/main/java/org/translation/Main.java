@@ -40,14 +40,14 @@ public class Main {
             }
 
             CountryCodeConverter converter = new CountryCodeConverter();
-            country = converter.fromCountry(country);
-            String language = promptForLanguage(translator, country);
+            String countryCode = converter.fromCountry(country);
+            String language = promptForLanguage(translator, countryCode);
             if (language.equals(exitCommand)) {
                 break;
             }
             LanguageCodeConverter languageConverter = new LanguageCodeConverter();
             String languageCode = languageConverter.fromLanguage(language);
-            System.out.println(country + " in " + language + " is " + translator.translate(country, languageCode));
+            System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
