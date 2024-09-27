@@ -78,4 +78,4 @@ public class JSONTranslationExample {
             String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
             System.out.println(translation);
         }
-    }
+    }}
