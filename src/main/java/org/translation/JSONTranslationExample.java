@@ -24,7 +24,8 @@ public class JSONTranslationExample {
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader()
                     .getResource("sample.json").toURI()));
             this.jsonArray = new JSONArray(jsonString);
-        } catch (IOException | URISyntaxException ex) {
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -38,7 +39,6 @@ public class JSONTranslationExample {
         JSONObject canada = jsonArray.getJSONObject(CANADA_INDEX);
         return canada.getString("es");
     }
-
 
     /**
      * Returns the name of the country based on the provided country and language codes.

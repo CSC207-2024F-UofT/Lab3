@@ -1,5 +1,7 @@
 package org.translation;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -8,8 +10,7 @@ import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.net.URISyntaxException;
+
 /**
  * An implementation of the Translator interface which reads in the translation
  * data from a JSON file. The data is read in once each time an instance of this class is constructed.
@@ -35,14 +36,13 @@ public class JSONTranslator implements Translator {
     public JSONTranslator(String filename) {
         // read the file to get the data to populate things...
         try {
-
-            String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
-
-            JSONArray jsonArray = new JSONArray(jsonString);
-
             countriesToLang = new HashMap<>();
             countriesToLangCode = new HashMap<>();
             countries = new ArrayList<>();
+
+            String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
+            JSONArray jsonArray = new JSONArray(jsonString);
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject country = jsonArray.getJSONObject(i);
                 String countryCode = country.getString("alpha3");
