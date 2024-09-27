@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 /**
  * This class provides the service of converting language codes to their names.
  */
@@ -22,9 +19,9 @@ public class LanguageCodeConverter {
         System.out.println(converter.fromLanguageCode("el"));
         System.out.println(converter.fromLanguage("Albanian"));
     }
-    */
+     */
 
-    private final JSONArray jsonArray;
+    private Map<String, String> dictionary = new HashMap<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -45,21 +42,13 @@ public class LanguageCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
             // Removes un-necessary first line
             lines.remove(0);
-            String jsonData = "[{";
 
             for (String line : lines) {
                 int charBreak = line.indexOf('\t');
                 String key = line.substring(0, charBreak);
                 String value = line.substring(charBreak + 1);
-                jsonData += "\"" + key + "\" : \"" + value + "\", ";
+                dictionary.put(key, value);
             }
-          
-            // Removes ' ,' at the end of jsonData
-            jsonData = jsonData.substring(0, jsonData.length() - 2);
-            jsonData += "}]";
-
-            // Puts the data in the JSONArray
-            jsonArray = new JSONArray(jsonData);
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -73,13 +62,12 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        JSONObject jsonObject = jsonArray.getJSONObject(0);
-
-        for (String key : jsonObject.keySet()) {
-            if (jsonObject.getString(key).equals(code)) {
+        for (String key : dictionary.keySet()) {
+            if (dictionary.get(key).equals(code)) {
                 return key;
             }
         }
+
         return "Code does not exist";
     }
 
@@ -89,11 +77,9 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        JSONObject jsonObject = jsonArray.getJSONObject(0);
-
-        for (String key : jsonObject.keySet()) {
+        for (String key : dictionary.keySet()) {
             if (key.equals(language)) {
-                return jsonObject.getString(key);
+                return dictionary.get(key);
             }
         }
         return "Language does not exist";
@@ -104,6 +90,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        return jsonArray.length();
+        return dictionary.size();
     }
 }
