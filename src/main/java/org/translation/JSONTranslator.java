@@ -57,7 +57,7 @@ public class JSONTranslator implements Translator {
 
                 for (String key : country.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
-                        languages.add(country.getString(key));
+                        languages.add(key);
                     }
                 }
                 this.countryLanguages.put(countryCode, languages);
