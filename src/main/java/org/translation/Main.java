@@ -1,6 +1,5 @@
 package org.translation;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +22,8 @@ public class Main {
      */
 
     public static void main(String[] args) {
+
+        // Translator translator = new InLabByHandTranslator();
 
         Translator translator = new JSONTranslator();
         CountryCodeConverter countryCodeConverter = new CountryCodeConverter("country-codes.txt");
@@ -50,14 +51,17 @@ public class Main {
                 break;
             }
             String countryCode = countryCodeConverter.fromCountry(country);
-            String language = promptForLanguage(translator, countryCode, languageCodeConverter);
 
+            String language = promptForLanguage(translator, countryCode, languageCodeConverter);
             if (quit.equals(language)) {
                 break;
             }
             String languageCode = languageCodeConverter.fromLanguage(language);
+            System.out.println("Country: " + country + " Code: " + countryCode);
+            System.out.println("Language:" + language + " Code: " + languageCode);
 
-            System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode));
+            System.out.println(country + " in " + language + " is " + translator.translate(countryCode.toLowerCase(),
+                    languageCode));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -98,7 +102,7 @@ public class Main {
 
         List<String> languageCodes = translator.getCountryLanguages(country.toLowerCase());
         List<String> languageNames = new ArrayList<>();
-
+        System.out.println(languageCodes);
         for (String languageCode : languageCodes) {
             String languageName = languageCodeConverter.fromLanguageCode(languageCode);
             if (languageName != null) {
@@ -116,4 +120,3 @@ public class Main {
         return s.nextLine();
     }
 }
-

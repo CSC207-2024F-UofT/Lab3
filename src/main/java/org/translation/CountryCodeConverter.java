@@ -14,6 +14,7 @@ import java.util.Map;
  */
 public class CountryCodeConverter {
 
+    private static final int PARTS_LENGTH = 4;
     private Map<String, String> countryCodeToName;
     private Map<String, String> countryNameToCode;
 
@@ -48,7 +49,7 @@ public class CountryCodeConverter {
                 }
 
                 String[] parts = line.split("\\t");
-                if (parts.length >= 4) {
+                if (parts.length >= PARTS_LENGTH) {
                     String name = parts[0];
                     String code = parts[2].trim();
 
@@ -70,7 +71,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return countryCodeToName.get(code.toLowerCase());
+        return countryCodeToName.get(code.toUpperCase());
     }
 
     /**
@@ -79,7 +80,7 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        return countryNameToCode.get(country);
+        return countryNameToCode.get(country.toLowerCase());
     }
 
     /**
@@ -89,4 +90,5 @@ public class CountryCodeConverter {
     public int getNumCountries() {
         return countryCodeToName.size();
     }
+
 }
