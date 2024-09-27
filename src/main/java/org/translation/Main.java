@@ -21,7 +21,7 @@ public class Main {
      * @param args not used by the program
      */
     public static void main(String[] args) {
-        Translator translator = new JSONTranslator(null);
+        Translator translator = new JSONTranslator();
         runProgram(translator);
     }
 
@@ -40,14 +40,14 @@ public class Main {
             }
 
             CountryCodeConverter converter = new CountryCodeConverter();
-            country = converter.fromCountry(country);
-            String language = promptForLanguage(translator, country);
+            String countryCode = converter.fromCountry(country);
+            String language = promptForLanguage(translator, countryCode);
             if (language.equals(exitCommand)) {
                 break;
             }
             LanguageCodeConverter languageConverter = new LanguageCodeConverter();
             String languageCode = languageConverter.fromLanguage(language);
-            System.out.println(country + " in " + language + " is " + translator.translate(country, languageCode));
+            System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();

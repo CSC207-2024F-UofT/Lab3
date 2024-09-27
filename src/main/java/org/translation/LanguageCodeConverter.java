@@ -53,7 +53,7 @@ public class LanguageCodeConverter {
                 String value = line.substring(charBreak + 1);
                 jsonData += "\"" + key + "\" : \"" + value + "\", ";
             }
-
+          
             // Removes ' ,' at the end of jsonData
             jsonData = jsonData.substring(0, jsonData.length() - 2);
             jsonData += "}]";
