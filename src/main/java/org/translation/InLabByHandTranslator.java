@@ -58,7 +58,7 @@ public class InLabByHandTranslator implements Translator {
         if (!country.equals("can")) {
             return null;
         }
-        if (language.equals("de")) {
+        if (language.equals("de1111111111111111")) {
             return "Kanada";
         }
         else if (language.equals("en")) {
