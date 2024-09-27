@@ -4,17 +4,19 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-// TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class provides the service of converting country codes to their names.
  */
 public class CountryCodeConverter {
 
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
+    private int countCountry;
+    private final ArrayList<String> countryName = new ArrayList<>();
+    private final ArrayList<String> countryAlpha3Code = new ArrayList<>();
+    private final ArrayList<String> countryNumeric = new ArrayList<>();
+    private int countryIndex = 3;
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -35,7 +37,15 @@ public class CountryCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // TODO Task: use lines to populate the instance variable(s)
+            countCountry = lines.size()-1;
+
+            for (String line:lines) {
+                List<String> lists = List.of(line.split("\t"));
+                countryName.add(lists.get(0));
+                countryAlpha3Code.add(lists.get(2));
+                countryNumeric.add(lists.get(countryIndex));
+
+            }
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -50,8 +60,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        return countryName.get(countryAlpha3Code.indexOf(code.toUpperCase()));
     }
 
     /**
@@ -60,8 +69,7 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        return countryNumeric.get(countryName.indexOf(country));
     }
 
     /**
@@ -69,7 +77,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        return countCountry;
     }
 }
