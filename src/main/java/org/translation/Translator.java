@@ -1,33 +1,101 @@
 package org.translation;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
- * An interface providing methods related to translating country names between
- * different languages.<br/>
+ * An implementation of the Translator interface which reads in the translation
+ * data from a JSON file. The data is read in once each time an instance of this class is constructed.
  */
-public interface Translator {
+public class JSONTranslator implements Translator {
+
+    // TODO Task: pick appropriate instance variables for this class
+    private List<JSONObject> countryList = new ArrayList<>();
 
     /**
-     * Returns the language codes for all languages whose translations are
-     * available for the given country.
-     * @param country the country
-     * @return list of language codes which are available for this country
+     * Constructs a JSONTranslator using data from the sample.json resources file.
      */
-    List<String> getCountryLanguages(String country);
+    public JSONTranslator() {
+        this("sample.json");
+    }
 
     /**
-     * Returns the country codes for all countries whose translations are
-     * available from this Translator.
-     * @return list of country codes for which we have translations available
+     * Constructs a JSONTranslator populated using data from the specified resources file.
+     * @param filename the name of the file in resources to load the data from
+     * @throws RuntimeException if the resource file can't be loaded properly
      */
-    List<String> getCountries();
+    public JSONTranslator(String filename) {
+        // read the file to get the data to populate things...
+        try {
 
-    /**
-     * Returns the name of the country based on the specified country abbreviation and language abbreviation.
-     * @param country the country code
-     * @param language the language code
-     * @return the name of the country in the given language or null if no translation is available
-     */
-    String translate(String country, String language);
+            String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
+
+            JSONArray jsonArray = new JSONArray(jsonString);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject country = jsonArray.getJSONObject(i);
+                countryList.add(country);
+            }
+
+        }
+        catch (IOException | URISyntaxException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public List<String> getCountryLanguages(String country) {
+        List<String> keysList = new ArrayList<>();
+        Set<String> ignoredKeys = new HashSet<>();
+        ignoredKeys.add("id");
+        ignoredKeys.add("alpha2");
+        ignoredKeys.add("alpha3");
+        for (JSONObject jsonObject : countryList) {
+            if (jsonObject.getString("alpha3").equals(country)) {
+                Iterator<String> keys = jsonObject.keys();
+
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    // Only add the key if it is not in the ignoredKeys set
+                    if (!ignoredKeys.contains(key)) {
+                        keysList.add(key);
+                    }
+
+                }
+
+            }
+
+            // TODO Task: return an appropriate list of language codes,
+            //            but make sure there is no aliasing to a mutable object
+
+        }
+        return keysList;
+    }
+
+    @Override
+    public List<String> getCountries() {
+        // TODO Task: return an appropriate list of country codes,
+        //            but make sure there is no aliasing to a mutable object
+        List<String> countriesList = new ArrayList<>();
+        for (JSONObject jsonObject : countryList) {
+            countriesList.add(jsonObject.getString("alpha3"));
+        }
+        return countriesList;
+    }
+
+    @Override
+    public String translate(String country, String language) {
+        for (JSONObject jsonObject : countryList) {
+            if (jsonObject.getString("alpha3").equals(country)) {
+                return jsonObject.getString(language);
+            }
+        }
+        return null;
+    }
 }
