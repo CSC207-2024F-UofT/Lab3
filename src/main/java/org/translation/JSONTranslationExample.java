@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,8 +37,6 @@ public class JSONTranslationExample {
      * @return the Spanish translation of Canada
      */
     public String getCanadaCountryNameSpanishTranslation() {
-
-        // TODO Checkstyle: '30' is a magic number.
         JSONObject canada = jsonArray.getJSONObject(30);
         return canada.getString("es");
     }
@@ -52,7 +51,13 @@ public class JSONTranslationExample {
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
-        return "Country not found";
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.getString("alpha3").equals(countryCode)) {
+                return jsonObject.getString(languageCode);
+            }
+        }
+        for (int i = 0; )
     }
 
     /**
