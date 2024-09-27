@@ -84,16 +84,21 @@ public class Main {
     private static String promptForCountry(Translator translator) {
         CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
         List<String> countries = translator.getCountries();
+
         countries.replaceAll(countryCodeConverter::fromCountryCode);
 
         Collections.sort(countries);
+        for (String country : countries) {
+            System.out.println(country);
+        }
 
         //  Task: replace the following println call, sort the countries alphabetically,
         //            and print them out; one per line
         //      hint: class Collections provides a static sort method
         //  Task: convert the country codes to the actual country names before sorting
 
-        System.out.println(countries);
+        // System.out.println(countries);
+
         System.out.println("select a country from above:");
 
         Scanner s = new Scanner(System.in);
@@ -112,7 +117,10 @@ public class Main {
         //  print them out; one per line
         //  Task: convert the language codes to the actual language names before sorting
 
-        System.out.println(countryLanguages);
+        // System.out.println(countryLanguages);
+        for (String language : countryLanguages) {
+            System.out.println(language);
+        }
         System.out.println("select a language from above:");
 
         Scanner s = new Scanner(System.in);
