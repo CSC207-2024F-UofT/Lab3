@@ -11,6 +11,7 @@ public interface Translator {
     /**
      * Returns the language codes for all languages whose translations are
      * available for the given country.
+     *
      * @param country the country
      * @return list of language codes which are available for this country
      */
