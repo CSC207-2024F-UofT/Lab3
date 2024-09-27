@@ -4,14 +4,18 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-// import java.util.Map;
-// import java.util.HashMap;
+ import java.util.HashMap;
+ import java.util.Map;
+
 
 /**
  * This class provides the service of converting language codes to their names.
  */
 public class LanguageCodeConverter {
+
+    public static Map<String,String> country_codes = new HashMap<>();
 
     // TODO Task: pick appropriate instance variables to store the data necessary for this class
 
@@ -36,6 +40,29 @@ public class LanguageCodeConverter {
 
             // TODO Task: use lines to populate the instance variable
             //           tip: you might find it convenient to create an iterator using lines.iterator()
+            var iterator = lines.iterator();
+
+            // skips header
+            if(iterator.hasNext()){
+                iterator.next();
+            }
+
+            while(iterator.hasNext()){
+                String line = iterator.next();
+                String[] parts = line.split("\t");
+                if(parts.length == 2){
+                    country_codes.put(parts[0],parts[1]);
+                }
+                else{
+                    String[] countries = parts[0, country_codes.length() - 2];
+
+
+                    var countries = String.join(" ",parts.copyOfRange(0,3));
+                    country_codes.put(countries,parts[country_codes.size() -1]);
+                }
+
+            }
+
 
         }
         catch (IOException | URISyntaxException ex) {
