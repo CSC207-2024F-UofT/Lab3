@@ -1,7 +1,12 @@
 package org.translation;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+
+import static java.util.Collections.checkedCollection;
+import static java.util.Collections.sort;
 
 /**
  * Main class for this program.
@@ -21,12 +26,8 @@ public class Main {
      */
 
     public static void main(String[] args) {
-
-        // TODO Task: once you finish the JSONTranslator,
-        //            you can use it here instead of the InLabByHandTranslator
-        //            to try out the whole program!
-        // Translator translator = new JSONTranslator();
-        Translator translator = new InLabByHandTranslator();
+         Translator translator = new JSONTranslator();
+//        Translator translator = new InLabByHandTranslator();
 
         runProgram(translator);
     }
@@ -44,10 +45,9 @@ public class Main {
             if (Q.equals(country)) {
                 break;
             }
-            // TODO Task: Once you switch promptForCountry so that it returns the country
-            //            name rather than the 3-letter country code, you will need to
-            //            convert it back to its 3-letter country code when calling promptForLanguage
-            String language = promptForLanguage(translator, country);
+            CountryCodeConverter converter = new CountryCodeConverter();
+            String temp1 = converter.fromCountry(country);
+            String language = promptForLanguage(translator, temp1);
             if (language.equals(Q)) {
                 break;
             }
@@ -70,11 +70,18 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForCountry(Translator translator) {
         List<String> countries = translator.getCountries();
-        // TODO Task: replace the following println call, sort the countries alphabetically,
-        //            and print them out; one per line
-        //      hint: class Collections provides a static sort method
-        // TODO Task: convert the country codes to the actual country names before sorting
-        System.out.println(countries);
+        CountryCodeConverter converter = new CountryCodeConverter();
+        List<String> temp = new ArrayList<>();
+
+        for(String country_code : countries){
+            temp.add(converter.fromCountryCode(country_code));
+        }
+
+        Collections.sort(temp);
+
+        for(String temp2 : temp){
+            System.out.println(temp2);
+        }
 
         System.out.println("select a country from above:");
 
@@ -85,10 +92,18 @@ public class Main {
 
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
-        // TODO Task: replace the line below so that we sort the languages alphabetically and print them out;
-        // one per line
+        var temp = translator.getCountryLanguages(country);
+        sort(temp);
+        LanguageCodeConverter converter = new LanguageCodeConverter();
+
         // TODO Task: convert the language codes to the actual language names before sorting
-        System.out.println(translator.getCountryLanguages(country));
+
+        List<String> temp3 = new ArrayList<>();
+
+        for(String language : temp){
+            // add converted languages to temp3, sort temp3 and print.
+        }
+
 
         System.out.println("select a language from above:");
 
