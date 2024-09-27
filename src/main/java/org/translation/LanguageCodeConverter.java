@@ -12,12 +12,20 @@ import java.util.Map;
  * This class provides the service of converting language codes to their names.
  */
 public class LanguageCodeConverter {
+    /*
+    // Used for testing file
+    public static void main(String[] args) {
+        LanguageCodeConverter converter = new LanguageCodeConverter();
+        System.out.println(converter.fromLanguageCode("el"));
+        System.out.println(converter.fromLanguage("Albanian"));
+    }
+    */
 
-    // TODO Task: pick appropriate instance variables to store the data necessary for this class
+    private final Map<String, String> dictionary = new HashMap<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
-     * in the resources folder.
+     * in the resource folder.
      */
     public LanguageCodeConverter() {
         this("language-codes.txt");
@@ -29,16 +37,20 @@ public class LanguageCodeConverter {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public LanguageCodeConverter(String filename) {
-
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
+            // Removes un-necessary first line
+            lines.remove(0);
 
-            // TODO Task: use lines to populate the instance variable
-            //           tip: you might find it convenient to create an iterator using lines.iterator()
-
-        // TODO Checkstyle: '}' on next line should be alone on a line.
-        } catch (IOException | URISyntaxException ex) {
+            for (String line : lines) {
+                int charBreak = line.indexOf('\t');
+                String key = line.substring(0, charBreak);
+                String value = line.substring(charBreak + 1);
+                dictionary.put(key, value);
+            }
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
 
@@ -50,8 +62,12 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+        for (String key : dictionary.keySet()) {
+            if (dictionary.get(key).equals(code)) {
+                return key;
+            }
+        }
+        return "Code does not exist";
     }
 
     /**
@@ -60,8 +76,12 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return language;
+        for (String key : dictionary.keySet()) {
+            if (key.equals(language)) {
+                return dictionary.get(key);
+            }
+        }
+        return "Language does not exist";
     }
 
     /**
@@ -69,7 +89,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return 0;
+        return dictionary.size();
     }
 }
