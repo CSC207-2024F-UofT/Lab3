@@ -34,7 +34,8 @@ public class CountryCodeConverter {
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
-            for (String line : lines) {
+            for (int i= 1; i<lines.size(); i++) {
+                String line = lines.get(i);
                 numCountries += 1;
                 String[] split = line.split("\t");
                 String[] split3countrycode = split[2].split(" ");
