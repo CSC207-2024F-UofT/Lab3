@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * An implementation of the Translator interface which reads in the translation
@@ -33,17 +34,25 @@ public class JSONTranslator implements Translator {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public JSONTranslator(String filename) {
-        // read the file to get the data to populate things...
         try {
 
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            // TODO Task: use the data in the jsonArray to populate your instance variables
-            //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
-            for(var x: jsonArray) {
-                
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String alpha3 = jsonObject.getString("alpha3");
+                HashMap<String, String> innerMap = new HashMap<>();
+
+                // Populate the inner map with key-value pairs
+                for (String key : jsonObject.keySet()) {
+                    if (!key.equals("alpha3") && !key.equals("id") && !key.equals("alpha2")) {
+                        innerMap.put(key, jsonObject.getString(key));
+                    }
+                }
+                // Add the inner map to the outer map
+                country_name_translations.put(alpha3, innerMap);
             }
 
 
@@ -55,21 +64,32 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Task: return an appropriate list of language codes,
-        //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        HashMap<String, String> innerMap = (HashMap<String, String>) country_name_translations.get(country);
+        List<String> translationsList = new ArrayList<>();
+
+        for (String key : innerMap.keySet()) {
+            translationsList.add(key + ": " + innerMap.get(key));
+        }
+
+        return translationsList;
+
     }
 
     @Override
     public List<String> getCountries() {
-        // TODO Task: return an appropriate list of country codes,
-        //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        // basically we grab all the keys from the hashmap, then cast them to an arraylist.
+        var temp1 = country_name_translations.keySet();
+
+        return new ArrayList<>(temp1);
     }
 
     @Override
     public String translate(String country, String language) {
-        // TODO Task: complete this method using your instance variables as needed
+        for (String key : country_name_translations.keySet()) {
+            if(key.equals(country)){
+                return country_name_translations.get(key).get(language);
+            }
+        }
         return null;
     }
 }
