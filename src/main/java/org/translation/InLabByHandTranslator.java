@@ -21,17 +21,19 @@ public class InLabByHandTranslator implements Translator {
      * @param country the country
      * @return list of language abbreviations which are available for this country
      */
+    public static final String CANADA = can;
+    private String can = "can";
+
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Checkstyle: The String "can" appears 4 times in the file.
-        if ("can".equals(country)) {
+        // Checkstyle: The String "can" appears 4 times in the file.
+        if (can.equals(country)) {
             return new ArrayList<>(List.of("de", "en", "zh"));
         }
         return new ArrayList<>();
     }
 
-    // TODO Checkstyle: Static variable definition in wrong order.
-    public static final String CANADA = "can";
+    // Checkstyle: Static variable definition in wrong order.
 
     /**
      * Returns the country abbreviations for all countries whose translations are
@@ -41,7 +43,7 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public List<String> getCountries() {
-        return new ArrayList<>(List.of("can"));
+        return new ArrayList<>(List.of(can));
     }
 
     /**
@@ -53,22 +55,25 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public String translate(String country, String language) {
-        // TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
-        // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
-        if (!country.equals("can")) {
-            return null;
+        // Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
+        // Checkstyle: String literal expressions should be on the left side of an equals comparison
+        String answer;
+
+        if (!country.equals(can)) {
+            answer = null;
         }
-        if (language.equals("de")) {
-            return "Kanada";
+        if ("de".equals(language)) {
+            answer = "Kanada";
         }
-        else if (language.equals("en")) {
-            return "Canada";
+        else if ("en".equals(language)) {
+            answer = "Canada";
         }
         else if ("zh".equals(language)) {
-            return "加拿大";
+            answer = "加拿大";
         }
         else {
             return null;
         }
+        return answer;
     }
 }
