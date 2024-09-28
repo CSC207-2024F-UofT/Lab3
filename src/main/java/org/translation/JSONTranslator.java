@@ -18,7 +18,6 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    // maybe did: pick appropriate instance variables for this class
     public static Map<String,Map<String, String>> country_name_translations = new HashMap<>();
 
     /**
@@ -50,11 +49,11 @@ public class JSONTranslator implements Translator {
                     if (!key.equals("alpha3") && !key.equals("id") && !key.equals("alpha2")) {
                         innerMap.put(key, jsonObject.getString(key));
                     }
+
                 }
                 // Add the inner map to the outer map
                 country_name_translations.put(alpha3, innerMap);
             }
-
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -64,7 +63,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        HashMap<String, String> innerMap = (HashMap<String, String>) country_name_translations.get(country);
+        HashMap<String, String> innerMap = (HashMap<String, String>) country_name_translations.get(country.toLowerCase());
         List<String> translationsList = new ArrayList<>();
 
         for (String key : innerMap.keySet()) {
@@ -86,7 +85,7 @@ public class JSONTranslator implements Translator {
     @Override
     public String translate(String country, String language) {
         for (String key : country_name_translations.keySet()) {
-            if(key.equals(country)){
+            if(key.equals(country.toLowerCase())){
                 return country_name_translations.get(key).get(language);
             }
         }

@@ -1,9 +1,6 @@
 package org.translation;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static java.util.Collections.checkedCollection;
 import static java.util.Collections.sort;
@@ -46,17 +43,16 @@ public class Main {
                 break;
             }
             CountryCodeConverter converter = new CountryCodeConverter();
-            String temp1 = converter.fromCountry(country);
-            String language = promptForLanguage(translator, temp1);
+            String country_code = converter.fromCountry(country);
+            String language = promptForLanguage(translator, country_code);
             if (language.equals(Q)) {
                 break;
             }
-            // TODO Task: Once you switch promptForLanguage so that it returns the language
-            //            name rather than the 2-letter language code, you will need to
-            //            convert it back to its 2-letter language code when calling translate.
-            //            Note: you should use the actual names in the message printed below though,
-            //            since the user will see the displayed message.
-            System.out.println(country + " in " + language + " is " + translator.translate(country, language));
+
+            LanguageCodeConverter converter1 = new LanguageCodeConverter();
+            String language_code = converter1.fromLanguage(language);
+
+            System.out.println(country + " in " + language + " is " + translator.translate(country_code, language_code));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -92,18 +88,21 @@ public class Main {
 
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
-        var temp = translator.getCountryLanguages(country);
-        sort(temp);
+        var translation_list = translator.getCountryLanguages(country);
         LanguageCodeConverter converter = new LanguageCodeConverter();
-
-        // TODO Task: convert the language codes to the actual language names before sorting
 
         List<String> temp3 = new ArrayList<>();
 
-        for(String language : temp){
-            // add converted languages to temp3, sort temp3 and print.
+        for(String language : translation_list){
+            var split1  = language.split(":");
+            temp3.add(converter.fromLanguageCode(split1[0]));
         }
 
+        Collections.sort(temp3);
+
+        for(String temp4 : temp3){
+            System.out.println(temp4);
+        }
 
         System.out.println("select a language from above:");
 
