@@ -30,7 +30,7 @@ public class LanguageCodeConverter {
      * @param filename the name of the file in the resources folder to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
-    @SuppressWarnings("checkstyle:RightCurly")
+    @SuppressWarnings({"checkstyle:RightCurly", "checkstyle:SuppressWarnings"})
     public LanguageCodeConverter(String filename) {
 
         try {
@@ -38,7 +38,6 @@ public class LanguageCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             // TODO Task: use lines to populate the instance variable
-            //           tip: you might find it convenient to create an iterator using lines.iterator()
             Iterator<String> iterator = lines.iterator();
             while (iterator.hasNext()) {
                 String line = iterator.next();
