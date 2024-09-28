@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class LanguageCodeConverter {
 
-    public static Map<String,String> language_codes = new HashMap<>();
+    public static Map<String, String> language_codes = new HashMap<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -36,16 +36,17 @@ public class LanguageCodeConverter {
             var iterator = lines.iterator();
 
             // skips header
-            if(iterator.hasNext()){
+            if (iterator.hasNext()) {
                 iterator.next();
             }
 
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
                 if (parts.length == 2) {
                     language_codes.put(parts[0], parts[1]);
-                } else {
+                }
+                else {
                     String[] countries = Arrays.copyOfRange(parts, 0, parts.length - 1);
                     String country_strings = String.join(" ", countries);
                     language_codes.put(country_strings, parts[language_codes.size() - 1]);
@@ -64,8 +65,8 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        for(Map.Entry<String,String> entry : language_codes.entrySet()){
-            if(entry.getValue().equals(code)){
+        for (Map.Entry<String, String> entry : language_codes.entrySet()) {
+            if (entry.getValue().equals(code)) {
                 return entry.getKey();
             }
         }

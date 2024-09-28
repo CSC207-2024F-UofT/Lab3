@@ -18,7 +18,7 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    public static Map<String,Map<String, String>> country_name_translations = new HashMap<>();
+    public static Map<String, Map<String, String>> country_name_translations = new HashMap<>();
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -63,7 +63,8 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        HashMap<String, String> innerMap = (HashMap<String, String>) country_name_translations.get(country.toLowerCase());
+        HashMap<String, String> innerMap =
+                (HashMap<String, String>) country_name_translations.get(country.toLowerCase());
         List<String> translationsList = new ArrayList<>();
 
         for (String key : innerMap.keySet()) {
@@ -85,7 +86,7 @@ public class JSONTranslator implements Translator {
     @Override
     public String translate(String country, String language) {
         for (String key : country_name_translations.keySet()) {
-            if(key.equals(country.toLowerCase())){
+            if (key.equals(country.toLowerCase())) {
                 return country_name_translations.get(key).get(language);
             }
         }
