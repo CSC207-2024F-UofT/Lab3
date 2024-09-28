@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
+ * Completed
  * A minimal example of reading and using the JSON data from resources/sample.json.
  */
 public class JSONTranslationExample {

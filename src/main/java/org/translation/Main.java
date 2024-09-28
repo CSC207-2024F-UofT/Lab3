@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ * Completed
  * Main class for this program.
  * Complete the code according to the "to do" notes.<br/>
  * The system will:<br/>
@@ -22,7 +23,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        // TODO Task: once you finish the JSONTranslator,
+        // Task: once you finish the JSONTranslator,
         //            you can use it here instead of the InLabByHandTranslator
         //            to try out the whole program!
         Translator translator = new JSONTranslator("sample.json");
@@ -51,7 +52,7 @@ public class Main {
             if (language.equals(q)) {
                 break;
             }
-            // TODO Task: Once you switch promptForLanguage so that it returns the language
+            // Task: Once you switch promptForLanguage so that it returns the language
             //            name rather than the 2-letter language code, you will need to
             //            convert it back to its 2-letter language code when calling translate.
             //            Note: you should use the actual names in the message printed below though,
