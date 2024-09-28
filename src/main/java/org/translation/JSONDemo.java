@@ -23,7 +23,7 @@ public class JSONDemo {
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         System.out.println(jsonObject);
         System.out.println(jsonObject.getString("key1"));
-        System.out.println(jsonObject.getInt("key2"));  // but here we assumed that there is
+        System.out.println(jsonObject.getInt("key2"));
         System.out.println(getKeyOneOfSecond(jsonArray));
     }
 

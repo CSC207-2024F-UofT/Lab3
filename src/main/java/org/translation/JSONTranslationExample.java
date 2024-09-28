@@ -1,3 +1,4 @@
+
 package org.translation;
 
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class JSONTranslationExample {
 
     /**
      * Returns the Spanish translation of Canada.
+     *
      * @return the Spanish translation of Canada
      */
     public String getCanadaCountryNameSpanishTranslation() {
@@ -41,41 +43,41 @@ public class JSONTranslationExample {
         return canada.getString("es");
     }
 
-    // TODO Task: Complete the method below to generalize the above to get the country name
-    //            for any country code and language code from sample.json.
-
     /**
      * Returns the name of the country based on the provided country and language codes.
-     * @param countryCode the country, as its three-letter code.
+     *
+     * @param countryCode  the country, as its three-letter code.
      * @param languageCode the language to translate to, as its two-letter code.
      * @return the translation of country to the given language or "Country not found" if there is no translation.
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
-            String lower_case = countryCode.toLowerCase();
-            int  i = 0;
-            for (i = 0; i < jsonArray.length(); i++) {
-                JSONObject first = jsonArray.getJSONObject(i);
-
-                if (first.has(lower_case)) {
-                    if (first.getString(languageCode) == null) {
-                        return "Country not found";
-                    }
-                    else { return first.getString(languageCode); }
+        String result = "";
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject country = jsonArray.getJSONObject(i);
+            if (country.getString("alpha3").equals(countryCode)) {
+                if (country.getString(languageCode) == null) {
+                    result = "Country not found";
+                }
+                else {
+                    result = country.getString(languageCode);
+                }
+                break;
             }
-                i = i + 1;
+        }
+        return result;
     }
-        // so in this we have to work as the
 
     /**
      * Prints the Spanish translation of Canada.
+     *
      * @param args not used
      */
 
     public static void main(String[] args) {
-            JSONTranslationExample jsonTranslationExample = new JSONTranslationExample();
+        JSONTranslationExample jsonTranslationExample = new JSONTranslationExample();
 
-            System.out.println(jsonTranslationExample.getCanadaCountryNameSpanishTranslation());
-            String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
-            System.out.println(translation);
-        }
-    }}
+        System.out.println(jsonTranslationExample.getCanadaCountryNameSpanishTranslation());
+        String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
+        System.out.println(translation);
+    }
+}

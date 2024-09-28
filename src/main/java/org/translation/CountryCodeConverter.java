@@ -1,21 +1,21 @@
+
 package org.translation;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides the service of converting country codes to their names.
  */
 public class CountryCodeConverter {
-    private String countryname;
-    private String alpha2code;
-    private String alpha3code;
-    private int numerc;
-    // do we aassign the variable to
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
+
+    private final Map<String, String> countryCodes = new HashMap<>();
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -30,23 +30,23 @@ public class CountryCodeConverter {
      * @param filename the name of the file in the resources folder to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
-    @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:SuppressWarnings", "checkstyle:WhitespaceAround"})
     public CountryCodeConverter(String filename) {
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
-            // so it converts the txt file into json file
-            for (String line : lines) {
-                String[] parts = line.split("/t");
-                if (parts.length == 4){
-                    this.countryname = parts[0];
-                    this.alpha2code = parts[1];
-                    this.alpha3code = parts[2];
-                    this.numerc = Integer.parseInt(parts[3]);
-                }
 
+            lines = lines.subList(1, lines.size());
+            List<String[]> linesList = new ArrayList<>();
+
+            for (String line : lines) {
+                linesList.add(line.split("\t"));
             }
+
+            for (String[] line : linesList) {
+                countryCodes.put(line[2].toLowerCase(), line[0]);
+            }
+
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -60,8 +60,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-
+        return countryCodes.get(code);
     }
 
     /**
@@ -70,8 +69,7 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        return countryCodes.get(country);
     }
 
     /**
@@ -79,27 +77,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
-    }
-
-    @SuppressWarnings({"checkstyle:DesignForExtension", "checkstyle:SuppressWarnings"})
-    public String getCountryname() {
-        return countryname;
-    }
-
-    @SuppressWarnings({"checkstyle:DesignForExtension", "checkstyle:SuppressWarnings"})
-    public String getAlpha2code() {
-        return alpha2code;
-    }
-
-    @SuppressWarnings({"checkstyle:DesignForExtension", "checkstyle:SuppressWarnings"})
-    public String getAlpha3code() {
-        return alpha3code;
-    }
-
-    @SuppressWarnings({"checkstyle:DesignForExtension", "checkstyle:SuppressWarnings"})
-    public int getNumerc() {
-        return numerc;
+        return countryCodes.size();
     }
 }
