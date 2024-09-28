@@ -37,8 +37,8 @@ public class LanguageCodeConverter {
             for (int i = 1; i < lines.size(); i++) {
                 String line = lines.get(i);
                 String[] lineSep = line.split("\t");
-                languageCode.put(lineSep[2], lineSep[0]);
-                languageName.put(lineSep[0], lineSep[2]);
+                languageCode.put(lineSep[1], lineSep[0]);
+                languageName.put(lineSep[0], lineSep[1]);
             }
         }
         catch (IOException | URISyntaxException ex) {
