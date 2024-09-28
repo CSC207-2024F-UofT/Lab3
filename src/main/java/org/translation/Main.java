@@ -2,9 +2,6 @@ package org.translation;
 
 import java.util.*;
 
-import static java.util.Collections.checkedCollection;
-import static java.util.Collections.sort;
-
 /**
  * Main class for this program.
  * Complete the code according to the "to do" notes.<br/>
@@ -23,8 +20,8 @@ public class Main {
      */
 
     public static void main(String[] args) {
-         Translator translator = new JSONTranslator();
-//        Translator translator = new InLabByHandTranslator();
+        Translator translator = new JSONTranslator();
+        // Translator translator = new InLabByHandTranslator();
 
         runProgram(translator);
     }
@@ -43,16 +40,16 @@ public class Main {
                 break;
             }
             CountryCodeConverter converter = new CountryCodeConverter();
-            String country_code = converter.fromCountry(country);
-            String language = promptForLanguage(translator, country_code);
+            String countryCode = converter.fromCountry(country);
+            String language = promptForLanguage(translator, countryCode);
             if (language.equals(Q)) {
                 break;
             }
 
             LanguageCodeConverter converter1 = new LanguageCodeConverter();
-            String language_code = converter1.fromLanguage(language);
+            String languageCode = converter1.fromLanguage(language);
 
-            System.out.println(country + " in " + language + " is " + translator.translate(country_code, language_code));
+            System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -69,13 +66,13 @@ public class Main {
         CountryCodeConverter converter = new CountryCodeConverter();
         List<String> temp = new ArrayList<>();
 
-        for(String country_code : countries){
-            temp.add(converter.fromCountryCode(country_code));
+        for (String countryCode : countries) {
+            temp.add(converter.fromCountryCode(countryCode));
         }
 
         Collections.sort(temp);
 
-        for(String temp2 : temp){
+        for (String temp2 : temp) {
             System.out.println(temp2);
         }
 
@@ -88,19 +85,19 @@ public class Main {
 
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
-        var translation_list = translator.getCountryLanguages(country);
+        var translationList = translator.getCountryLanguages(country);
         LanguageCodeConverter converter = new LanguageCodeConverter();
 
         List<String> temp3 = new ArrayList<>();
 
-        for(String language : translation_list){
+        for (String language : translationList) {
             var split1  = language.split(":");
             temp3.add(converter.fromLanguageCode(split1[0]));
         }
 
         Collections.sort(temp3);
 
-        for(String temp4 : temp3){
+        for (String temp4 : temp3) {
             System.out.println(temp4);
         }
 
