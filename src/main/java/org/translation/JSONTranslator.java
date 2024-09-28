@@ -61,7 +61,7 @@ public class JSONTranslator implements Translator {
                 countriesToLangCode.put(countryCode, keysList);
 
                 Map<String, String> languages = new HashMap<>();
-                for (int k = 3; k < country.length(); k++) {
+                for (int k = 0; k < country.length(); k++) {
                     String langKey = keysList.get(k);
                     languages.put(langKey, country.getString(langKey));
                 }
