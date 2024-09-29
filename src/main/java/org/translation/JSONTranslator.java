@@ -18,7 +18,7 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    public static Map<String, Map<String, String>> country_name_translations = new HashMap<>();
+    public static Map<String, Map<String, String>> countryNameTranslations = new HashMap<>();
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -46,13 +46,13 @@ public class JSONTranslator implements Translator {
 
                 // Populate the inner map with key-value pairs
                 for (String key : jsonObject.keySet()) {
-                    if (!key.equals("alpha3") && !key.equals("id") && !key.equals("alpha2")) {
+                    if (!"alpha3".equals(key) && !"id".equals(key) && !"alpha2".equals(key)) {
                         innerMap.put(key, jsonObject.getString(key));
                     }
 
                 }
                 // Add the inner map to the outer map
-                country_name_translations.put(alpha3, innerMap);
+                countryNameTranslations.put(alpha3, innerMap);
             }
 
         }
@@ -64,7 +64,7 @@ public class JSONTranslator implements Translator {
     @Override
     public List<String> getCountryLanguages(String country) {
         HashMap<String, String> innerMap =
-                (HashMap<String, String>) country_name_translations.get(country.toLowerCase());
+                (HashMap<String, String>) countryNameTranslations.get(country.toLowerCase());
         List<String> translationsList = new ArrayList<>();
 
         for (String key : innerMap.keySet()) {
@@ -78,16 +78,16 @@ public class JSONTranslator implements Translator {
     @Override
     public List<String> getCountries() {
         // basically we grab all the keys from the hashmap, then cast them to an arraylist.
-        var temp1 = country_name_translations.keySet();
+        var temp1 = countryNameTranslations.keySet();
 
         return new ArrayList<>(temp1);
     }
 
     @Override
     public String translate(String country, String language) {
-        for (String key : country_name_translations.keySet()) {
+        for (String key : countryNameTranslations.keySet()) {
             if (key.equals(country.toLowerCase())) {
-                return country_name_translations.get(key).get(language);
+                return countryNameTranslations.get(key).get(language);
             }
         }
         return null;

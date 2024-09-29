@@ -91,7 +91,7 @@ public class Main {
         List<String> temp3 = new ArrayList<>();
 
         for (String language : translationList) {
-            var split1  = language.split(":");
+            var split1 = language.split(":");
             temp3.add(converter.fromLanguageCode(split1[0]));
         }
 
