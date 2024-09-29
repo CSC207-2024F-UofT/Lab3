@@ -6,13 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-
 /**
  * This class provides the service of converting language codes to their names.
  */
 public class LanguageCodeConverter {
 
-    public static Map<String, String> language_codes = new HashMap<>();
+    public static Map<String, String> languageCodes = new HashMap<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -44,16 +43,15 @@ public class LanguageCodeConverter {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
                 if (parts.length == 2) {
-                    language_codes.put(parts[0], parts[1]);
+                    languageCodes.put(parts[0], parts[1]);
                 }
                 else {
                     String[] countries = Arrays.copyOfRange(parts, 0, parts.length - 1);
-                    String country_strings = String.join(" ", countries);
-                    language_codes.put(country_strings, parts[language_codes.size() - 1]);
+                    String countryStrings = String.join(" ", countries);
+                    languageCodes.put(countryStrings, parts[languageCodes.size() - 1]);
                 }
             }
-        }
-        catch (IOException | URISyntaxException ex) {
+        } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
 
@@ -65,7 +63,7 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        for (Map.Entry<String, String> entry : language_codes.entrySet()) {
+        for (Map.Entry<String, String> entry : languageCodes.entrySet()) {
             if (entry.getValue().equals(code)) {
                 return entry.getKey();
             }
@@ -79,7 +77,7 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        return language_codes.getOrDefault(language, "code not found");
+        return languageCodes.getOrDefault(language, "code not found");
     }
 
     /**
@@ -87,6 +85,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        return language_codes.size();
+        return languageCodes.size();
     }
 }

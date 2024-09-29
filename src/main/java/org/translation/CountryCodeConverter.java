@@ -8,15 +8,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-// note one of the TODOs was that hashMap has to be above util.list, fix it if you need it.
-
 /**
  * This class provides the service of converting country codes to their names.
  */
+
 public class CountryCodeConverter {
 
     // maybe did pick appropriate instance variable(s) to store the data necessary for this class
-    public static Map<String,String> country_codes = new HashMap<>();
+    public static Map<String, String> countryCodes = new HashMap<>();
+    static final int THREE = 3;
+    static final int FOUR = 4;
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -45,22 +46,22 @@ public class CountryCodeConverter {
                 iterator.next();
             }
 
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
-                if (parts.length == 4) {
-                    country_codes.put(parts[2], parts[0]);
+                if (parts.length == FOUR) {
+                    countryCodes.put(parts[2], parts[0]);
                 }
                 else {
-                    String[] country_names = Arrays.copyOfRange(parts, 0, parts.length - 4);
-                    String country_name = String.join(" ", country_names);
-                    String country_code_3 = String.join(" ", parts[parts.length - 3]);
-                    country_codes.put(country_code_3, country_name);
+                    String[] countryNames = Arrays.copyOfRange(parts, 0, parts.length - FOUR);
+                    String countryName = String.join(" ",
+                            countryNames);
+                    String countryCode3 = String.join(" ",
+                            parts[parts.length - THREE]);
+                    countryCodes.put(countryCode3, countryName);
                 }
             }
-
-        }
-        catch (IOException | URISyntaxException ex) {
+        } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
 
@@ -72,10 +73,9 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // maybe did: update this code to use an instance variable to return the correct value
-        String uppercase_Code = code.toUpperCase();
-        for(Map.Entry<String,String> entry : country_codes.entrySet()) {
-            if(uppercase_Code.equals(entry.getKey())) {
+        String uppercaseCode = code.toUpperCase();
+        for (Map.Entry<String, String> entry : countryCodes.entrySet()) {
+            if (uppercaseCode.equals(entry.getKey())) {
                 return entry.getValue();
             }
         }
@@ -88,9 +88,8 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // maybe did: update this code to use an instance variable to return the correct value
-        for(Map.Entry<String,String> entry: country_codes.entrySet()) {
-            if(entry.getValue().equals(country)) {
+        for (Map.Entry<String, String> entry: countryCodes.entrySet()) {
+            if (entry.getValue().equals(country)) {
                 return entry.getKey();
             }
         }
@@ -102,7 +101,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // maybe did: update this code to use an instance variable to return the correct value
-        return country_codes.size();
+        return countryCodes.size();
     }
 }
