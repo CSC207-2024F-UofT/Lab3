@@ -33,7 +33,7 @@ The main reason we want to introduce Maven today is that we'll be using an
 external library to help us read JSON data. The `pom.xml` file allows us to specify
 what external dependencies our project requires. If you open
 `pom.xml`, you will see a section like below which indicates that our project depends
-on the `junit` and `json` libraries.
+on the `junit` and `json` libraries. so maven is important when you have to read the json file yourself 
 
 ```xml
 <dependencies>
@@ -140,7 +140,8 @@ to complete this code. If you have time, you can get started on writing some of 
 ### JSON
 
 JSON provides a way to represent objects: key-value pairs, in a simple format. Since the format is standard,
-languages like Java have libraries which allow us to conveniently read JSON data.
+languages like Java have libraries which allow us to conveniently read JSON data. // there will be libraries used to for json data and 
+it will in type of dictionary data 
 
 Note: There is some nice discussion of various options for parsing JSON at
 https://stackoverflow.com/questions/2591098/how-to-parse-json-in-java. Today, we'll use a specific library in Java,
@@ -168,7 +169,7 @@ Open the `src/main/resources/sample.json` file. It contains the JSON data we'll 
 using for this program. It is like the small example we just saw, but contains more entries.
 Each object will have exactly the same keys as listed below:
 - "id": an integer uniquely identifying each object
-- "alpha2": two character string country code (note: we won't use this key at all)
+- "alpha2": two character string country code (note: we won't use this key at all) no use of alpha too
 - "alpha3": three character string country code
 - 35 other keys corresponding to 35 different languages; each key is a language code
 
