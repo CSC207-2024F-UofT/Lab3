@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class LanguageCodeConverter {
 
-    public static Map<String, String> languageCodes = new HashMap<>();
+    private static Map<String, String> languageCodes = new HashMap<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -51,7 +51,8 @@ public class LanguageCodeConverter {
                     languageCodes.put(countryStrings, parts[languageCodes.size() - 1]);
                 }
             }
-        } catch (IOException | URISyntaxException ex) {
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
 

@@ -18,7 +18,7 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    public static Map<String, Map<String, String>> countryNameTranslations = new HashMap<>();
+    private static Map<String, Map<String, String>> countryNameTranslations = new HashMap<>();
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
