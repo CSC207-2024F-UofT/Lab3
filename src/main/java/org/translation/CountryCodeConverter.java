@@ -60,7 +60,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return countryCodes.get(code);
+        return countryCodes.get(code.toLowerCase());
     }
 
     /**
@@ -69,7 +69,13 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        return countryCodes.get(country);
+        String code = null;
+        for (Map.Entry<String, String> entry : countryCodes.entrySet()) {
+            if (entry.getValue().equals(country)) {
+                code = entry.getKey();
+            }
+        }
+        return code;
     }
 
     /**

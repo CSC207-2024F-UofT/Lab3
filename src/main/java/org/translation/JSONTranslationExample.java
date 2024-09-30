@@ -1,4 +1,3 @@
-
 package org.translation;
 
 import java.io.IOException;
@@ -55,14 +54,15 @@ public class JSONTranslationExample {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject country = jsonArray.getJSONObject(i);
             if (country.getString("alpha3").equals(countryCode)) {
-                if (country.getString(languageCode) == null) {
-                    result = "Country not found";
+                if (country.has(languageCode)) {
+                    result = country.getString(languageCode);
                 }
                 else {
-                    result = country.getString(languageCode);
+                    result = "Country not found";
                 }
                 break;
             }
+            result = "Country not found";
         }
         return result;
     }
