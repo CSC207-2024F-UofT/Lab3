@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public class LanguageCodeConverter {
 
-    private Map<String, String> LanguageToCode;
-    private Map<String, String> CodeToLanguage;
+    private final Map<String, String> languageToCode;
+    private final Map<String, String> codeToLanguage;
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -30,8 +30,8 @@ public class LanguageCodeConverter {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public LanguageCodeConverter(String filename) {
-        LanguageToCode = new HashMap<>();
-        CodeToLanguage = new HashMap<>();
+        languageToCode = new HashMap<>();
+        codeToLanguage = new HashMap<>();
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
@@ -40,8 +40,8 @@ public class LanguageCodeConverter {
             for (String line : lines) {
                 String[] parts = line.split("\t");
 
-                LanguageToCode.put(parts[0], parts[1]);
-                CodeToLanguage.put(parts[1], parts[0]);
+                languageToCode.put(parts[0], parts[1]);
+                codeToLanguage.put(parts[1], parts[0]);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -56,7 +56,7 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        return CodeToLanguage.get(code);
+        return codeToLanguage.get(code);
     }
 
     /**
@@ -65,7 +65,7 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        return LanguageToCode.get(language);
+        return languageToCode.get(language);
     }
 
     /**
@@ -73,6 +73,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        return LanguageToCode.size();
+        return languageToCode.size();
     }
 }
