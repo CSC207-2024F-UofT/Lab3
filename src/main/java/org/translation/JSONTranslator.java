@@ -18,7 +18,7 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    public static Map<String, Map<String, String>> countryNameTranslations = new HashMap<>();
+    private static Map<String, Map<String, String>> countryNameTranslations = new HashMap<>();
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -42,7 +42,7 @@ public class JSONTranslator implements Translator {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String alpha3 = jsonObject.getString("alpha3");
-                HashMap<String, String> innerMap = new HashMap<>();
+                Map<String, String> innerMap = new HashMap<>();
 
                 // Populate the inner map with key-value pairs
                 for (String key : jsonObject.keySet()) {
@@ -63,7 +63,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        HashMap<String, String> innerMap =
+        Map<String, String> innerMap =
                 (HashMap<String, String>) countryNameTranslations.get(country.toLowerCase());
         List<String> translationsList = new ArrayList<>();
 

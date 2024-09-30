@@ -4,14 +4,17 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides the service of converting language codes to their names.
  */
 public class LanguageCodeConverter {
 
-    public static Map<String, String> languageCodes = new HashMap<>();
+    private static Map<String, String> languageCodes = new HashMap<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -51,7 +54,8 @@ public class LanguageCodeConverter {
                     languageCodes.put(countryStrings, parts[languageCodes.size() - 1]);
                 }
             }
-        } catch (IOException | URISyntaxException ex) {
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
 

@@ -1,6 +1,9 @@
 package org.translation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Main class for this program.
@@ -11,6 +14,7 @@ import java.util.*;
  * - output the translation<br/>
  * - at any time, the user can type quit to quit the program<br/>
  */
+
 public class Main {
     public static final String Q = "quit";
     /**
@@ -21,7 +25,6 @@ public class Main {
 
     public static void main(String[] args) {
         Translator translator = new JSONTranslator();
-        // Translator translator = new InLabByHandTranslator();
 
         runProgram(translator);
     }

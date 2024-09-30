@@ -14,10 +14,9 @@ import java.util.Map;
 
 public class CountryCodeConverter {
 
-    // maybe did pick appropriate instance variable(s) to store the data necessary for this class
-    public static Map<String, String> countryCodes = new HashMap<>();
     static final int THREE = 3;
     static final int FOUR = 4;
+    private static Map<String, String> countryCodes = new HashMap<>();
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -61,7 +60,8 @@ public class CountryCodeConverter {
                     countryCodes.put(countryCode3, countryName);
                 }
             }
-        } catch (IOException | URISyntaxException ex) {
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
 
