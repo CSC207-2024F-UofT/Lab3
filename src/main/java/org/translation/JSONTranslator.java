@@ -15,7 +15,8 @@ import org.json.JSONArray;
  */
 public class JSONTranslator implements Translator {
 
-    // TODO Task: pick appropriate instance variables for this class
+    private final List<String> countries;
+    private final List<List<String>> languagesByCountry;
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -30,6 +31,9 @@ public class JSONTranslator implements Translator {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public JSONTranslator(String filename) {
+        countries = new ArrayList<>();
+        languagesByCountry = new ArrayList<>();
+
         // read the file to get the data to populate things...
         try {
 
@@ -39,6 +43,7 @@ public class JSONTranslator implements Translator {
 
             // TODO Task: use the data in the jsonArray to populate your instance variables
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
+
 
         }
         catch (IOException | URISyntaxException ex) {
