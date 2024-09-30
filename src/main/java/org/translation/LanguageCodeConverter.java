@@ -46,12 +46,10 @@ public class LanguageCodeConverter {
                     languageToCodeMap.put(parts[0], parts[1]);
                 }
             }
-        // TODO Checkstyle: '}' on next line should be alone on a line.
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
     /**
@@ -80,6 +78,6 @@ public class LanguageCodeConverter {
      */
     public int getNumLanguages() {
         // TODO Task: update this code to use your instance variable to return the correct value
-        return codeToLanguageMap.size();
+        return codeToLanguageMap.size() - 1 ;
     }
 }

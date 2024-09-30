@@ -14,6 +14,7 @@ import java.util.List;
  * the country code "can" to several languages.
  */
 public class InLabByHandTranslator implements Translator {
+    public static final String CANADA = "can";
     /**
      * Returns the language abbreviations for all languages whose translations are
      * available for the given country.
@@ -21,17 +22,17 @@ public class InLabByHandTranslator implements Translator {
      * @param country the country
      * @return list of language abbreviations which are available for this country
      */
+
     @Override
     public List<String> getCountryLanguages(String country) {
         // TODO Checkstyle: The String "can" appears 4 times in the file.
-        if ("can".equals(country)) {
+        if (CANADA.equals(country)) {
             return new ArrayList<>(List.of("de", "en", "zh"));
         }
         return new ArrayList<>();
     }
 
     // TODO Checkstyle: Static variable definition in wrong order.
-    public static final String CANADA = "can";
 
     /**
      * Returns the country abbreviations for all countries whose translations are
@@ -51,24 +52,19 @@ public class InLabByHandTranslator implements Translator {
      * @param language the language
      * @return the name of the country in the given language or null if no translation is available
      */
+
     @Override
     public String translate(String country, String language) {
         // TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
         // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
-        if (!country.equals("can")) {
+        if (!CANADA.equals(country)) {
             return null;
         }
-        if (language.equals("de")) {
-            return "Kanada";
-        }
-        else if (language.equals("en")) {
-            return "Canada";
-        }
-        else if ("zh".equals(language)) {
-            return "加拿大";
-        }
-        else {
-            return null;
-        }
+        return switch (language) {
+            case "de" -> "Kanada";
+            case "en" -> "Canada";
+            case "zh" -> "加拿大";
+            default -> null;
+        };
     }
 }

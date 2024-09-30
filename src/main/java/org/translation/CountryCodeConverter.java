@@ -12,7 +12,7 @@ import java.util.Map;
  * This class provides the service of converting country codes to their names.
  */
 public class CountryCodeConverter {
-
+    public static final int INDEX = 4;
     // TODO Task
     private final Map<String, String> codeToCountryMap;
     private final Map<String, String> countryToCodeMap;
@@ -20,6 +20,7 @@ public class CountryCodeConverter {
      * Default constructor which will load the country codes from "country-codes.txt"
      * in the resources folder.
      */
+
     public CountryCodeConverter() {
         this("country-codes.txt");
     }
@@ -41,13 +42,11 @@ public class CountryCodeConverter {
 
             for (String line : lines) {
                 String[] parts = line.split("\t");
-                if (parts.length == 4) {
+                if (parts.length == INDEX) {
                     codeToCountryMap.put(parts[2].toLowerCase(), parts[0]);
                     countryToCodeMap.put(parts[0], parts[2].toLowerCase());
                 }
             }
-
-
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
