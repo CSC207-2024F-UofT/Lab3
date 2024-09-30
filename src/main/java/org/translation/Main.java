@@ -2,6 +2,8 @@ package org.translation;
 
 import java.util.List;
 import java.util.Scanner;
+import org.translation.CountryCodeConverter;
+import org.translation.LanguageCodeConverter;
 
 /**
  * Main class for this program.
@@ -39,6 +41,9 @@ public class Main {
      * @param translator the Translator implementation to use in the program
      */
     public static void runProgram(Translator translator) {
+        CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+        LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
+
         while (true) {
             String country = promptForCountry(translator);
             if (QUIT_COMMAND.equals(country)) {
@@ -47,6 +52,13 @@ public class Main {
             // TODO Task: Once you switch promptForCountry so that it returns the country
             //            name rather than the 3-letter country code, you will need to
             //            convert it back to its 3-letter country code when calling promptForLanguage
+            String CountryCode = countryCodeConverter.fromCountry(country);
+            if (CountryCode == null) {
+                System.out.println("Invalid country name. Please try again.");
+                continue;
+            }
+
+
             String language = promptForLanguage(translator, country);
             if (QUIT_COMMAND.equals(language)) {
                 break;
@@ -56,6 +68,13 @@ public class Main {
             //            convert it back to its 2-letter language code when calling translate.
             //            Note: you should use the actual names in the message printed below though,
             //            since the user will see the displayed message.
+
+            String languageCode = languageCodeConverter.fromLanguage(language);
+            if (languageCode == null) {
+                System.out.println("Invalid language name. Please try again.");
+                continue; // Prompt again for a valid language
+            }
+
             System.out.println(country + " in " + language + " is " + translator.translate(country, language));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
