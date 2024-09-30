@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,11 @@ import java.util.Map;
  */
 public class LanguageCodeConverter {
 
-    // TODO Task: pick appropriate instance variables to store the data necessary for this class
+    // task 1: pick appropriate instance variables to store the data necessary for this class.
+
+    // We'll store the code of the language as the key of the map, and the name of the country as the value.
+
+    private Map<String, String> directory = new HashMap<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -34,11 +39,20 @@ public class LanguageCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // TODO Task: use lines to populate the instance variable
-            //           tip: you might find it convenient to create an iterator using lines.iterator()
+            // Task 2: use lines to populate the instance variable
+            // you might find it convenient to create an iterator using lines.iterator()
 
-        // TODO Checkstyle: '}' on next line should be alone on a line.
-        } catch (IOException | URISyntaxException ex) {
+            Iterator<String> iterate = lines.iterator();
+            iterate.next();
+            while (iterate.hasNext()) {
+                String line = iterate.next();
+                int lastIndex = line.lastIndexOf("\t");
+                this.directory.put(line.substring(lastIndex + 1), line.substring(0, lastIndex));
+            }
+        }
+        // The } needs to be alone in this line due to the custom configuration.
+
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
 
@@ -50,8 +64,8 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+        // Task 3: update this code to use your instance variable to return the correct value
+        return this.directory.get(code);
     }
 
     /**
@@ -59,9 +73,17 @@ public class LanguageCodeConverter {
      * @param language the name of the language
      * @return the 2-letter code of the language
      */
+
     public String fromLanguage(String language) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return language;
+        // Task 4: update this code to use your instance variable to return the correct value
+        String countryCode = "";
+        for (Map.Entry<String, String> entry : this.directory.entrySet()) {
+            if (entry.getValue().equals(language)) {
+                countryCode = entry.getKey();
+                break;
+            }
+        }
+        return countryCode;
     }
 
     /**
@@ -69,7 +91,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return 0;
+        return this.directory.size();
     }
 }
