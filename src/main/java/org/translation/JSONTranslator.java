@@ -37,6 +37,7 @@ public class JSONTranslator implements Translator {
 
     public JSONTranslator(String filename) {
         // read the file to get the data to populate things...
+        this.translations = new HashMap<>();
         try {
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
 
@@ -59,6 +60,7 @@ public class JSONTranslator implements Translator {
                     }
                     countryTranslations.put(countryCode, translations);
                 }
+
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -72,13 +74,16 @@ public class JSONTranslator implements Translator {
             return new ArrayList<>(countryTranslations.get(country).keySet());
         }
         return Collections.emptyList();
+
     }
 
     @Override
     public List<String> getCountries() {
+
         // TODO Task: return an appropriate list of country codes,
         //            but make sure there is no aliasing to a mutable object
         return new ArrayList<>(countryTranslations.keySet());
+
     }
 
     @Override
