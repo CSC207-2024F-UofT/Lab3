@@ -41,8 +41,6 @@ public class Main {
     public static void runProgram(Translator translator) {
         while (true) {
             String country = promptForCountry(translator);
-            // TODO CheckStyle: The String "quit" appears 3 times in the file.
-            // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
             if (QUIT_COMMAND.equals(country)) {
                 break;
             }
@@ -50,7 +48,7 @@ public class Main {
             //            name rather than the 3-letter country code, you will need to
             //            convert it back to its 3-letter country code when calling promptForLanguage
             String language = promptForLanguage(translator, country);
-            if (language.equals(QUIT_COMMAND)) {
+            if (QUIT_COMMAND.equals(language)) {
                 break;
             }
             // TODO Task: Once you switch promptForLanguage so that it returns the language
@@ -63,7 +61,7 @@ public class Main {
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
 
-            if ("quit".equals(textTyped)) {
+            if (QUIT_COMMAND.equals(textTyped)) {
                 break;
             }
         }

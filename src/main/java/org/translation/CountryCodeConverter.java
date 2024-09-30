@@ -32,24 +32,31 @@ public class CountryCodeConverter {
     public CountryCodeConverter(String filename) {
         CountryToAlpha3 = new HashMap<>();
         Alpha3ToCountry = new HashMap<>();
-
+        //hello
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            for (String line : lines) {
-                String[] split = line.split("\\s+");
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i);
+                String[] parts = line.split("\\s+");
 
-                if (split.length >= 4) {
-                    String countryName = split[0].trim();
-                    String alpha3Code = split[2].trim();
+                if (parts.length >= 4) {
+
+                    StringBuilder countryNameBuilder = new StringBuilder();
+                    for (int j = 0; j < parts.length - 3; j++) {
+                        countryNameBuilder.append(parts[j]).append(" ");
+                    }
+                    String countryName = countryNameBuilder.toString().trim();
+
+                    String alpha3Code = parts[parts.length - 2].trim().toLowerCase();
 
                     Alpha3ToCountry.put(alpha3Code, countryName);
                     CountryToAlpha3.put(countryName, alpha3Code);
                 }
             }
-
         }
+
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
