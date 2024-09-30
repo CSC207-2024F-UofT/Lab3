@@ -4,17 +4,19 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-// TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 /**
  * This class provides the service of converting country codes to their names.
  */
+
 public class CountryCodeConverter {
 
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
+    static final int THREE = 3;
+    static final int FOUR = 4;
+    private static Map<String, String> countryCodes = new HashMap<>();
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -35,8 +37,29 @@ public class CountryCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // TODO Task: use lines to populate the instance variable(s)
+            // maybe did: use lines to populate the instance variable(s)
+            var iterator = lines.iterator();
 
+            // skips header
+            if (iterator.hasNext()) {
+                iterator.next();
+            }
+
+            while (iterator.hasNext()) {
+                String line = iterator.next();
+                String[] parts = line.split("\t");
+                if (parts.length == FOUR) {
+                    countryCodes.put(parts[2], parts[0]);
+                }
+                else {
+                    String[] countryNames = Arrays.copyOfRange(parts, 0, parts.length - FOUR);
+                    String countryName = String.join(" ",
+                            countryNames);
+                    String countryCode3 = String.join(" ",
+                            parts[parts.length - THREE]);
+                    countryCodes.put(countryCode3, countryName);
+                }
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -50,8 +73,13 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        String uppercaseCode = code.toUpperCase();
+        for (Map.Entry<String, String> entry : countryCodes.entrySet()) {
+            if (uppercaseCode.equals(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+        return "N/A";
     }
 
     /**
@@ -60,8 +88,12 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        for (Map.Entry<String, String> entry: countryCodes.entrySet()) {
+            if (entry.getValue().equals(country)) {
+                return entry.getKey();
+            }
+        }
+        return "N/A";
     }
 
     /**
@@ -69,7 +101,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        return countryCodes.size();
     }
 }
