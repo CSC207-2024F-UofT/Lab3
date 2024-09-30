@@ -13,7 +13,8 @@ import java.util.Map;
  */
 public class LanguageCodeConverter {
 
-    // TODO Task: pick appropriate instance variables to store the data necessary for this class
+    private Map<String, String> LanguageToCode;
+    private Map<String, String> CodeToLanguage;
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -29,14 +30,19 @@ public class LanguageCodeConverter {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public LanguageCodeConverter(String filename) {
+        LanguageToCode = new HashMap<>();
+        CodeToLanguage = new HashMap<>();
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // TODO Task: use lines to populate the instance variable
-            //           tip: you might find it convenient to create an iterator using lines.iterator()
-            // DONE Checkstyle: '}' on next line should be alone on a line.
+            for (String line : lines) {
+                String[] parts = line.split("\t");
+
+                LanguageToCode.put(parts[0], parts[1]);
+                CodeToLanguage.put(parts[1], parts[0]);
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -50,8 +56,7 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+        return CodeToLanguage.get(code);
     }
 
     /**
@@ -60,8 +65,7 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return language;
+        return LanguageToCode.get(language);
     }
 
     /**
@@ -69,7 +73,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return 0;
+        return LanguageToCode.size();
     }
 }
