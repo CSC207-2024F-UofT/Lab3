@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
+ * Completed
  * Example working with JSON data. The data consists of an array with two objects in it.
  * Each object has two key-value pairs in it.
  */
@@ -33,8 +34,7 @@ public class JSONDemo {
      * @return value of key "key1" from the second object in the given jsonArray
      */
     public static String getKeyOneOfSecond(JSONArray jsonArray) {
-        // TODO: Complete this method.
-        return "";
+        return jsonArray.getJSONObject(1).getString("key1");
     }
 
 }
