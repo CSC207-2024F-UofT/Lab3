@@ -11,7 +11,7 @@ during the lab.**
 ## Part 1: Maven Project
 As discussed earlier in the term, build systems are used to help programmers
 compile, run, and test their programs. In this lab, we'll be using Maven to
-organize and build our program.
+organize and build our program. (For your project, you can use either Maven or Gradle, just make sure that you team agrees on one of them.)
 
 ### Project Structure
 Take a second to get familiar with how this project is structured. Maven projects
@@ -22,7 +22,7 @@ are structured in a specific way, which isn't too different from what we have se
 - src/test/java: directory containing the test files for our project (note that it is automatically marked as the Test Sources Root)
 
 Note: sometimes you may need to right-click the `pom.xml` file and select `Maven -> Reload project' if you
-don't see the sources root folders marked automatically.
+don't see the sources root folders marked automatically. You can visit this Intellij page to learn how to tell if a folder has been marked as a source root, along with other status colours: https://www.jetbrains.com/help/idea/content-roots.html#folder-categories.
 
 Note: For those interested, you can read the Maven documentation to learn about the `mvn` commands (like Git, Maven has a command line interface)
 but for our purposes you can use the IntelliJ interface to run and test your code as you have been doing.
@@ -54,6 +54,7 @@ on the `junit` and `json` libraries.
 ```
 Maven will automatically download these libraries for us. In the Project Tool Window,
 you can see the `External Libraries` listed.
+![image](./images/external-libraries.png)
 
 When adding dependencies, you can use websites like https://mvnrepository.com to find
 what entry you need to add to your `pom.xml` in order to add the dependency to your project.
@@ -61,6 +62,11 @@ what entry you need to add to your `pom.xml` in order to add the dependency to y
 For example, the `json` dependency was obtained from https://mvnrepository.com/artifact/org.json/json/20240303.
 You'll also see that you can select other formats for the dependency information if you are
 using a different build system, such as Gradle.
+
+Alternatively, Maven has an "App-Store-Like" library repository where you can download the library. You can do it by clicking File -> Project Structure -> Libraries -> + -> From Maven.
+![image](./images/maven-library.png)
+
+Note: for this lab activity, you don't need to add any dependency because we have already configured the `pom.xml` file for you. However, it is important to know what's going on behind the scenes. In your own project, chance is high that you will need to work with an external library. If you have time, you can start by using a different library for JSON by adding it yourself.
 
 ### Running your code and tests
 Take a second to ensure that you are able to run everything that you need to in the project.
