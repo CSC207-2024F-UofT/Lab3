@@ -1,4 +1,4 @@
-ISO Language Names  Code
+ISO Language Names	Code
 Abkhazian	ab
 Afar	aa
 Afrikaans	af
