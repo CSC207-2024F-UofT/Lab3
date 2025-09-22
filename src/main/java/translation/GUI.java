@@ -1,7 +1,13 @@
 package translation;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import org.json.*;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -13,12 +19,37 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            // Initialize the JSONTranslator
+            Translator translator = new JSONTranslator();
+
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
-            countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+            countryPanel.add(new JLabel("Country:"), 0);
+
+            // Read JSON file to get English country names
+            Map<String, String> countryCodeToName = new HashMap<>();
+            try {
+                String jsonString = Files.readString(Paths.get(GUI.class.getClassLoader().getResource("sample.json").toURI()));
+                JSONArray jsonArray = new JSONArray(jsonString);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject countryData = jsonArray.getJSONObject(i);
+                    String countryCode = countryData.getString("alpha3");
+                    String englishName = countryData.getString("en");
+                    countryCodeToName.put(englishName, countryCode);
+                }
+            } catch (IOException | URISyntaxException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            // Create JList for countries with English names
+            String[] countryNames = countryCodeToName.keySet().toArray(new String[0]);
+            Arrays.sort(countryNames);
+            JList<String> countryList = new JList<>(countryNames);
+            countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            // place the JList in a scroll pane so that it is scrollable in the UI
+            JScrollPane countryScrollPane = new JScrollPane(countryList);
+            countryPanel.add(countryScrollPane, 1);
 
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
@@ -36,24 +67,20 @@ public class GUI {
 
 
             // adding listener for when the user clicks the submit button
-            submit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
-                    String country = countryField.getText();
+            submit.addActionListener(e -> {
+                String selectedCountryName = countryList.getSelectedValue();
+                String language = languageField.getText();
 
-                    // for now, just using our simple translator, but
-                    // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
-
-                    String result = translator.translate(country, language);
+                if (selectedCountryName != null && !language.trim().isEmpty()) {
+                    String countryCode = countryCodeToName.get(selectedCountryName);
+                    String result = translator.translate(countryCode, language);
                     if (result == null) {
                         result = "no translation found!";
                     }
                     resultLabel.setText(result);
-
+                } else {
+                    resultLabel.setText("Please select a country and enter a language");
                 }
-
             });
 
             JPanel mainPanel = new JPanel();
