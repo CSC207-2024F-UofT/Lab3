@@ -45,8 +45,8 @@ public class LanguageCodeConverter {
                 String[] a = line.split("\t");
                 String language_name = a[0];
                 String language_code = a[1];
-                languageCodeToLanguage.put(language_name, language_code);
-                languageToLanguageCode.put(language_code, language_name);
+                this.languageCodeToLanguage.put(language_name, language_code);
+                this.languageToLanguageCode.put(language_code, language_name);
                 // TODO Task A: use line to populate the instance variables
             }
 
@@ -62,7 +62,7 @@ public class LanguageCodeConverter {
      */
     public String fromLanguageCode(String code) {
         // TODO Task A: update this code to use the correct instance variable to return the appropriate value
-        return languageCodeToLanguage.get(code);
+        return this.languageCodeToLanguage.get(code);
 
     }
 
@@ -73,7 +73,7 @@ public class LanguageCodeConverter {
      */
     public String fromLanguage(String language) {
         // TODO Task A: update this code to use the correct instance variable to return the appropriate value
-        return languageToLanguageCode.get(language);
+        return this.languageToLanguageCode.get(language);
     }
 
     /**
