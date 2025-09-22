@@ -17,7 +17,6 @@ public class CanadaTranslator implements Translator {
      *
      * @return list of language codes that are available for translating
      */
-    return
     @Override
     public List<String> getLanguageCodes() {
         return new ArrayList<>(List.of("de", "en", "zh"));
