@@ -60,7 +60,7 @@ public class JSONTranslator implements Translator {
                     if (!languageCode.equals("id") && !languageCode.equals("alpha2") && !languageCode.equals("alpha3")) {
 
                         String translatedName = countryData.getString(languageCode);
-                        translations.put(languageCode + "+" + countryCode, translatedName);
+                        translations.put(countryCode + "-" + languageCode, translatedName);
 
                         if (!languageCodes.contains(languageCode)) {
                             languageCodes.add(languageCode);
@@ -86,6 +86,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        return translations.get(languageCode + "+" + countryCode);
+        return translations.get(countryCode + "-" + languageCode);
     }
 }
