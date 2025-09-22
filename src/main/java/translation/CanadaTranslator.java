@@ -48,19 +48,23 @@ public class CanadaTranslator implements Translator {
         if (!countryCode.equals(CANADA)) {
             return null;
         }
-        switch (languageCode) {
-            case "de":
-                return "Kanada";
-            case "en":
-                return "Canada";
-            case "zh":
-                return "加拿大";
-            case "es":
-                return "Canadá";
-            case "fr":
-                return "Canada";
-            default:
-                return null;
+        if (languageCode.equals("de")) {
+            return "Kanada";
+        }
+        else if (languageCode.equals("en")) {
+            return "Canada";
+        }
+        else if ("zh".equals(languageCode)) {
+            return "加拿大";
+        }
+        else if ("es".equals(languageCode)) {
+            return "Canadá";
+        }
+        else if ("fr".equals(languageCode)) {
+            return "Canada";
+        }
+        else {
+            return null;
         }
     }
 }
