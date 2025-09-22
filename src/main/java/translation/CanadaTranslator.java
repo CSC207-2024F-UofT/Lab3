@@ -14,6 +14,8 @@ import java.util.List;
 public class CanadaTranslator implements Translator {
 
     public static final String CANADA = "can";
+    public static final String SPAIN = "esp";
+    public static final String IRAN = "irn";
     /**
      * Return the language code for all languages whose translations are
      * available for translating "can".
@@ -22,7 +24,23 @@ public class CanadaTranslator implements Translator {
      */
     @Override
     public List<String> getLanguageCodes() {
-        return new ArrayList<>(List.of("de", "en", "zh"));
+
+        return new ArrayList<>(List.of("de", "en", "zh", "es", "ar"));
+        // List.of() creates an immutable (unmodifiable) list
+        // fixed size of 3
+        // ["de", "en", "zh"]
+        // ArrayList<>
+        // wraps the immutable list into a new mutable ArrayList (resizable array)
+
+        // Q: why don't we just create an array list?
+        // Option A: new ArrayList<>(Arrays.asList(...))
+            // returns a fixed-size list backed by the array, so you can’t add/remove elements (only replace)
+        // Option B:
+        // List<String> codes = new ArrayList<>();
+        //codes.add("de");
+        //codes.add("en");
+        //codes.add("zh");
+        //return codes;
     }
 
     /**
@@ -33,7 +51,8 @@ public class CanadaTranslator implements Translator {
      */
     @Override
     public List<String> getCountryCodes() {
-        return new ArrayList<>(List.of(CANADA));
+
+        return new ArrayList<>(List.of(CANADA, SPAIN, IRAN));
     }
 
     /**
@@ -54,8 +73,14 @@ public class CanadaTranslator implements Translator {
         else if (languageCode.equals("en")) {
             return "Canada";
         }
-        else if ("zh".equals(languageCode)) {
+        else if (languageCode.equals("zh")) {
             return "加拿大";
+        }
+        else if (languageCode.equals("es")) {
+            return "Canadá";
+        }
+        else if (languageCode.equals("ar")) {
+            return "كندا";
         }
         else {
             return null;
