@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +53,7 @@ public class JSONTranslator implements Translator {
                 List<String> languages = new ArrayList<>();
                 this.countryCodes.add(countryCode);
 
+
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
@@ -73,8 +75,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getLanguageCodes() {
-        // TODO Task C: return a copy of the language codes
-        return new ArrayList<>();
+        return new ArrayList<>(languageCodes);
     }
 
     @Override
@@ -85,6 +86,7 @@ public class JSONTranslator implements Translator {
     @Override
     public String translate(String countryCode, String languageCode) {
         // TODO Task C: complete this method using your instance variables as needed
-        return "JSONTranslator's translate method is not implemented!";
+
+        return translations.get(countryCode + "-" + languageCode);
     }
 }
