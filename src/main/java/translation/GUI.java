@@ -13,6 +13,9 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            Translator translator = new JSONTranslator();
+            LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
+            CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
             JPanel countryPanel = new JPanel();
             JTextField countryField = new JTextField(10);
             countryField.setText("can");
@@ -21,9 +24,14 @@ public class GUI {
             countryPanel.add(countryField);
 
             JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+
+            JComboBox<String> languageComboBox = new JComboBox<>();
+            for(String countryCode : translator.getLanguageCodes()) {
+                languageComboBox.addItem(languageCodeConverter.fromLanguageCode(countryCode));
+            }
+            languagePanel.add(languageComboBox);
+
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
@@ -36,25 +44,25 @@ public class GUI {
 
 
             // adding listener for when the user clicks the submit button
-            submit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
-                    String country = countryField.getText();
-
-                    // for now, just using our simple translator, but
-                    // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
-
-                    String result = translator.translate(country, language);
-                    if (result == null) {
-                        result = "no translation found!";
-                    }
-                    resultLabel.setText(result);
-
-                }
-
-            });
+//            submit.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    String language = languageField.getText();
+//                    String country = countryField.getText();
+//
+//                    // for now, just using our simple translator, but
+//                    // we'll need to use the real JSON version later.
+//                    Translator translator = new CanadaTranslator();
+//
+//                    String result = translator.translate(country, language);
+//                    if (result == null) {
+//                        result = "no translation found!";
+//                    }
+//                    resultLabel.setText(result);
+//
+//                }
+//
+//            });
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
