@@ -40,7 +40,21 @@ public class CountryCodeConverter {
             iterator.next(); // skip the first line
             while (iterator.hasNext()) {
                 String line = iterator.next();
+                if (line == null || line.isBlank()) continue;
                 String[] parts = line.split("\t");
+                if (parts.length >= 3) {
+                    String countryName  = parts[0].trim();
+                    String countryCode = parts[2].trim();
+
+                    if (!countryName.isEmpty() && !countryCode.isEmpty()) {
+                        String nameKey = countryName.toLowerCase();
+                        String codeKey = countryCode.toLowerCase();
+
+                        countryCodeToCountry.put(codeKey, countryName);
+                        countryToCountryCode.put(countryName, countryCode.toLowerCase());
+                    }
+                }
+
                 // TODO Task B: use parts to populate the instance variables
             }
         }
