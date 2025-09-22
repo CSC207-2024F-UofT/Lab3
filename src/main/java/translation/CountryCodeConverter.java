@@ -41,7 +41,15 @@ public class CountryCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
-                // TODO Task B: use parts to populate the instance variables
+                String Country = parts[0];
+                String Alpha2Code = parts[1];
+                String Alpha3Code = parts[2];
+                String Numeric = parts[3];
+                countryToCountryCode.put(Country, Alpha3Code);
+                countryCodeToCountry.put(Alpha3Code, Country);
+
+
+                // done by kevin and samuel
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -56,8 +64,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return code;
+        return countryCodeToCountry.get(code.toUpperCase());
     }
 
     /**
@@ -67,7 +74,7 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         // TODO Task B: update this code to use an instance variable to return the correct value
-        return country;
+        return countryCodeToCountry.get(country);
     }
 
     /**
@@ -76,6 +83,6 @@ public class CountryCodeConverter {
      */
     public int getNumCountries() {
         // TODO Task B: update this code to use an instance variable to return the correct value
-        return 0;
+        return (countryCodeToCountry.size());
     }
 }
