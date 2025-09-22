@@ -78,4 +78,8 @@ public class LanguageCodeConverter {
     public int getNumLanguages() {
         return languageCodeToLanguage.size();
     }
+
+    public String[] getLanguages() {
+        return languageToLanguageCode.keySet().toArray(new String[0]);
+    }
 }
