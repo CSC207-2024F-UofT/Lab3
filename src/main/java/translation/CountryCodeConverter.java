@@ -25,10 +25,6 @@ public class CountryCodeConverter {
         this("country-codes.txt");
     }
 
-    public static void main(String[] args) {
-        new CountryCodeConverter();
-    }
-
     /**
      * Overloaded constructor that allows us to specify the filename to load the country code data from.
      * @param filename the name of the file in the resources folder to load the data from
@@ -47,7 +43,7 @@ public class CountryCodeConverter {
                 String[] parts = line.split("\t");
                 // Contains Country, Alpha-2 code, Alpha-3 code, Numeric
                 String country = parts[0];
-                String code = parts[2];
+                String code = parts[2].toLowerCase();
                 countryCodeToCountry.put(code, country);
                 countryToCountryCode.put(country, code);
             }
