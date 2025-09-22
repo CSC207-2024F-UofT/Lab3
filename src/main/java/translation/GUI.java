@@ -45,9 +45,6 @@ public class GUI {
             countryPanel.add(scrollPane, 1);
 
             JPanel buttonPanel = new JPanel();
-            // JButton submit = new JButton("Submit");
-            //buttonPanel.add(submit);
-
             JLabel resultLabelText = new JLabel("Translation:");
             buttonPanel.add(resultLabelText);
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
@@ -58,18 +55,13 @@ public class GUI {
             languageComboBox.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //String language = languageField.getText();
-                   // String country = countryField.getText();
-
-                    // for now, just using our simple translator, but
-                    // we'll need to use the real JSON version later.
-
-
+                    String language = (String) languageComboBox.getSelectedItem();
                     //String result = translator.translate(country, language);
                     /*if (result == null) {
                         result = "no translation found!";
                     }
-                    resultLabel.setText(result); */
+                    */
+                    resultLabel.setText(language);
 
                 }
 
