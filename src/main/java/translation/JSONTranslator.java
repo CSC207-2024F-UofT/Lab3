@@ -67,10 +67,11 @@ public class JSONTranslator implements Translator {
                     }
                 }
             }
-        catch (IOException | URISyntaxException ex) {
-                throw new RuntimeException(ex);
+        } catch(IOException | URISyntaxException ex){
+                    throw new RuntimeException(ex);
+                }
             }
-        }
+
 
         @Override
         public List<String> getLanguageCodes() {
