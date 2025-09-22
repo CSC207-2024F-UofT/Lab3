@@ -23,7 +23,6 @@ public class GUI {
             countryPanel.add(countryField);
 
             JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
 
             // adding drop down menu for the languages
@@ -33,14 +32,13 @@ public class GUI {
             //
             Translator translator = new JSONTranslator();
 
-            LanguageCodeConverter converter = new LanguageCodeConverter("langauge-codes.txt");
+            LanguageCodeConverter converter = new LanguageCodeConverter("language-codes.txt");
+            System.out.println(converter.fromLanguageCode("fr"));
 
             for(String countryCode : translator.getLanguageCodes()) {
                 languageComboBox.addItem(converter.fromLanguageCode(countryCode));
             }
             languagePanel.add(languageComboBox);
-
-            languagePanel.add(languageField);
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
@@ -56,12 +54,10 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
+                    String language = languageComboBox.getSelectedItem().toString();
                     String country = countryField.getText();
 
-                    // for now, just using our simple translator, but
-                    // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
+                    Translator translator = new JSONTranslator();
 
                     String result = translator.translate(country, language);
                     if (result == null) {
