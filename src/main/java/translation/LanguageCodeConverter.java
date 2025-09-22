@@ -78,6 +78,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this language code converter.
      */
     public int getNumLanguages() {
-        return languageCodeToLanguage.size();
+        return languageCodeToLanguage.size()+1;
     }
 }
