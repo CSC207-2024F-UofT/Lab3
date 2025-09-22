@@ -20,10 +20,16 @@ public class GUI {
             countryPanel.add(new JLabel("Country:"));
             countryPanel.add(countryField);
 
+//            JPanel languagePanel = new JPanel();
+//            JTextField languageField = new JTextField(10);
+//            languagePanel.add(new JLabel("Language:"));
+//            languagePanel.add(languageField);
+
+            JFrame language = new JFrame("language");
             JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
-            languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+            final JLabel languageLabel = new JLabel("Language:");
+            String[] languages = {"English", "France", "Mandarin"};
+            final JComboBox<String> lang = new JComboBox<>(languages);
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
@@ -39,14 +45,15 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
+//                    String language = languageField.getText();
+                    languageLabel.setText(lang.getSelectedItem().toString());
                     String country = countryField.getText();
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
                     Translator translator = new CanadaTranslator();
 
-                    String result = translator.translate(country, language);
+                    String result = translator.translate(country, "language");
                     if (result == null) {
                         result = "no translation found!";
                     }
