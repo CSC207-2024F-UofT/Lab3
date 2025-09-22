@@ -12,55 +12,46 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- * An implementation of the Translator interface that reads in the translation
- * data from a JSON file. The data is read in once each time an instance of this class is constructed.
- */
 public class JSONTranslator implements Translator {
 
     private final List<String> languageCodes = new ArrayList<>();
-
     private final List<String> countryCodes = new ArrayList<>();
-
-    // the key used is "countryCode-languageCode"; the value is the translated country name
     private final Map<String, String> translations = new HashMap<>();
-    /**
-     * Construct a JSONTranslator using data from the sample.json resources file.
-     */
+
     public JSONTranslator() {
         this("sample.json");
     }
 
-    /**
-     * Construct a JSONTranslator populated using data from the specified resources file.
-     * @param filename the name of the file in resources to load the data from
-     * @throws RuntimeException if the resource file can't be loaded properly
-     */
     public JSONTranslator(String filename) {
-        // read the file to get the data to populate things...
         try {
-
-            String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
+            String jsonString = Files.readString(
+                    Paths.get(getClass().getClassLoader().getResource(filename).toURI())
+            );
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
             for (int i = 0; i < jsonArray.length(); i++) {
-
                 JSONObject countryData = jsonArray.getJSONObject(i);
                 String countryCode = countryData.getString("alpha3");
 
-                List<String> languages = new ArrayList<>();
+                // record country code
+                if (!countryCodes.contains(countryCode)) {
+                    countryCodes.add(countryCode);
+                }
 
-                // TODO Task C: record this countryCode in the correct instance variable
-
-                // iterate through the other keys to get the information that we need
+                // loop through keys for languages
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
-                        String languageCode = key;
-                        // TODO Task C: record this translation in the appropriate instance variable
+                        String languageCode = key.toLowerCase();
+                        String translatedName = countryData.getString(key);
 
-                        if (!languages.contains(languageCode)) {
-                            languages.add(languageCode);
+                        // record translation
+                        String mapKey = countryCode + "-" + languageCode;
+                        translations.put(mapKey, translatedName);
+
+                        // record language code
+                        if (!languageCodes.contains(languageCode)) {
+                            languageCodes.add(languageCode);
                         }
                     }
                 }
@@ -73,8 +64,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getLanguageCodes() {
-        // TODO Task C: return a copy of the language codes
-        return new ArrayList<>();
+        return new ArrayList<>(languageCodes);
     }
 
     @Override
@@ -84,7 +74,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        // TODO Task C: complete this method using your instance variables as needed
-        return "JSONTranslator's translate method is not implemented!";
+        String key = countryCode.toLowerCase() + "-" + languageCode.toLowerCase();
+        return translations.get(key);
     }
 }
