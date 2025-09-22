@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.lang.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,17 +50,18 @@ public class JSONTranslator implements Translator {
                 JSONObject countryData = jsonArray.getJSONObject(i);
                 String countryCode = countryData.getString("alpha3");
 
-                //List<String> languages = new ArrayList<>();
+                List<String> languages = new ArrayList<>();
                 countryCodes.add(countryCode);
                 // TODO Task C: record this countryCode in the correct instance variable
 
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
-                        String temp_key = key;
+                        String languageCode = key;
+                        translations.put(countryCode,languageCode);
                         // TODO Task C: record this translation in the appropriate instance variable
-                        if (!languageCodes.contains(temp_key)) {
-                            languageCodes.add(temp_key);
+                        if (!languages.contains(languageCode)) {
+                            languages.add(languageCode);
                         }
                     }
                 }
