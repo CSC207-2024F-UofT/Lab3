@@ -1,8 +1,11 @@
 package translation;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 
@@ -38,7 +41,7 @@ public class GUI {
             // create the JList with the array of strings and set it to allow multiple
             // items to be selected at once.
             JList<String> list = new JList<>(items);
-            list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
             // place the JList in a scroll pane so that it is scrollable in the UI
             JScrollPane scrollPane = new JScrollPane(list);
@@ -50,20 +53,40 @@ public class GUI {
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
 
+            list.addListSelectionListener(new ListSelectionListener() {
 
+                /**
+                 * Called whenever the value of the selection changes.
+                 *
+                 * @param e the event that characterizes the change.
+                 */
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+
+                    int[] indices = list.getSelectedIndices();
+                    String[] items = new String[indices.length];
+                    for (int i = 0; i < indices.length; i++) {
+                        items[i] = list.getModel().getElementAt(indices[i]);
+                    }
+                    String result = (String) languageComboBox.getSelectedItem();
+                    resultLabel.setText(items[0] + result);
+
+                }
             // adding listener for when the user clicks the submit button
+            /*
             languageComboBox.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String result = (String) languageComboBox.getSelectedItem();
-                    //String result = translator.translate(country, language);
-                    /*if (result == null) {
+                    //String result = translator.translate(country, language);if (result == null) {
                         result = "no translation found!";
                     }
-                    */
                     resultLabel.setText(result);
 
                 }
+
+             */
+
 
             });
 
