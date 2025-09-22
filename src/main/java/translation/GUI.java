@@ -25,11 +25,14 @@ public class GUI {
             languagePanel.add(languageComboBox);
 
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
+            CountryCodeConverter country_converter = new CountryCodeConverter();
+            String[] countries = country_converter.getCountries();
+            Arrays.sort(countries);
+            JList<String> countryList = new JList<>(countries);
+            countryList.setVisibleRowCount(8);
+            JScrollPane countryListScrollPane = new JScrollPane(countryList);
             countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+            countryPanel.add(countryListScrollPane);
 
 
             JPanel buttonPanel = new JPanel();
