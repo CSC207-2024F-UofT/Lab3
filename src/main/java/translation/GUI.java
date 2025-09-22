@@ -2,6 +2,7 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Arrays;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -14,11 +15,14 @@ public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
+            CountryCodeConverter country_converter = new CountryCodeConverter();
+            String[] countries = country_converter.getCountries();
+            Arrays.sort(countries);
+            JList<String> countryList = new JList<>(countries);
+            countryList.setVisibleRowCount(8);
+            JScrollPane countryListScrollPane = new JScrollPane(countryList);
             countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+            countryPanel.add(countryListScrollPane);
 
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
@@ -40,17 +44,17 @@ public class GUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String language = languageField.getText();
-                    String country = countryField.getText();
+                    //String country = countryField.getText();
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
                     Translator translator = new CanadaTranslator();
 
-                    String result = translator.translate(country, language);
-                    if (result == null) {
-                        result = "no translation found!";
-                    }
-                    resultLabel.setText(result);
+                    //String result = translator.translate(country, language);
+                    //if (result == null) {
+                    //    result = "no translation found!";
+                    //}
+                    //resultLabel.setText(result);
 
                 }
 
