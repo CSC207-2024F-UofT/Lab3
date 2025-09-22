@@ -13,16 +13,16 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            Translator translator = new JSONTranslator();
+
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
             countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+            JComboBox<String> countryCombo = new JComboBox<>(translator.getCountryCodes().toArray(new String[0]));
+            countryPanel.add(countryCombo);
 
             JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
+            JTextField languageField = new JTextField(10);
             languagePanel.add(languageField);
 
             JPanel buttonPanel = new JPanel();
@@ -40,11 +40,7 @@ public class GUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String language = languageField.getText();
-                    String country = countryField.getText();
-
-                    // for now, just using our simple translator, but
-                    // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
+                    String country = (String) countryCombo.getSelectedItem();
 
                     String result = translator.translate(country, language);
                     if (result == null) {
@@ -53,7 +49,6 @@ public class GUI {
                     resultLabel.setText(result);
 
                 }
-
             });
 
             JPanel mainPanel = new JPanel();
@@ -64,6 +59,7 @@ public class GUI {
 
             JFrame frame = new JFrame("Country Name Translator");
             frame.setContentPane(mainPanel);
+            frame.getRootPane().setDefaultButton(submit);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
