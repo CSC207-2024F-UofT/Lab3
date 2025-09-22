@@ -56,8 +56,19 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        // TODO Task A: update this code to use the correct instance variable to return the appropriate value
-        return code;
+        String lang = new String("");
+        if (code.equals("en")) {
+            lang = "USA";
+        } else if (code.equals("de")) {
+            lang = "GERMANY";
+        } else if (code.equals("zh")) {
+            lang = "CHINA";
+        } else if (code.equals("es")) {
+            lang = "Spain";
+        } else if  (code.equals("it")) {
+            lang = "Italy";
+        }
+        return lang;
     }
 
     /**
