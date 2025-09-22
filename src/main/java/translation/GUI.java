@@ -1,6 +1,7 @@
 package translation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +17,21 @@ public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
             countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+            Translator translator = new JSONTranslator();
+            List<String> countryCodes = translator.getCountryCodes();
+            CountryCodeConverter converterCountry = new CountryCodeConverter();
+            List<String> countryNames = new ArrayList<>();
+            for (String code : countryCodes) {
+              countryNames.add(converterCountry.fromCountryCode(code));
+            }
+            JList<String> countrySelector = new JList<>(countryNames.toArray(new String[0]));
+            JScrollPane scrollPane = new JScrollPane(countrySelector);
+            countryPanel.add(scrollPane, BorderLayout.CENTER);
 
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
-            Translator translator = new JSONTranslator();
             List<String> languageCodes = translator.getLanguageCodes();
             LanguageCodeConverter converter = new LanguageCodeConverter();
             List<String> languageNames = new ArrayList<>();
@@ -50,7 +56,7 @@ public class GUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String language = languageField.getText();
-                    String country = countryField.getText();
+                    String country = countrySelector.getSelectedValue();
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
@@ -68,8 +74,8 @@ public class GUI {
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-            mainPanel.add(countryPanel);
             mainPanel.add(languagePanel);
+            mainPanel.add(countryPanel);
             mainPanel.add(buttonPanel);
 
             JFrame frame = new JFrame("Country Name Translator");
