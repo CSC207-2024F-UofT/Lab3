@@ -1,6 +1,7 @@
 package translation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 
@@ -13,17 +14,33 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
-            countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
-
             JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+            Translator translator = new JSONTranslator();
+            LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
+            JComboBox<String> languageComboBox = new JComboBox<>();
+            for(String countryCode : translator.getLanguageCodes()) {
+                languageComboBox.addItem(languageCodeConverter.fromLanguageCode(countryCode));
+            }
+            languagePanel.add(languageComboBox);
+
+
+            JPanel countryPanel = new JPanel();
+            countryPanel.setLayout(new GridLayout(0, 2));
+            countryPanel.add(new JLabel("Language:"), 0);
+            String[] items = new String[translator.getLanguageCodes().size()];
+            int i = 0;
+            for(String langaugeCode : translator.getLanguageCodes()) {
+                items[i++] = langaugeCode;
+            }
+            // create the JList with the array of strings and set it to allow multiple
+            // items to be selected at once.
+            JList<String> list = new JList<>(items);
+            list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+            // place the JList in a scroll pane so that it is scrollable in the UI
+            JScrollPane scrollPane = new JScrollPane(list);
+            countryPanel.add(scrollPane, 1);
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
@@ -39,18 +56,18 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
-                    String country = countryField.getText();
+                    //String language = languageField.getText();
+                   // String country = countryField.getText();
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
                     Translator translator = new CanadaTranslator();
 
-                    String result = translator.translate(country, language);
-                    if (result == null) {
+                    //String result = translator.translate(country, language);
+                    /*if (result == null) {
                         result = "no translation found!";
                     }
-                    resultLabel.setText(result);
+                    resultLabel.setText(result); */
 
                 }
 
@@ -58,9 +75,8 @@ public class GUI {
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-            mainPanel.add(countryPanel);
             mainPanel.add(languagePanel);
-            mainPanel.add(buttonPanel);
+            mainPanel.add(countryPanel);
 
             JFrame frame = new JFrame("Country Name Translator");
             frame.setContentPane(mainPanel);
