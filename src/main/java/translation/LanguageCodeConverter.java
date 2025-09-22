@@ -46,8 +46,8 @@ public class LanguageCodeConverter {
                 String[] language = line.split("\t");
                 String languageCode = language[1];
                 String languageLang = language[0];
-                languageCodeToLanguage.put(languageCode, languageLang);
-                languageToLanguageCode.put(languageLang, languageCode);
+                languageCodeToLanguage.put(languageCode.toLowerCase(), languageLang);
+                languageToLanguageCode.put(languageLang, languageCode.toLowerCase());
             }
 
         } catch (IOException | URISyntaxException ex) {
