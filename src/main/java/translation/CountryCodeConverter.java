@@ -13,7 +13,7 @@ import java.util.Map;
  * This class provides the service of converting country codes to their names and back.
  */
 public class CountryCodeConverter {
-
+    // Here are the instance attributes
     private Map<String, String> countryCodeToCountry = new HashMap<>();
     private Map<String, String> countryToCountryCode = new HashMap<>();
 
@@ -70,7 +70,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
+        // TODO Task B: update this code to use an instance variable to return the correct valuefrom
         return code;
     }
 
@@ -78,18 +78,22 @@ public class CountryCodeConverter {
      * Return the code of the country for the given country name.
      * @param country the name of the country
      * @return the 3-letter code of the country
+     *
+     * This seems good
      */
     public String fromCountry(String country) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return country;
+        // TODO Task B: Tick
+        return countryToCountryCode.get(country);
     }
 
     /**
      * Return how many countries are included in this country code converter.
      * @return how many countries are included in this country code converter.
+     *
+     * I am not sure about this...
      */
     public int getNumCountries() {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return 0;
+        // TODO Task B: Tick
+        return countryCodeToCountry.size();
     }
 }
