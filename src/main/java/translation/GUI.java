@@ -14,14 +14,12 @@ public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
+            JList<String> countryField = new JList<>();
             countryPanel.add(new JLabel("Country:"));
             countryPanel.add(countryField);
 
             JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
+            JList<String> languageField = new JList<>();
             languagePanel.add(new JLabel("Language:"));
             languagePanel.add(languageField);
 
@@ -39,8 +37,8 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
-                    String country = countryField.getText();
+                    String language = languageField.getSelectedValue();
+                    String country = countryField.getSelectedValue();
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
