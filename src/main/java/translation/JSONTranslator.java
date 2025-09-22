@@ -54,8 +54,6 @@ public class JSONTranslator implements Translator {
                     countryCodes.add(countryCode);
                 }
 
-                // TODO Task C: record this countryCode in the correct instance variable
-
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
@@ -63,7 +61,6 @@ public class JSONTranslator implements Translator {
                         String translation = countryData.getString(languageCode);
                         String mapkey = countryCode + "_" + languageCode;
                         translations.put(mapkey, translation);
-                        // TODO Task C: record this translation in the appropriate instance variable
 
                         if (!this.languageCodes.contains(languageCode)) {
                             languageCodes.add(languageCode);
@@ -79,7 +76,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getLanguageCodes() {
-        // TODO Task C: return a copy of the language codes
         return new ArrayList<>(this.languageCodes);
     }
 
@@ -90,7 +86,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        // TODO Task C: complete this method using your instance variables as needed
         return this.translations.get(countryCode + "_" + languageCode);
     }
 }
