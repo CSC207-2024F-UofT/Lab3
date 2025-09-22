@@ -41,9 +41,8 @@ public class CountryCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
-                String code = parts[0];
-                String country = parts[1];
-
+                String code = parts[2];
+                String country = parts[0];
                 countryCodeToCountry.put(code, country);
                 countryToCountryCode.put(country, code);
             }
@@ -51,7 +50,6 @@ public class CountryCodeConverter {
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
     /**
@@ -60,7 +58,8 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return countryCodeToCountry.get(code);
+
+        return countryCodeToCountry.get(code.toUpperCase());
     }
 
     /**
