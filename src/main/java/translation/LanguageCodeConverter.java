@@ -66,7 +66,6 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        languageToLanguageCode.get(language);
         return languageToLanguageCode.get(language);
     }
 
