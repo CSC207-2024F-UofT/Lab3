@@ -13,6 +13,20 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            LanguageCodeConverter langCon = new LanguageCodeConverter();
+            CountryCodeConverter countCon = new CountryCodeConverter();
+            CanadaTranslator trans = new CanadaTranslator();
+
+            JComboBox<String> languageComboBox = new JComboBox<>();
+            for (String count : trans.getCountryCodes()) {
+                languageComboBox.addItem(countCon.fromCountryCode(count));
+            }
+
+            JList<String> countryList = new JList<>();
+            for (String lang : trans.getLanguageCodes()) {
+                countryList.add(langCon.fromLanguageCode(lang));
+            }
+
             JPanel countryPanel = new JPanel();
             JTextField countryField = new JTextField(10);
             countryField.setText("can");
