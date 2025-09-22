@@ -42,7 +42,10 @@ public class LanguageCodeConverter {
             iterator.next(); // skip the first line
             while (iterator.hasNext()) {
                 String line = iterator.next();
-                filename = "language-codes.txt";
+                String language = line.trim().split(" ")[0];
+                String code = line.trim().split(" ")[1];
+                languageToLanguageCode.put(language, code);
+                languageCodeToLanguage.put(code, language);
                 // TODO Task A: use line to populate the instance variables
             }
 
