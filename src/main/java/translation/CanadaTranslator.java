@@ -45,6 +45,7 @@ public class CanadaTranslator implements Translator {
      */
     @Override
     public String translate(String countryCode, String languageCode) {
+
         if (!countryCode.equals(CANADA)) {
             return null;
         }
