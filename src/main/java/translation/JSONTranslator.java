@@ -65,7 +65,11 @@ public class JSONTranslator implements Translator {
                         }
                     }
                 }
-                this.languageCodes.addAll(languages);
+                for (String language: languages){
+                    if (!this.languageCodes.contains(language)){
+                        this.languageCodes.add((language));
+                    }
+                }
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -89,4 +93,6 @@ public class JSONTranslator implements Translator {
 
         return translations.get(countryCode + "-" + languageCode);
     }
+
+
 }
