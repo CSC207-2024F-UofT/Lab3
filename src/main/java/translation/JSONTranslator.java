@@ -51,7 +51,6 @@ public class JSONTranslator implements Translator {
 
                 List<String> languages = new ArrayList<>();
 
-                // TODO Task C: record this countryCode in the correct instance variable
                 countryCodes.add(countryCode);
 
                 // iterate through the other keys to get the information that we need
@@ -80,7 +79,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryCodes() {
-
         return new ArrayList<>(countryCodes);
     }
 
