@@ -35,7 +35,7 @@ public class JSONTranslator implements Translator {
      * Construct a JSONTranslator populated using data from the specified resources file.
      * @param filename the name of the file in resources to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
-     */
+            */
     public JSONTranslator(String filename) {
         // read the file to get the data to populate things...
         try {
@@ -54,36 +54,36 @@ public class JSONTranslator implements Translator {
                 if (!countryCodes.contains(countryCode)) {
                     countryCodes.add(countryCode);
 
-                // iterate through the other keys to get the information that we need
-                for (String key : countryData.keySet()) {
-                    if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
-                        String languageCode = key;
-                        // TODO Task C: record this translation in the appropriate instance variable
+                    // iterate through the other keys to get the information that we need
+                    for (String key : countryData.keySet()) {
+                        if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
+                            String languageCode = key;
+                            // TODO Task C: record this translation in the appropriate instance variable
 
-                        if (!languages.contains(languageCode)) {
-                            languages.add(languageCode);
+                            if (!languages.contains(languageCode)) {
+                                languages.add(languageCode);
+                            }
                         }
                     }
                 }
             }
-        }
         catch (IOException | URISyntaxException ex) {
-            throw new RuntimeException(ex);
+                throw new RuntimeException(ex);
+            }
+        }
+
+        @Override
+        public List<String> getLanguageCodes() {
+            return new ArrayList<>(languageCodes);
+        }
+
+        @Override
+        public List<String> getCountryCodes() {
+            return new ArrayList<>(countryCodes);
+        }
+
+        @Override
+        public String translate(String countryCode, String languageCode) {
+            return translations.get(countryCode + "-" + languageCode);
         }
     }
-
-    @Override
-    public List<String> getLanguageCodes() {
-        return new ArrayList<>(languageCodes);
-    }
-
-    @Override
-    public List<String> getCountryCodes() {
-        return new ArrayList<>(countryCodes);
-    }
-
-    @Override
-    public String translate(String countryCode, String languageCode) {
-            return translations.get(countryCode + "-" + languageCode);
-    }
-}
