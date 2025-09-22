@@ -57,17 +57,9 @@ public class GUI {
                         languageCode = languageCodeConverter.fromLanguage(language);
                     }
 
-                    String country = countryField.getText();
-
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
                     Translator translator = new CanadaTranslator();
-
-                    String result = translator.translate(country, languageCode);
-                    if (result == null) {
-                        result = "no translation found!";
-                    }
-                    resultLabel.setText(result);
 
                 }
 
