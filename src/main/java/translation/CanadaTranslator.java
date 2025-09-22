@@ -22,8 +22,9 @@ public class CanadaTranslator implements Translator {
      */
     @Override
     public List<String> getLanguageCodes() {
-        return new ArrayList<>(List.of("de", "en", "zh"));
+        return new ArrayList<>(List.of("de", "en", "zh", "es", "cs"));
     }
+    // added es and cs (spanish + czech)
 
     /**
      * Return the country codes for all countries whose translations are
@@ -56,6 +57,12 @@ public class CanadaTranslator implements Translator {
         }
         else if ("zh".equals(languageCode)) {
             return "加拿大";
+        }
+        else if ("cs".equals(languageCode)) {
+            return "Kanada";
+        }
+        else if ("es".equals(languageCode)) {
+            return "Canadá";
         }
         else {
             return null;
