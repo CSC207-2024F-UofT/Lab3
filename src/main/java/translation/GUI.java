@@ -16,11 +16,16 @@ public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
+            countryPanel.setLayout(new BoxLayout(countryPanel, BoxLayout.Y_AXIS));
             countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+
+            DefaultListModel<CountryItem> countryModel = new DefaultListModel<>();
+            JList<CountryItem> countryList = new JList<>(countryModel);
+            countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            countryList.setVisibleRowCount(10); // adjust how tall it looks
+
+            JScrollPane countryScroll = new JScrollPane(countryList);
+            countryPanel.add(countryScroll);
 
             JPanel languagePanel = new JPanel();
             languagePanel.add(new JLabel("Language:"));
@@ -57,7 +62,7 @@ public class GUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String language = languageComboBox.getSelectedItem().toString();
-                    String country = countryField.getText();
+                    String country = countryList.getText();
 
                     Translator translator = new JSONTranslator();
 
@@ -68,9 +73,7 @@ public class GUI {
                         result = "no translation found!";
                     }
                     resultLabel.setText(result);
-
                 }
-
             });
 
             JPanel mainPanel = new JPanel();
@@ -88,4 +91,16 @@ public class GUI {
 
         });
     }
+
+    static class CountryItem {
+        private final String code;   // alpha-3, lowercase (e.g., "can")
+        private final String name;   // display name (e.g., "Canada")
+        CountryItem(String code, String name) {
+            this.code = code;
+            this.name = name;
+        }
+        String code() { return code; }
+        @Override public String toString() { return name; } // shown in the JList
+    }
+
 }
