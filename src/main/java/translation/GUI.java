@@ -32,11 +32,11 @@ public class GUI {
             //
             Translator translator = new JSONTranslator();
 
-            LanguageCodeConverter converter = new LanguageCodeConverter("language-codes.txt");
-            System.out.println(converter.fromLanguageCode("fr"));
+            LanguageCodeConverter langConverter = new LanguageCodeConverter("language-codes.txt");
+            System.out.println(langConverter.fromLanguageCode("fr"));
 
             for(String countryCode : translator.getLanguageCodes()) {
-                languageComboBox.addItem(converter.fromLanguageCode(countryCode));
+                languageComboBox.addItem(langConverter.fromLanguageCode(countryCode));
             }
             languagePanel.add(languageComboBox);
 
@@ -49,6 +49,8 @@ public class GUI {
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
 
+            // make a country code convertor too
+            CountryCodeConverter countryConverter = new CountryCodeConverter();
 
             // adding listener for when the user clicks the submit button
             submit.addActionListener(new ActionListener() {
@@ -59,7 +61,9 @@ public class GUI {
 
                     Translator translator = new JSONTranslator();
 
-                    String result = translator.translate(country, language);
+                    String languageCode = langConverter.fromLanguage(language);
+                    //String countryCode = countryConverter.fromCountry(country);
+                    String result = translator.translate(country, languageCode);
                     if (result == null) {
                         result = "no translation found!";
                     }
