@@ -25,8 +25,8 @@ public class GUI {
             languagePanel.add(languageComboBox);
 
             JPanel countryPanel = new JPanel();
-            CountryCodeConverter country_converter = new CountryCodeConverter();
-            String[] countries = country_converter.getCountries();
+            CountryCodeConverter countryConverter = new CountryCodeConverter();
+            String[] countries = countryConverter.getCountries();
             Arrays.sort(countries);
             JList<String> countryList = new JList<>(countries);
             countryList.setVisibleRowCount(8);
