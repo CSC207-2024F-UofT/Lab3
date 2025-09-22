@@ -37,11 +37,20 @@ public class CountryCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             Iterator<String> iterator = lines.iterator();
-            iterator.next(); // skip the first line
+            iterator.next();
+
             while (iterator.hasNext()) {
-                String line = iterator.next();
+                String line = iterator.next().trim();
+                if (line.isEmpty()) continue;
+
                 String[] parts = line.split("\t");
-                // TODO Task B: use parts to populate the instance variables
+                if (parts.length < 3) continue;
+
+                String country = parts[0].trim();
+                String alpha3  = parts[2].trim();
+
+                countryCodeToCountry.put(alpha3, country);
+                countryToCountryCode.put(country, alpha3);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -56,8 +65,8 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return code;
+        if (code == null) return null;
+        return countryCodeToCountry.get(code.trim().toUpperCase());
     }
 
     /**
@@ -66,8 +75,8 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return country;
+        if (country == null) return null;
+        return countryToCountryCode.get(country.trim());
     }
 
     /**
@@ -75,7 +84,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return 0;
+        return countryCodeToCountry.size();
     }
 }
