@@ -57,6 +57,22 @@ public class GUI {
             // String[] countryNamesArr = {"1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3",
             //        "1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3",};
             JList<String> countryList = new JList<>(countryNamesArr);
+            countryList.addMouseListener(new MouseAdapter() {
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    String result = translator.translate(
+                            countryCodeConverter.fromCountry(countryList.getSelectedValue()).toLowerCase(),
+                            langConverter.fromLanguage(dropdown.getSelectedItem().toString()).toLowerCase()
+                    );
+
+                    if (result == null) {
+                        result = "no translation found!";
+                    }
+                    resultLabel.setText(result);
+
+                }
+            });
             JScrollPane scrollPane = new JScrollPane(countryList);
             scrollPane.setPreferredSize(new Dimension(200, 150));
             scrollPanel.add(scrollPane);
@@ -82,6 +98,8 @@ public class GUI {
                 }
 
             });
+
+
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
