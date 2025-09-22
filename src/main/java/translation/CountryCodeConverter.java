@@ -45,8 +45,8 @@ public class CountryCodeConverter {
                 String Alpha2Code = parts[1];
                 String Alpha3Code = parts[2];
                 String Numeric = parts[3];
-                countryCodeToCountry.put(Country, Alpha2Code);
-                countryCodeToCountry.put(Alpha2Code, Country);
+                countryToCountryCode.put(Country, Alpha3Code);
+                countryCodeToCountry.put(Alpha3Code, Country);
 
 
                 // done by kevin and samuel
@@ -64,7 +64,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return countryCodeToCountry.get(code);
+        return countryCodeToCountry.get(code.toUpperCase());
     }
 
     /**
@@ -83,6 +83,6 @@ public class CountryCodeConverter {
      */
     public int getNumCountries() {
         // TODO Task B: update this code to use an instance variable to return the correct value
-        return 0;
+        return (countryCodeToCountry.size());
     }
 }
