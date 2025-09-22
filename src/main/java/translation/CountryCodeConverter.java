@@ -56,9 +56,8 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        // Steven will do this.
-        return code;
+        // Steven has done this.
+        return countryCodeToCountry.get(code);
     }
 
     /**
@@ -67,9 +66,8 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return country;
-        // Steven will do this.
+        // Steven has done this.
+        return countryToCountryCode.get(country);
     }
 
     /**
