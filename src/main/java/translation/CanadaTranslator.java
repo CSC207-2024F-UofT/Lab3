@@ -20,6 +20,7 @@ public class CanadaTranslator implements Translator {
      *
      * @return list of language codes that are available for translating
      */
+    return
     @Override
     public List<String> getLanguageCodes() {
         return new ArrayList<>(List.of("de", "en", "zh"));
@@ -43,6 +44,7 @@ public class CanadaTranslator implements Translator {
      * @param languageCode the 2-letter language code
      * @return the name of the country in the given language or null if no translation is available
      */
+
     @Override
     public String translate(String countryCode, String languageCode) {
         if (!countryCode.equals(CANADA)) {
