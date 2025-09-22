@@ -15,11 +15,21 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            Translator translator = new JSONTranslator();
+
             JPanel countryPanel = new JPanel();
             countryPanel.setLayout(new BoxLayout(countryPanel, BoxLayout.Y_AXIS));
             countryPanel.add(new JLabel("Country:"));
 
             DefaultListModel<CountryItem> countryModel = new DefaultListModel<>();
+
+            // ADD this block after creating countryModel/countryList:
+            for (String code3 : translator.getCountryCodes()) {
+                String displayName = translator.translate(code3, "en"); // show English name in the list
+                if (displayName == null || displayName.isBlank()) displayName = code3;
+                countryModel.addElement(new CountryItem(code3, displayName)); // keep code as-is (JSON uses alpha-3 like "CAN")
+            }
+
             JList<CountryItem> countryList = new JList<>(countryModel);
             countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             countryList.setVisibleRowCount(10); // adjust how tall it looks
@@ -35,14 +45,26 @@ public class GUI {
             // create combobox, add country codes into it, and add it to our panel
             JComboBox<String> languageComboBox = new JComboBox<>();
             //
-            Translator translator = new JSONTranslator();
 
             LanguageCodeConverter langConverter = new LanguageCodeConverter("language-codes.txt");
             System.out.println(langConverter.fromLanguageCode("fr"));
 
-            for(String countryCode : translator.getLanguageCodes()) {
-                languageComboBox.addItem(langConverter.fromLanguageCode(countryCode));
+            for (String languageCode : translator.getLanguageCodes()) {
+                languageComboBox.addItem(languageCode); // store the code ("en", "fr", ...)
             }
+// Show names in the UI while keeping codes internally
+            languageComboBox.setRenderer(new DefaultListCellRenderer() {
+                @Override
+                public java.awt.Component getListCellRendererComponent(
+                        JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                    java.awt.Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                    String code = (String) value;
+                    String name = langConverter.fromLanguageCode(code);
+                    setText((name != null && !name.isBlank()) ? name : code);
+                    return c;
+                }
+            });
+
             languagePanel.add(languageComboBox);
 
             JPanel buttonPanel = new JPanel();
@@ -61,13 +83,16 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageComboBox.getSelectedItem().toString();
-                    String country = countryList.getText();
+                    CountryItem selected = countryList.getSelectedValue();
+                    if (selected == null) {
+                        resultLabel.setText("Please select a country.");
+                        return;
+                    }
+                    String country = selected.code(); // e.g., "CAN"
 
-                    Translator translator = new JSONTranslator();
+                    String languageCode = (String) languageComboBox.getSelectedItem(); // e.g., "en"
 
-                    String languageCode = langConverter.fromLanguage(language);
-                    //String countryCode = countryConverter.fromCountry(country);
+                    // reuse the existing translator instance you created earlier
                     String result = translator.translate(country, languageCode);
                     if (result == null) {
                         result = "no translation found!";
@@ -75,6 +100,7 @@ public class GUI {
                     resultLabel.setText(result);
                 }
             });
+
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
