@@ -23,7 +23,18 @@ public class GUI {
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+
+
+            Translator translator = new JSONTranslator();
+            LanguageCodeConverter converter = new LanguageCodeConverter();
+            // create combobox, add country codes into it, and add it to our panel
+            JComboBox<String> languageComboBox = new JComboBox<>();
+            for(String languageCode : translator.getLanguageCodes()) {
+                String languageName = converter.fromLanguageCode(languageCode);
+                languageComboBox.addItem(languageName);
+            }
+            languagePanel.add(languageComboBox);
+
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
