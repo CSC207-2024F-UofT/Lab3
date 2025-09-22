@@ -42,7 +42,7 @@ public class LanguageCodeConverter {
             iterator.next(); // skip the first line
             while (iterator.hasNext()) {
                 String line = iterator.next();
-                String[] parts = line.split(" ");
+                String[] parts = line.split("\\s+");
                 String language = parts[0];
                 String languageCode = parts[1];
                 languageCodeToLanguage.put(language, languageCode);
