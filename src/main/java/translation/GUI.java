@@ -55,13 +55,13 @@ public class GUI {
             languageComboBox.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = (String) languageComboBox.getSelectedItem();
+                    String result = (String) languageComboBox.getSelectedItem();
                     //String result = translator.translate(country, language);
                     /*if (result == null) {
                         result = "no translation found!";
                     }
                     */
-                    resultLabel.setText(language);
+                    resultLabel.setText(result);
 
                 }
 
