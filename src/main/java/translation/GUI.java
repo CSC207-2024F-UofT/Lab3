@@ -19,7 +19,6 @@ public class GUI {
         SwingUtilities.invokeLater(() -> {
             Translator translator = new JSONTranslator();
 
-            // country list
             List<String> countries = translator.getCountryCodes();
             JList<String> countryList = new JList<>(countries.toArray(new String[0]));
             countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
