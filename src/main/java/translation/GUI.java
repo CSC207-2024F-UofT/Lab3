@@ -40,6 +40,13 @@ public class GUI {
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
 
+            JSONTranslator jsonTranslator = new JSONTranslator();
+            JComboBox<String> languageComboBox = new JComboBox<>();
+            for(String countryCode : jsonTranslator.getLanguageCodes()) {
+                languageComboBox.addItem(countryCode);
+            }
+
+            languagePanel.add(languageComboBox);
 
             // adding listener for when the user clicks the submit button
             submit.addActionListener(new ActionListener() {
