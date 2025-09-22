@@ -23,7 +23,7 @@ public class GUI {
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+
 
             Translator translator = new JSONTranslator();
             LanguageCodeConverter converter = new LanguageCodeConverter();
