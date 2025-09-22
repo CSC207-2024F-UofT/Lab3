@@ -3,3 +3,11 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+
+#IDE files
+.idea/
+*.iml
+
+#Build outputs
+target/
+*.class
