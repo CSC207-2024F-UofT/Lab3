@@ -65,6 +65,11 @@ public class JSONTranslator implements Translator {
                         }
                     }
                 }
+                for (String language : languages) {
+                    if (!languageCodes.contains(language)) {
+                        languageCodes.add(language);
+                    }
+                }
             }
         }
         catch (IOException | URISyntaxException ex) {
