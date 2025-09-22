@@ -71,10 +71,9 @@ public class GUI {
 
                     String result = translator.translate(
                             countryCodeConverter.fromCountry(countryList.getSelectedValue()).toLowerCase(),
-                            langConverter.fromLanguage(dropdown.getSelectedItem().toString().toLowerCase())
+                            langConverter.fromLanguage(dropdown.getSelectedItem().toString()).toLowerCase()
                             );
-                    System.out.println(langConverter.fromLanguage(dropdown.getSelectedItem().toString()));
-                    System.out.println(countryCodeConverter.fromCountry(countryList.getSelectedValue()));
+
                     if (result == null) {
                         result = "no translation found!";
                     }
