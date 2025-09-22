@@ -46,7 +46,6 @@ public class LanguageCodeConverter {
                 languageToLanguageCode.put(line.split("/t")[0], line.split("/t")[1]);
                 // TODO Task A: use line to populate the instance variables
             }
-
         } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
