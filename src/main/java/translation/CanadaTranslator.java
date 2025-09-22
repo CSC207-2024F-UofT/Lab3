@@ -3,6 +3,7 @@ package translation;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * An implementation of the Translator interface that translates
  * the country code "can" to several languages.
@@ -44,7 +45,7 @@ public class CanadaTranslator implements Translator {
         if (!countryCode.equals(CANADA)) {
             return null;
         }
-        else if (languageCode.equals("de")) {
+        if (languageCode.equals("de")) {
             return "Kanada";
         }
         else if (languageCode.equals("en")) {
