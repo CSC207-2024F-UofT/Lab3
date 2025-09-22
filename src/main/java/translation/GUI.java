@@ -2,6 +2,8 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -23,7 +25,15 @@ public class GUI {
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+            Translator translator = new JSONTranslator();
+            List<String> languageCodes = translator.getLanguageCodes();
+            LanguageCodeConverter converter = new LanguageCodeConverter();
+            List<String> languageNames = new ArrayList<>();
+            for (String code : languageCodes) {
+              languageNames.add(converter.fromLanguageCode(code));
+            }
+            JComboBox<String> languageComboBox = new JComboBox<>(languageNames.toArray(new String[0]));
+            languagePanel.add(languageComboBox);
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
