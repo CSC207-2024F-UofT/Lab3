@@ -1,7 +1,7 @@
 ISO Language Names	Code
 Abkhazian	ab
 Afar	aa
-Afrikaans	af
+Afrikaans   af
 Akan	ak
 Albanian	sq
 Amharic	am
