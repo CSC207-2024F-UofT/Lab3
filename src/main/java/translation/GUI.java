@@ -12,6 +12,9 @@ import java.awt.event.*;
 public class GUI {
 
     public static void main(String[] args) {
+        CountryCodeConverter ccConverter = new CountryCodeConverter();
+        LanguageCodeConverter lcConverter = new LanguageCodeConverter();
+
         SwingUtilities.invokeLater(() -> {
 
 
@@ -25,12 +28,14 @@ public class GUI {
             for(String countryCode : translator.getLanguageCodes()) {
                 languageComboBox.addItem(countryCode);
             }
+            languagePanel.add(languageField);
             languagePanel.add(languageComboBox);
 
             JPanel countryPanel = new JPanel();
             JTextField countryField = new JTextField(10);
-            countryPanel.add(new JLabel(":"));
-            JList countryList = new JList();
+            countryPanel.add(new JLabel("Country:"));
+            countryPanel.add(countryField);
+            JList<String> countryList = new JList<>(translator.getCountryCodes().toArray(new String[0]));
             countryPanel.add(countryList);
 
 
@@ -42,6 +47,8 @@ public class GUI {
             buttonPanel.add(resultLabelText);
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
+
+            resultLabel.setText("GD");
 
 
             // adding listener for when the user clicks the submit button
