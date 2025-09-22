@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class provides the services of: <br/>
@@ -42,8 +39,13 @@ public class LanguageCodeConverter {
             iterator.next(); // skip the first line
             while (iterator.hasNext()) {
                 String line = iterator.next();
-                languageCodeToLanguage.put(line.split("\t")[1], line.split("\t")[0]);
-                languageToLanguageCode.put(line.split("\t")[0], line.split("\t")[1]);
+                String[] parts = line.split("\t");
+
+                String languageName = parts[0].trim();
+                String code = parts[1].trim().toLowerCase(Locale.ROOT); // uniform lowercase
+
+                languageCodeToLanguage.put(code, languageName);
+                languageToLanguageCode.put(languageName.toLowerCase(Locale.ROOT), code);
             }
 
         } catch (IOException | URISyntaxException ex) {
