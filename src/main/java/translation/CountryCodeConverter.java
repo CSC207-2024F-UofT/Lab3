@@ -57,8 +57,8 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        if  (countryToCountryCode.containsKey(code)) {
-            return countryToCountryCode.get(code);
+        if  (countryCodeToCountry.containsKey(code.toUpperCase())) {
+            return countryCodeToCountry.get(code.toUpperCase());
         }
         else {
             return null;
