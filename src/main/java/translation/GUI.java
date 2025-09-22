@@ -2,6 +2,7 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Arrays;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -14,14 +15,13 @@ public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
+            String[] languages = languageCodeConverter.getLanguages();
+            Arrays.sort(languages);
 
             // language panel and dropdown
             JPanel languagePanel = new JPanel();
             languagePanel.add(new JLabel("Language:"));
-            JComboBox<String> languageComboBox = new JComboBox<>();
-            for(String language : languageCodeConverter.getLanguages()) {
-                languageComboBox.addItem(language);
-            }
+            JComboBox<String> languageComboBox = new JComboBox<>(languages);
             languagePanel.add(languageComboBox);
 
             JPanel countryPanel = new JPanel();
