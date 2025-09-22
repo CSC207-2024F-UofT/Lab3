@@ -41,11 +41,10 @@ public class CountryCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
-                // Task B: use parts to populate the instance variables
-                String country = parts[0];   // Country
-                String alpha3  = parts[2];   // Alpha-3 code
-                countryCodeToCountry.put(alpha3, country);
-                countryToCountryCode.put(country, alpha3);
+                // TODO Task B: use parts to populate the instance variables
+                countryCodeToCountry.put(parts[2], parts[0]);
+                countryToCountryCode.put(parts[0], parts[2]);
+
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -60,8 +59,9 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // Task B: update this code to use an instance variable to return the correct value
-        return CountryCodeConverter.get(code);
+        // TODO Task B: update this code to use an instance variable to return the correct value
+        return countryCodeToCountry.get(code);
+
     }
 
     /**
@@ -70,8 +70,9 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // Task B: update this code to use an instance variable to return the correct value
-        return CountryCodeConverter.get(country);
+        // TODO Task B: update this code to use an instance variable to return the correct value
+        return countryToCountryCode.get(country);
+
     }
 
     /**
@@ -79,7 +80,7 @@ public class CountryCodeConverter {
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-        // Task B: update this code to use an instance variable to return the correct value
+        // TODO Task B: update this code to use an instance variable to return the correct value
         return countryCodeToCountry.size();
     }
 }
