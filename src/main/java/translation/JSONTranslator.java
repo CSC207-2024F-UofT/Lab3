@@ -47,25 +47,24 @@ public class JSONTranslator implements Translator {
                 JSONObject countryData = jsonArray.getJSONObject(i);
                 String countryCode = countryData.getString("alpha3");
 
-                List<String> languages = new ArrayList<>();
+//                List<String> languages = new ArrayList<>();
 
-                // TODO Task C: record this countryCode in the correct instance variable
                 countryCodes.add(countryCode);
 
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
-
                         String languageCode = key;
-                        int numLanguageCodes = languageCodes.size();
-                        if (numLanguageCodes < 35) {
+
+                        if (!languageCodes.contains(languageCode)) {
                             languageCodes.add(languageCode);
                         }
 
+                        translations.put(countryCode + "-" + languageCode, countryData.getString(key));
 
-                        if (!languages.contains(languageCode)) {
-                            languages.add(languageCode);
-                        }
+//                        if (!languages.contains(languageCode)) {
+//                            languages.add(languageCode);
+//                        }
                     }
                 }
             }
@@ -77,7 +76,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getLanguageCodes() {
-        // TODO Task C: return a copy of the language codes
         return new ArrayList<>(languageCodes);
     }
 
@@ -88,25 +86,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        // TODO Task C: complete this method using your instance variables as needed
-        int numCountryCodes = countryCodes.size();
-
-        try {
-            String jsonString = Files.readString(Paths.get(getClass().getClassLoader()
-                    .getResource("sample.json").toURI()));
-            JSONArray jsonArray = new JSONArray(jsonString);
-
-            String translation = null;
-            for (int i = 0; i < numCountryCodes; i++) {
-                if (Objects.equals(countryCode, countryCodes.get(i))) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    translation = jsonObject.getString(languageCode);
-                }
-            }
-            return translation;
-        } catch (IOException | URISyntaxException ex) {
-            throw new RuntimeException(ex);
-        }
+        return translations.get(countryCode + "-" + languageCode);
     }
 }
 
