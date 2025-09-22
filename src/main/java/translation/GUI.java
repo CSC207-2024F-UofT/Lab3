@@ -63,9 +63,11 @@ public class GUI {
             mainPanel.add(buttonPanel);
 
             JFrame frame = new JFrame("Country Name Translator");
+
             frame.setContentPane(mainPanel);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
+            frame.setSize(300, 200);
             frame.setVisible(true);
 
 
