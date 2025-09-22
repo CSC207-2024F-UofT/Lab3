@@ -26,9 +26,9 @@ public class GUI {
             for (String code: languageCodes){
                 languageNames.add(langConverter.fromLanguageCode(code));
             }
-            //String[] languageNamesArr = new String[languageNames.size()];
-            //languageNames.toArray(languageNamesArr);
-            String[] languageNamesArr = {"1", "2", "3"};
+            String[] languageNamesArr = new String[languageNames.size()];
+            languageNames.toArray(languageNamesArr);
+            // String[] languageNamesArr = {"1", "2", "3"};
             JComboBox<String> dropdown = new JComboBox<String>(languageNamesArr);
 
             JPanel languagePanel = new JPanel();
@@ -52,10 +52,10 @@ public class GUI {
                 countryNames.add(countryCodeConverter.fromCountryCode(code));
             }
 
-            // String[] countryNamesArr = new String[countryNames.size()];
-            // countryNames.toArray(countryNamesArr);
-            String[] countryNamesArr = {"1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3",
-                    "1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3",};
+            String[] countryNamesArr = new String[countryNames.size()];
+            countryNames.toArray(countryNamesArr);
+            // String[] countryNamesArr = {"1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3",
+            //        "1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3",};
             JList<String> countryList = new JList<>(countryNamesArr);
             JScrollPane scrollPane = new JScrollPane(countryList);
             scrollPane.setPreferredSize(new Dimension(200, 150));
@@ -69,7 +69,12 @@ public class GUI {
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
 
-                    String result = "TOOO";
+                    String result = translator.translate(
+                            countryCodeConverter.fromCountry(countryList.getSelectedValue()).toLowerCase(),
+                            langConverter.fromLanguage(dropdown.getSelectedItem().toString().toLowerCase())
+                            );
+                    System.out.println(langConverter.fromLanguage(dropdown.getSelectedItem().toString()));
+                    System.out.println(countryCodeConverter.fromCountry(countryList.getSelectedValue()));
                     if (result == null) {
                         result = "no translation found!";
                     }
