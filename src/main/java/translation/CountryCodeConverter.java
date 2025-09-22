@@ -42,6 +42,7 @@ public class CountryCodeConverter {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
                 // TODO Task B: use parts to populate the instance variables
+                
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -57,6 +58,7 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // TODO Task B: update this code to use an instance variable to return the correct value
+
         return code;
     }
 
