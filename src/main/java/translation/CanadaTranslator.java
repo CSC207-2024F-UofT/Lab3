@@ -3,7 +3,7 @@ package translation;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO Task 1: as a team, update this class so that it also supports the Spanish language code "es" and
+// Task 1: as a team, update this class so that it also supports the Spanish language code "es" and
 //              one more language code of your team's choice. Submit a PR once the code is working and
 //              make sure everyone has a local working copy of the code.
 
@@ -56,6 +56,12 @@ public class CanadaTranslator implements Translator {
         }
         else if ("zh".equals(languageCode)) {
             return "加拿大";
+        }
+        else if ("es".equals(languageCode)) {
+            return "Canadá";
+        }
+        else if ("fr".equals(languageCode)) {
+            return "Canada";
         }
         else {
             return null;
