@@ -53,6 +53,7 @@ public class JSONTranslator implements Translator {
 
                 // TODO Task C: record this countryCode in the correct instance variable
 
+
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
