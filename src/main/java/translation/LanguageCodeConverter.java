@@ -42,8 +42,9 @@ public class LanguageCodeConverter {
             iterator.next(); // skip the first line
             while (iterator.hasNext()) {
                 String line = iterator.next();
-                languageCodeToLanguage.put(line.split(",")[2], line.split(",")[1]);
-                languageToLanguageCode.put(line.split(",")[1], line.split(",")[2]);
+                String[] tokens = line.split("\t");
+                languageCodeToLanguage.put(tokens[1], tokens[0]);
+                languageToLanguageCode.put(tokens[0], tokens[1]);
                 // TODO Task A: use line to populate the instance variables
             }
 
