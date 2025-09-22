@@ -46,7 +46,6 @@ public class LanguageCodeConverter {
                 languageCodeToLanguage.put(tokens[1], tokens[0]);
                 languageToLanguageCode.put(tokens[0], tokens[1]);
             }
-
         } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
