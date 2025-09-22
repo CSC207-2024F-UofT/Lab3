@@ -2,6 +2,8 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -23,6 +25,21 @@ public class GUI {
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
+
+            // adding drop down menu for the languages
+            // from ComboBoxDemo.java:
+            // create combobox, add country codes into it, and add it to our panel
+            JComboBox<String> languageComboBox = new JComboBox<>();
+            //
+            Translator translator = new JSONTranslator();
+
+            LanguageCodeConverter converter = new LanguageCodeConverter("langauge-codes.txt");
+
+            for(String countryCode : translator.getLanguageCodes()) {
+                languageComboBox.addItem(converter.fromLanguageCode(countryCode));
+            }
+            languagePanel.add(languageComboBox);
+
             languagePanel.add(languageField);
 
             JPanel buttonPanel = new JPanel();
