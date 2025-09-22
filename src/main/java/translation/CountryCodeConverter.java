@@ -79,6 +79,5 @@ public class CountryCodeConverter {
     public int getNumCountries() {
         // TODO Task B: update this code to use an instance variable to return the correct value
         return countryCodeToCountry.size();
-        //joey will do this
     }
 }
