@@ -1,6 +1,8 @@
 package translation;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
 
 
@@ -16,12 +18,19 @@ public class GUI {
             Translator translator = new JSONTranslator();
             LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
             CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
             countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+            String[] items = new String[translator.getCountryCodes().size()];
+            int i = 0;
+            for(String countryCode : translator.getCountryCodes()) {
+                items[i++] = countryCodeConverter.fromCountryCode(countryCode);
+            }
+            JList<String> list = new JList<>(items);
+            JScrollPane scrollPane = new JScrollPane(list);
+            countryPanel.add(scrollPane, 1);
+
+
 
             JPanel languagePanel = new JPanel();
             languagePanel.add(new JLabel("Language:"));
@@ -66,8 +75,8 @@ public class GUI {
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-            mainPanel.add(countryPanel);
             mainPanel.add(languagePanel);
+            mainPanel.add(countryPanel);
             mainPanel.add(buttonPanel);
 
             JFrame frame = new JFrame("Country Name Translator");
