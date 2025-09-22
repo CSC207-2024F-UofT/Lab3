@@ -42,7 +42,11 @@ public class LanguageCodeConverter {
             iterator.next(); // skip the first line
             while (iterator.hasNext()) {
                 String line = iterator.next();
-                // TODO Task A: use line to populate the instance variables
+                String[] parts = line.split(" ");
+                String language = parts[0];
+                String languageCode = parts[1];
+                languageCodeToLanguage.put(language, languageCode);
+                languageToLanguageCode.put(languageCode, language);
             }
 
         } catch (IOException | URISyntaxException ex) {
