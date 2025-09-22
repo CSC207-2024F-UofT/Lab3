@@ -87,7 +87,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        String key = "countryCode" + "-" + "languageCode";
+        String key = countryCode + "-" + languageCode;
         if(translations.containsKey(key)) {
             return translations.get(key);
         }
