@@ -51,13 +51,13 @@ public class JSONTranslator implements Translator {
 
                 List<String> languages = new ArrayList<>();
 
-                getCountryCodes().add(countryCode);
+                CountryCodes.add(countryCode);
 
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
                         String languageCode = key;
-                        translations.put(countryCode + "-" + languageCode, countryData.getString(key));
+                        translations.put(countryCode + "-" + languageCode, countryData.getString(languageCode));
 
                         if (!languages.contains(languageCode)) {
                             languages.add(languageCode);
