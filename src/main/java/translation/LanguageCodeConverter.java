@@ -59,7 +59,8 @@ public class LanguageCodeConverter {
      */
     public String fromLanguageCode(String code) {
         // TODO Task A: update this code to use the correct instance variable to return the appropriate value
-        return code;
+        String language = languageCodeToLanguage.get(code);
+        return language;
     }
 
     /**
@@ -69,7 +70,8 @@ public class LanguageCodeConverter {
      */
     public String fromLanguage(String language) {
         // TODO Task A: update this code to use the correct instance variable to return the appropriate value
-        return language;
+        String code = languageToLanguageCode.get(language);
+        return code;
     }
 
     /**
