@@ -88,7 +88,10 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        // TODO Task C: complete this method using your instance variables as needed
-        return "JSONTranslator's translate method is not implemented!";
+        String key = "countryCode" + "-" + "languageCode";
+        if(translations.containsKey(key)) {
+            return translations.get(key);
+        }
+        return "We don't support this language";
     }
 }
