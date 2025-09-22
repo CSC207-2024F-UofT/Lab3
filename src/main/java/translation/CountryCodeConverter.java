@@ -42,8 +42,8 @@ public class CountryCodeConverter {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
 
-                countryToCountryCode.put(parts[0], parts[2].substring(0, 3));
-                countryCodeToCountry.put(parts[2].substring(0, 3), parts[0]);
+                countryToCountryCode.put(parts[0], parts[2]);
+                countryCodeToCountry.put(parts[2], parts[0]);
             }
         }
         catch (IOException | URISyntaxException ex) {
