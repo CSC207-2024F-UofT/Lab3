@@ -73,7 +73,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getLanguageCodes() {
-        // TODO Task C: return a copy of the language codes
+        // Task C: return a copy of the language codes
         return new ArrayList<>(languageCodes);
     }
 
@@ -84,7 +84,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        // TODO Task C: complete this method using your instance variables as needed
+        // Task C: complete this method using your instance variables as needed
         return translations.get(countryCode + "-" + languageCode);
     }
 }
