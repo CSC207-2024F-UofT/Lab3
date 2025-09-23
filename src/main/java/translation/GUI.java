@@ -52,7 +52,7 @@ public class GUI {
                     country = countryCodeConverter.fromCountry(country);
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
+                    Translator translator = new JSONTranslator();
 
                     String result = translator.translate(country, language);
                     if (result == null) {
