@@ -15,6 +15,11 @@ public class GUI {
         SwingUtilities.invokeLater(() -> {
             Translator translator = new CanadaTranslator();
 
+            JList<String> listBox = new JList<>();
+            for(String langaugeCode : translator.getLanguageCodes()){
+//                listBox(languageCode);
+            }
+
             JPanel languagePanel = new JPanel();
             JComboBox<String> languageComboBox = new JComboBox<>();
             for(String countryCode : translator.getLanguageCodes()) {
@@ -27,17 +32,19 @@ public class GUI {
 
             JPanel countryPanel = new JPanel();
             JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for no
+            countryPanel.add(resultLabelText);
+//            countryField.setText("can");
+//            countryField.setEditable(false); // we only support the "can" country code for no
 
             countryPanel.add(countryField);
+
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
             buttonPanel.add(submit);
 
 
-            buttonPanel.add(resultLabelText);
+
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
 
