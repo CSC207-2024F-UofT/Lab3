@@ -41,12 +41,12 @@ public class CountryCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
-                // TODO Task B: use parts to populate the instance variables
-                if (parts.length == 2) {
+
+                if (parts.length >= 3) {
                     String country = parts[0].trim();
-                    String code = parts[1].trim();
-                    countryCodeToCountry.put(code, country);
-                    countryToCountryCode.put(country, code);
+                    String code = parts[2].trim().toLowerCase();
+                    countryCodeToCountry.put(code.toLowerCase(), country);
+                    countryToCountryCode.put(country.toLowerCase(), code.toLowerCase());
 
                 }
             }
@@ -63,8 +63,9 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return countryCodeToCountry.get(code);
+
+        if (code == null) return null;
+        return countryCodeToCountry.get(code.toLowerCase());
     }
 
     /**
@@ -73,8 +74,9 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return countryToCountryCode.get(country);
+
+        if (country == null) return null;
+        return countryToCountryCode.get(country.toLowerCase());
     }
 
     /**
@@ -82,7 +84,7 @@ public class CountryCodeConverter {
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-        // TODO Task B: update this code to use an instance variable to return the correct value
+
         return countryCodeToCountry.size();
     }
 }

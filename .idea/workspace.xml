@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65f6ab52-4ed4-460c-b682-6a4b552a5c2b" name="Changes" comment="gitignore files update" />
+    <list default="true" id="65f6ab52-4ed4-460c-b682-6a4b552a5c2b" name="Changes" comment="Merge branch 'main' of https://github.com/zahrabuch/LostInTranslation into zahra&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/translation/CountryCodeConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translation/CountryCodeConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/translation/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translation/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/translation/JSONTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translation/JSONTranslator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/translation/LanguageCodeConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translation/LanguageCodeConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/CanadaTranslator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/translation/CanadaTranslator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/CountryCodeConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/translation/CountryCodeConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/GUI$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/translation/GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/JSONTranslator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/translation/JSONTranslator.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,26 +59,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.GUI.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.All in lab3.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.GUI.executor": "Run",
+    "JUnit.All in lab3.executor": "Run",
+    "JUnit.CountryCodeConverterTest.executor": "Run",
+    "JUnit.JSONTranslatorTest.executor": "Run",
+    "JUnit.LanguageCodeConverterTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "#1 on zahra",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="JUnit.All in lab3">
+}]]></component>
+  <component name="RunManager" selected="JUnit.LanguageCodeConverterTest">
     <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="translation.GUI" />
       <module name="lab3" />
@@ -89,6 +103,51 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CountryCodeConverterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="translation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="translation" />
+      <option name="MAIN_CLASS_NAME" value="translation.CountryCodeConverterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JSONTranslatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="translation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="translation" />
+      <option name="MAIN_CLASS_NAME" value="translation.JSONTranslatorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LanguageCodeConverterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="translation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="translation" />
+      <option name="MAIN_CLASS_NAME" value="translation.LanguageCodeConverterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="LostInTranslation" />
       <method v="2">
@@ -102,9 +161,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in lab3" />
+        <item itemvalue="JUnit.LanguageCodeConverterTest" />
         <item itemvalue="Application.GUI" />
-        <item itemvalue="Application.GUI" />
+        <item itemvalue="JUnit.JSONTranslatorTest" />
+        <item itemvalue="JUnit.CountryCodeConverterTest" />
         <item itemvalue="JUnit.All in lab3" />
       </list>
     </recent_temporary>
@@ -158,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758644188466</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Merge branch 'main' of https://github.com/zahrabuch/LostInTranslation into zahra&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <option name="closed" value="true" />
+      <created>1758644828660</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1758644828660</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,6 +235,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added spanish and french" />
     <MESSAGE value="gitignore files update" />
-    <option name="LAST_COMMIT_MESSAGE" value="gitignore files update" />
+    <MESSAGE value="task c" />
+    <MESSAGE value="Merge branch 'main' of https://github.com/zahrabuch/LostInTranslation into zahra&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'main' of https://github.com/zahrabuch/LostInTranslation into zahra&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
   </component>
 </project>
