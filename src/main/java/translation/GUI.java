@@ -23,7 +23,44 @@ public class GUI {
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+
+
+
+            Translator translator = new CanadaTranslator();
+
+            String[] items = new String[translator.getLanguageCodes().size()];
+
+
+
+            // create combobox, add country codes into it, and add it to our panel
+            JComboBox<String> languageComboBox = new JComboBox<>();
+            for(String LanguageCode : translator.getLanguageCodes()) {
+
+                languageComboBox.addItem(LanguageCodeConverter.fromLanguageCode(LanguageCode));
+            }
+            languagePanel.add(languageComboBox);
+
+
+//            Translator translator = new CanadaTranslator();
+//
+//            String[] items = new String[translator.getLanguageCodes().size()];
+//
+//            JComboBox<String> languageComboBox = new JComboBox<>();
+//            int i = 0;
+//            for(String langaugeCode : translator.getLanguageCodes()) {
+//                items[i++] = translator.translate(langaugeCode,countryCode);
+//            }
+//
+//            // create the JList with the array of strings and set it to allow multiple
+//            // items to be selected at once.
+//            JList<String> list = new JList<>(items);
+//            list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+//
+//            // place the JList in a scroll pane so that it is scrollable in the UI
+//            JScrollPane scrollPane = new JScrollPane(list);
+//            languagePanel.add(scrollPane, 1);
+
+
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
