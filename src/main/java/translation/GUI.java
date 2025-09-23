@@ -1,6 +1,7 @@
 package translation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 
@@ -13,26 +14,41 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            JPanel languagePanel = new JPanel();
+
+            LanguageCodeConverter converter = new LanguageCodeConverter();
+
+            languagePanel.add(new JLabel("Language:"));
+
             Translator translator = new CanadaTranslator();
 
-            JList<String> listBox = new JList<>();
-            for(String langaugeCode : translator.getLanguageCodes()){
-//                listBox(languageCode);
+            String[] items = new String[translator.getLanguageCodes().size()];
+            int i = 0;
+            for(String languageCode : translator.getLanguageCodes()) {
+                items[i++] = converter.fromLanguageCode(languageCode);
             }
+            JList<String> list = new JList<>(items);
+            list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-            JPanel languagePanel = new JPanel();
+
+
             JComboBox<String> languageComboBox = new JComboBox<>();
+
             for(String countryCode : translator.getLanguageCodes()) {
-                languageComboBox.addItem(countryCode);
+                languageComboBox.addItem(converter.fromLanguageCode(countryCode));
             }
-            languagePanel.add(new JLabel("Language:"));
             languagePanel.add(languageComboBox);
+            languagePanel.setLayout(new BoxLayout(languagePanel, BoxLayout.X_AXIS));
 
             JLabel resultLabelText = new JLabel("Translation:");
+            JPanel resultPanel = new JPanel();
+            resultPanel.add(resultLabelText);
+            resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
 
             JPanel countryPanel = new JPanel();
             JTextField countryField = new JTextField(10);
-            countryPanel.add(resultLabelText);
+            countryPanel.add(list);
+
 //            countryField.setText("can");
 //            countryField.setEditable(false); // we only support the "can" country code for no
 
@@ -58,7 +74,7 @@ public class GUI {
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
+                    Translator translator = new JSONTranslator();
 
                     String result = translator.translate(country, language);
                     if (result == null) {
@@ -73,6 +89,7 @@ public class GUI {
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
             mainPanel.add(languagePanel);
+            mainPanel.add(resultPanel);
             mainPanel.add(countryPanel);
             mainPanel.add(buttonPanel);
 
