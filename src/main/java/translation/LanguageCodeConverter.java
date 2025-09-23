@@ -42,7 +42,9 @@ public class LanguageCodeConverter {
             iterator.next(); // skip the first line
             while (iterator.hasNext()) {
                 String line = iterator.next();
-                // TODO Task A: use line to populate the instance variables
+                String[] split_line = line.split("\t");
+                this.languageToLanguageCode.put(split_line[0], split_line[1]);
+                this.languageCodeToLanguage.put(split_line[1], split_line[0]);
             }
 
         } catch (IOException | URISyntaxException ex) {
