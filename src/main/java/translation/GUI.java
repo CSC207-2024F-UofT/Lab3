@@ -17,6 +17,9 @@ public class GUI {
             LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
             String[] languages = languageCodeConverter.getLanguages();
             Arrays.sort(languages);
+            CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+            String[] countries = countryCodeConverter.getCountries();
+            Arrays.sort(countries);
 
             // language panel and dropdown
             JPanel languagePanel = new JPanel();
@@ -26,9 +29,12 @@ public class GUI {
 
             JPanel countryPanel = new JPanel();
             JTextField countryField = new JTextField(10);
-            countryField.setText("can");
+            JList countryList = new JList(countries);
+            countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            JScrollPane countryScroll = new JScrollPane(countryList);
             countryField.setEditable(false); // we only support the "can" country code for now
             countryPanel.add(new JLabel("Country:"));
+            countryPanel.add(countryScroll);
             countryPanel.add(countryField);
 
 
