@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * This class provides the service of converting country codes to their names and back.
  */
-public class CountryCodeConverter {
+public class  CountryCodeConverter {
 
     private Map<String, String> countryCodeToCountry = new HashMap<>();
     private Map<String, String> countryToCountryCode = new HashMap<>();
