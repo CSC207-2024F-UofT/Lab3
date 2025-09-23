@@ -13,13 +13,6 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
-            countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
-
             Translator translator = new CanadaTranslator();
 
             JPanel languagePanel = new JPanel();
@@ -27,13 +20,23 @@ public class GUI {
             for(String countryCode : translator.getLanguageCodes()) {
                 languageComboBox.addItem(countryCode);
             }
+            languagePanel.add(new JLabel("Language:"));
             languagePanel.add(languageComboBox);
+
+            JLabel resultLabelText = new JLabel("Translation:");
+
+            JPanel countryPanel = new JPanel();
+            JTextField countryField = new JTextField(10);
+            countryField.setText("can");
+            countryField.setEditable(false); // we only support the "can" country code for no
+
+            countryPanel.add(countryField);
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
             buttonPanel.add(submit);
 
-            JLabel resultLabelText = new JLabel("Translation:");
+
             buttonPanel.add(resultLabelText);
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
@@ -62,8 +65,8 @@ public class GUI {
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-            mainPanel.add(countryPanel);
             mainPanel.add(languagePanel);
+            mainPanel.add(countryPanel);
             mainPanel.add(buttonPanel);
 
             JFrame frame = new JFrame("Country Name Translator");
