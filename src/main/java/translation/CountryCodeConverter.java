@@ -46,8 +46,8 @@ public class CountryCodeConverter {
                 String country = parts[0].trim();
                 String alpha3Code = parts[2].trim();
 
-                countryCodeToCountry.put(alpha3Code.toLowerCase(), country);
-                countryToCountryCode.put(country, alpha3Code.toLowerCase());
+                countryCodeToCountry.put(alpha3Code, country);
+                countryToCountryCode.put(country, alpha3Code);
             }
         }
         catch (IOException | URISyntaxException ex) {
