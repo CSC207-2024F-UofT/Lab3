@@ -27,7 +27,6 @@ public class JSONTranslatorTest {
 
     @Test
     public void translate() {
-        return translations.getOrDefault(countryCode + "-" + languageCode, "Translation not found");
-        //assertEquals("Canada", jsonTranslator.translate("can", "en"));
+        assertEquals("Canada", jsonTranslator.translate("can", "en"));
     }
 }
