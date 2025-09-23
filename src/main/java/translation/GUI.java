@@ -15,13 +15,11 @@ public class GUI {
         SwingUtilities.invokeLater(() -> {
             Translator translator = new JSONTranslator();
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
             JComboBox<String> countryBox = new JComboBox<>(translator.getCountryCodes().toArray(new String[0]));
             countryPanel.add(new JLabel("Country:"));
             countryPanel.add(countryBox);
 
             JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
             JComboBox<String> languageBox = new JComboBox<>(translator.getLanguageCodes().toArray(new String[0]));
             languagePanel.add(new JLabel("Language:"));
             languagePanel.add(languageBox);
@@ -40,13 +38,11 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
-                    String country = countryField.getText();
+                    String language = (String) languageBox.getSelectedItem();
+                    String country = (String) countryBox.getSelectedItem();
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
-                    Translator translator = new JSONTranslator();
-
                     String result = translator.translate(country, language);
                     if (result == null) {
                         result = "no translation found!";
