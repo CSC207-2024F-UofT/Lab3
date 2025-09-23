@@ -46,7 +46,9 @@ public class LanguageCodeConverter {
                     continue;
                 }
                 String[] split = line.split("\\s");
+
                 if (split.length >= 2) {
+
                     String code = split[split.length - 1];
                     StringBuilder builder = new StringBuilder();
                     for (int i = 0; i < split.length - 1; i++) {
@@ -54,10 +56,11 @@ public class LanguageCodeConverter {
                     }
 
                     String language = builder.toString();
+
                     languageCodeToLanguage.put(code, language);
                     languageToLanguageCode.put(language, code);
                 }
-                // TODO Task A: use line to populate the instance variables
+
             }
 
         } catch (IOException | URISyntaxException ex) {
