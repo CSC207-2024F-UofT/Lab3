@@ -2,6 +2,7 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -19,6 +20,15 @@ public class GUI {
             countryField.setEditable(false); // we only support the "can" country code for now
             countryPanel.add(new JLabel("Country:"));
             countryPanel.add(countryField);
+            JComboBox combo = new JComboBox();
+            JSONTranslator translator = new JSONTranslator();
+            CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+            for (String item :  translator.getCountryCodes()) {
+                combo.addItem(countryCodeConverter.fromCountryCode(item));
+            }
+
+
+
 
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
@@ -61,6 +71,7 @@ public class GUI {
             mainPanel.add(countryPanel);
             mainPanel.add(languagePanel);
             mainPanel.add(buttonPanel);
+            mainPanel.add(combo);
 
             JFrame frame = new JFrame("Country Name Translator");
             frame.setContentPane(mainPanel);
