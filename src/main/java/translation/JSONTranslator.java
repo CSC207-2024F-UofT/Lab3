@@ -85,7 +85,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        // TODO Task C: complete this method using your instance variables as needed
         String key = countryCode + "-" + languageCode;
 
         // check if a translation exists in the map
