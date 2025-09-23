@@ -66,8 +66,9 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task B v: update this code to use an instance variable to return the correct value
-        return country;
+        // Task B v: update this code to use an instance variable to return the correct value
+        String countryCode = countryToCountryCode.get(country);
+        return countryCode;
     }
 
     /**
