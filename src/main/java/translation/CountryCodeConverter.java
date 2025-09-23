@@ -66,8 +66,8 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return country;
+        // in countryToCountryCode, find corresponding country code, return that country code
+        return this.countryCodeToCountry.get(country);
     }
 
     /**
@@ -75,7 +75,7 @@ public class CountryCodeConverter {
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return 0;
+        // find how many elements in either the code to country, or country to code
+        return countryCodeToCountry.size();
     }
 }
