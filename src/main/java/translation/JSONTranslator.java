@@ -58,6 +58,9 @@ public class JSONTranslator implements Translator {
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
                         String languageCode = key;
+                        String translatedName = countryData.getString(languageCode);
+
+                        translations.put(countryCode.toUpperCase() + "-" + languageCode.toLowerCase(), translatedName);
                         //  Task C: record this translation in the appropriate instance variable
                         if (!languageCodes.contains(languageCode)) {
                             languageCodes.add(languageCode);
@@ -92,8 +95,13 @@ public class JSONTranslator implements Translator {
     @Override
     public String translate(String countryCode, String languageCode) {
         //  Task C: complete this method using your instance variables as needed
-        if (languageCode.equals("id"))
-            {return this.translations.get(countryCode);}
-        return "JSONTranslator's translate method is not implemented!";
+        //if (languageCode.equals("id"))
+            //{return this.translations.get(countryCode);}
+        //return "JSONTranslator's translate method is not implemented!";
+        if (countryCode == null || languageCode == null) {
+            return "Invalid input";
+        }
+        String key = countryCode.toUpperCase() + "-" + languageCode.toLowerCase();
+        return translations.getOrDefault(key, "Translation not found");
     }
 }
