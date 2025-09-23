@@ -61,7 +61,7 @@ public class JSONTranslator implements Translator {
                         // Task C: record this translation in the appropriate instance variable
                         String translatedName = countryData.getString(languageCode);
                         if (!languageCodes.contains(languageCode)) {
-                            languages.add(languageCode);
+                            languageCodes.add(languageCode);
                         }
                         translations.put(countryCode + "-" + languageCode, translatedName);
                         if (!languages.contains(languageCode)) {
