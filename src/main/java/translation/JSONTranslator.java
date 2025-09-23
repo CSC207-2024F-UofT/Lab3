@@ -63,10 +63,6 @@ public class JSONTranslator implements Translator {
                             languageCodes.add(languageCode);
                         }
 
-
-                        if (!languages.contains(languageCode)) {
-                            languages.add(languageCode);
-                        }
                     }
                 }
             }
@@ -92,8 +88,14 @@ public class JSONTranslator implements Translator {
     @Override
     public String translate(String countryCode, String languageCode) {
         //  Task C: complete this method using your instance variables as needed
-        if (languageCode.equals("id"))
-            {return this.translations.get(countryCode);}
-        return "JSONTranslator's translate method is not implemented!";
+        System.out.println(this.getCountryCodes());
+        System.out.println();
+        System.out.println(this.getLanguageCodes());
+        return "a";
+    }
+
+    public static void main(String[] args) {
+        JSONTranslator t = new JSONTranslator();
+        t.translate("can","es");
     }
 }
