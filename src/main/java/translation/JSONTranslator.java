@@ -51,26 +51,25 @@ public class JSONTranslator implements Translator {
 
                 List<String> languages = new ArrayList<>();
 
-                if (!countryCodes.contains(countryCode)) {
-                    countryCodes.add(countryCode);
-                }
-
-
-                // TODO Task C: record this countryCode in the correct instance variable
+                // Task C: record this countryCode in the correct instance variable
+                countryCodes.add(countryCode);
 
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
                         String languageCode = key;
-                        // TODO Task C: record this translation in the appropriate instance variable
+                        // Task C: record this translation in the appropriate instance variable
+                        String translatedName = countryData.getString(languageCode);
                         if (!languageCodes.contains(languageCode)) {
-                            languageCodes.add(languageCode);
+                            languages.add(languageCode);
                         }
-
+                        translations.put(countryCode + "-" + languageCode, translatedName);
+                        if (!languages.contains(languageCode)) {
+                            languages.add(languageCode);
                         }
                     }
                 }
-
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -79,8 +78,8 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getLanguageCodes() {
-        // TODO Task C: return a copy of the language codes
-        return new ArrayList<>(languageCodes);
+        // Task C: return a copy of the language codes
+        return languageCodes;
     }
 
     @Override
@@ -90,10 +89,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        if (countryCodes.contains(countryCode) && languageCodes.contains(languageCode)) {
-            return translate(countryCode, languageCode);
-        }
-        else
-            return "JSONTranslator's translate method is not implemented!";
+        // Task C: complete this method using your instance variables as needed
+        return translations.get(countryCode + "-" + languageCode);
     }
 }
