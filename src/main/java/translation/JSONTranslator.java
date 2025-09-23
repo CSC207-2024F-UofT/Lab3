@@ -52,7 +52,7 @@ public class JSONTranslator implements Translator {
                 List<String> languages = new ArrayList<>();
 
                 //  Task C: record this countryCode in the correct instance variable
-                countryCodes.add(countryCode)
+                countryCodes.add(countryCode);
 
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
