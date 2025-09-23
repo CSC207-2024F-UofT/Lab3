@@ -1,14 +1,13 @@
 package translation;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 
-// TODO Task D: Update the GUI for the program to align with UI shown in the README example.
-//            Currently, the program only uses the CanadaTranslator and the user has
-//            to manually enter the language code they want to use for the translation.
-//            See the examples package for some code snippets that may be useful when updating
-//            the GUI.
 public class GUI {
 
     public static void main(String[] args) {
@@ -23,35 +22,32 @@ public class GUI {
             languagePanel.add(new JLabel("Language:"));
             languagePanel.add(languageComboBox);
 
-            JLabel resultLabelText = new JLabel("Translation:");
+            CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
 
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for no
+            String[] items = countryCodeConverter.getCountries();
+            JList countryField = new JList<>(items);
+            JScrollPane countryScrollPane = new JScrollPane(countryField);
+            countryPanel.add(countryScrollPane);
 
-            countryPanel.add(countryField);
-
-            JPanel buttonPanel = new JPanel();
-            JButton submit = new JButton("Submit");
-            buttonPanel.add(submit);
-
-
-            buttonPanel.add(resultLabelText);
+            JPanel resultPanel = new JPanel();
+            JLabel resultLabelText = new JLabel("Translation:");
+            resultPanel.add(resultLabelText);
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
-            buttonPanel.add(resultLabel);
+            resultPanel.add(resultLabel);
 
 
             // adding listener for when the user clicks the submit button
-            submit.addActionListener(new ActionListener() {
+            countryField.addListSelectionListener(new ListSelectionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void valueChanged(ListSelectionEvent e) {
                     String language = languageComboBox.getSelectedItem().toString();
-                    String country = countryField.getText();
+                    String country = countryField.getSelectedValue().toString();
 
+                    country = countryCodeConverter.fromCountry(country);
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
+                    Translator translator = new JSONTranslator();
 
                     String result = translator.translate(country, language);
                     if (result == null) {
@@ -66,8 +62,8 @@ public class GUI {
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
             mainPanel.add(languagePanel);
+            mainPanel.add(resultPanel);
             mainPanel.add(countryPanel);
-            mainPanel.add(buttonPanel);
 
             JFrame frame = new JFrame("Country Name Translator");
             frame.setContentPane(mainPanel);
