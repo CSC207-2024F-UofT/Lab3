@@ -79,7 +79,7 @@ public class CountryCodeConverter {
         return num_country;
     }
 
-    // All country names (sorted, so it's nice for a JList)
+    // All country names
     public List<String> getAllCountries() {
         List<String> names = new ArrayList<>(countryToCountryCode.keySet());
         names.sort(String.CASE_INSENSITIVE_ORDER);

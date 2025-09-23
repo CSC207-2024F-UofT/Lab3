@@ -79,4 +79,13 @@ public class LanguageCodeConverter {
     public int getNumLanguages() {
         return languageCodeToLanguage.size();
     }
+
+
+    /**
+     * Return all language names available in this converter.
+     * @return a Set of language names
+     */
+    public java.util.Set<String> getAllLanguages() {
+        return languageToLanguageCode.keySet();
+    }
 }
