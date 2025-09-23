@@ -43,13 +43,11 @@ public class CountryCodeConverter {
                 if (line.isEmpty()) continue;
 
                 String[] parts = line.split("\t");
-                if (parts.length < 3) continue;
-
                 String country = parts[0].trim();
                 String alpha3Code = parts[2].trim();
 
-                countryCodeToCountry.put(alpha3Code.toUpperCase(), country);
-                countryToCountryCode.put(country.toLowerCase(), alpha3Code.toUpperCase());
+                countryCodeToCountry.put(alpha3Code.toLowerCase(), country);
+                countryToCountryCode.put(country, alpha3Code.toLowerCase());
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -65,7 +63,7 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         if (code == null) return null;
-        return countryCodeToCountry.get(code.toUpperCase());
+        return this.countryCodeToCountry.get(code.toUpperCase());
     }
 
     /**
@@ -75,7 +73,7 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         if (country == null) return null;
-        return countryToCountryCode.get(country.toLowerCase());
+        return this.countryToCountryCode.get(country);
     }
 
     /**
@@ -83,6 +81,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-        return countryCodeToCountry.size();
+        return this.countryCodeToCountry.size();
     }
 }
