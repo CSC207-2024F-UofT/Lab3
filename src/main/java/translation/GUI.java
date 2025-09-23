@@ -12,11 +12,11 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            Translator translator = new CanadaTranslator();
+            LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
 
             JPanel languagePanel = new JPanel();
             JComboBox<String> languageComboBox = new JComboBox<>();
-            for(String countryCode : translator.getLanguageCodes()) {
+            for(String countryCode : languageCodeConverter.getLanguages()) {
                 languageComboBox.addItem(countryCode);
             }
             languagePanel.add(new JLabel("Language:"));
@@ -45,6 +45,7 @@ public class GUI {
                     String country = countryField.getSelectedValue().toString();
 
                     country = countryCodeConverter.fromCountry(country);
+                    language = languageCodeConverter.fromLanguage(language);
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
                     Translator translator = new JSONTranslator();
