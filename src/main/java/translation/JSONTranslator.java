@@ -41,10 +41,8 @@ public class JSONTranslator implements Translator {
         try {
 
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
-//            System.out.println(jsonString);
 
             JSONArray jsonArray = new JSONArray(jsonString);
-            System.out.println(jsonArray);
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -87,12 +85,14 @@ public class JSONTranslator implements Translator {
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
                         String languageCode = key;
-                        if (!languageCodes.contains(languageCode)) {languageCodes.add(languageCode);
+                        if (!languageCodes.contains(languageCode)) {
+                            languageCodes.add(languageCode);
                         }
-                }
+                    }
                 }
 
         }
+
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
@@ -110,4 +110,10 @@ public class JSONTranslator implements Translator {
         return translations.get(countryCode + "-" + languageCode);
     }
 
+    public static void main(String[] args) {
+        JSONTranslator trans = new JSONTranslator();
+        List<String> countryCodes = trans.getCountryCodes();
+        List<String> languageCodes = trans.getLanguageCodes();
+        System.out.println(languageCodes);
+    }
 }

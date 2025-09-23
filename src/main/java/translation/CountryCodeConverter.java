@@ -58,7 +58,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return countryCodeToCountry.get(code);
+        return countryCodeToCountry.get(code.toUpperCase());
     }
 
     /**
@@ -76,5 +76,11 @@ public class CountryCodeConverter {
      */
     public int getNumCountries() {
         return countryCodeToCountry.size();
+    }
+
+    public static void main(String[] args) {
+        CountryCodeConverter converter = new CountryCodeConverter();
+        System.out.println(converter.fromCountryCode("USA"));
+        System.out.println(converter.fromCountry("Canada"));
     }
 }

@@ -43,8 +43,11 @@ public class LanguageCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] split = line.split("\t");
+
                 languageCodeToLanguage.put(split[1], split[0]);
                 languageToLanguageCode.put(split[0], split[1]);
+//                System.out.println(languageCodeToLanguage.size());
+//                System.out.println("break");
             }
 
         } catch (IOException | URISyntaxException ex) {
@@ -76,5 +79,10 @@ public class LanguageCodeConverter {
      */
     public int getNumLanguages() {
         return languageCodeToLanguage.size();
+    }
+
+    public static void main(String[] args) {
+        LanguageCodeConverter converter = new LanguageCodeConverter();
+        System.out.println(converter.getNumLanguages()) ;
     }
 }
