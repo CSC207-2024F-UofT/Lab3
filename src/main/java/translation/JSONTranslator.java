@@ -49,6 +49,7 @@ public class JSONTranslator implements Translator {
                 JSONObject countryData = jsonArray.getJSONObject(i);
                 String countryCode = countryData.getString("alpha3");
 
+
                 List<String> languages = new ArrayList<>();
 
                 // TODO Task C: record this countryCode in the correct instance variable
@@ -65,6 +66,9 @@ public class JSONTranslator implements Translator {
 
                         if (!languages.contains(languageCode)) {
                             languages.add(languageCode);
+                        }
+                        if (!languageCodes.contains(languageCode)) {
+                            languageCodes.add(languageCode);
                         }
                     }
                 }
