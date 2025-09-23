@@ -30,8 +30,8 @@ public class GUI {
 
 
             JPanel countryPanel = new JPanel();
-            countryPanel.setLayout(new GridLayout(0, 2));
-            countryPanel.add(new JLabel("Language:"), 0);
+            countryPanel.setLayout(new GridLayout(0, 1));
+            // countryPanel.add(new JLabel("Language:"), 0);
             String[] items = new String[translator.getCountryCodes().size()];
             int i = 0;
             for(String countryCode : translator.getCountryCodes()) {
@@ -44,7 +44,7 @@ public class GUI {
 
             // place the JList in a scroll pane so that it is scrollable in the UI
             JScrollPane scrollPane = new JScrollPane(list);
-            countryPanel.add(scrollPane, 1);
+            countryPanel.add(scrollPane);
 
             JPanel buttonPanel = new JPanel();
             JLabel resultLabelText = new JLabel("Translation:");
@@ -71,7 +71,7 @@ public class GUI {
                     String country = (String) languageComboBox.getSelectedItem();
                     String languageCode = languageCodeConverter.fromLanguage(country);
                     String countryCode = countryCodeConverter.fromCountry(items[0]);
-                    resultLabelText.setText(translator.translate(countryCode.toLowerCase(),languageCode));
+                    resultLabel.setText(translator.translate(countryCode.toLowerCase(),languageCode));
 
                 }
 
