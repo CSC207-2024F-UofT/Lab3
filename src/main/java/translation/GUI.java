@@ -2,6 +2,11 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import java.util.Arrays;
+
+
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -64,8 +69,10 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
-                    String country = countryField.getText();
+                    String language = (String) languageComboBox.getSelectedItem();
+                    String country = (String) list.getSelectedValue();
+                    //String language = languageField.getText();
+                    //String country = countryField.getText();
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
