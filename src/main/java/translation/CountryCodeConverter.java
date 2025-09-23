@@ -42,7 +42,7 @@ public class CountryCodeConverter {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
                 String countryName = parts[0];
-                String alpha3Code = parts[2];
+                String alpha3Code = parts[2].toUpperCase();
                 countryCodeToCountry.put(alpha3Code, countryName);
                 countryToCountryCode.put(countryName, alpha3Code);
             }
@@ -59,7 +59,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return countryCodeToCountry.get(code);
+        return countryCodeToCountry.get(code.toUpperCase());
     }
 
     /**
@@ -68,7 +68,7 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        return countryCodeToCountry.get(country);
+        return countryCodeToCountry.get(country.toUpperCase());
     }
 
     /**
