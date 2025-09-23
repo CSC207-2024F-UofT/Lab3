@@ -52,12 +52,22 @@ public class JSONTranslator implements Translator {
                 List<String> languages = new ArrayList<>();
 
                 // TODO Task C: record this countryCode in the correct instance variable
-
+                countryCode = countryCode.toLowerCase(); // makesure the countryCode is all in lowercase
+                if (!countryCodes.contains(countryCode)){
+                    countryCodes.add(countryCode); //if not in countryCode, then add into the Array
+                }
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
                         String languageCode = key;
                         // TODO Task C: record this translation in the appropriate instance variable
+                        String translateName = countryData.getString(key); // looks for translation of country in current language from JSON
+                        translations.put(countryCode + "-" + languageCode, translateName); // stores the translateName information
+
+                        if (!languageCodes.contains(languageCode)){
+                            languageCodes.add(languageCode);
+
+                        }
 
                         if (!languages.contains(languageCode)) {
                             languages.add(languageCode);
@@ -74,7 +84,7 @@ public class JSONTranslator implements Translator {
     @Override
     public List<String> getLanguageCodes() {
         // TODO Task C: return a copy of the language codes
-        return new ArrayList<>();
+        return new ArrayList<>(languageCodes); // creates new list that holds identical translation or info as languageCodes with no risks
     }
 
     @Override
@@ -85,6 +95,13 @@ public class JSONTranslator implements Translator {
     @Override
     public String translate(String countryCode, String languageCode) {
         // TODO Task C: complete this method using your instance variables as needed
-        return "JSONTranslator's translate method is not implemented!";
+        if (countryCode == null|| languageCode == null){
+            return null; // if either countryCode or languageCode is null, return null
+        }
+        else{
+            String lookUp = countryCode.toLowerCase() + "-" + languageCode; // match syntax and format for lookUp with entries in translations map
+            return translations.get(lookUp); // returns lookUp's translation from translations map
+        // return "JSONTranslator's translate method is not implemented!";
+        }
     }
 }
