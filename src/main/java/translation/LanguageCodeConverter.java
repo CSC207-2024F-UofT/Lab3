@@ -41,11 +41,11 @@ public class LanguageCodeConverter {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
 
-                String languageName = parts[0].trim();
-                String code = parts[1].trim().toLowerCase(Locale.ROOT); // uniform lowercase
+                String languageName = parts[0];
+                String code = parts[1]; // uniform lowercase
 
                 languageCodeToLanguage.put(code, languageName);
-                languageToLanguageCode.put(languageName.toLowerCase(Locale.ROOT), code);
+                languageToLanguageCode.put(languageName, code);
             }
 
         } catch (IOException | URISyntaxException ex) {

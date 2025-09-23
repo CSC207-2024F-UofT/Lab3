@@ -4,9 +4,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.Arrays;
-import java.util.concurrent.Callable;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -53,6 +52,7 @@ public class GUI {
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
 
+            // when country selection changes
             list.addListSelectionListener(new ListSelectionListener() {
 
                 /**
@@ -68,25 +68,12 @@ public class GUI {
                     for (int i = 0; i < indices.length; i++) {
                         items[i] = list.getModel().getElementAt(indices[i]);
                     }
-                    String result = (String) languageComboBox.getSelectedItem();
-                    resultLabel.setText(items[0] + result);
+                    String country = (String) languageComboBox.getSelectedItem();
+                    String languageCode = languageCodeConverter.fromLanguage(country);
+                    String countryCode = countryCodeConverter.fromCountry(items[0]);
+                    resultLabelText.setText(translator.translate(countryCode.toLowerCase(),languageCode));
 
                 }
-            // adding listener for when the user clicks the submit button
-            /*
-            languageComboBox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String result = (String) languageComboBox.getSelectedItem();
-                    //String result = translator.translate(country, language);if (result == null) {
-                        result = "no translation found!";
-                    }
-                    resultLabel.setText(result);
-
-                }
-
-             */
-
 
             });
 
