@@ -60,7 +60,7 @@ public class CanadaTranslator implements Translator {
         else if ("jp".equals(languageCode)) {
             return "カナダ";
         }
-        } else {
+        else {
             return null;
         }
     }
