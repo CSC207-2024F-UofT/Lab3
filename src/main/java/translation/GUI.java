@@ -54,7 +54,7 @@ public class GUI {
         center.add(resultLabel);
         mainPanel.add(center);
 
-        // --- BOTTOM: Country list (names from your converter) ---
+        // BOTTOM: Country list
         java.util.List<String> countryNames = new ArrayList<>(countryConv.getAllCountries());
         Collections.sort(countryNames, String.CASE_INSENSITIVE_ORDER);
 
@@ -68,9 +68,6 @@ public class GUI {
         countryPanel.add(countryScroll, BorderLayout.CENTER);
         mainPanel.add(countryPanel);
 
-
-
-        // --- Update logic (uses ONLY your exposed methods) ---
         Runnable update = () -> {
             String countryName = countryList.getSelectedValue();
             Object langObj = languageCombo.getSelectedItem();
@@ -85,13 +82,9 @@ public class GUI {
             resultLabel.setText(translated);
         };
 
-        // --- Listeners ---
         languageCombo.addActionListener(e -> update.run());
         countryList.addListSelectionListener(e -> { if (!e.getValueIsAdjusting()) update.run(); });
 
-        // --- Preselect first items ---
-        if (!languageNames.isEmpty()) languageCombo.setSelectedIndex(0);
-        if (!countryNames.isEmpty()) countryList.setSelectedIndex(0);
 
         frame.setContentPane(mainPanel);
         frame.pack();
