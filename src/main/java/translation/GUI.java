@@ -26,17 +26,17 @@ public class GUI {
 
 
 
-            Translator translator = new CanadaTranslator();
+            Translator translator = new JSONTranslator();
 
-            String[] items = new String[translator.getLanguageCodes().size()];
-
+//            String[] items = new String[translator.getLanguageCodes().size()];
 
 
             // create combobox, add country codes into it, and add it to our panel
             JComboBox<String> languageComboBox = new JComboBox<>();
             for(String LanguageCode : translator.getLanguageCodes()) {
-
-                languageComboBox.addItem(LanguageCodeConverter.fromLanguageCode(LanguageCode));
+                LanguageCodeConverter converter = new LanguageCodeConverter();
+                String x = converter.fromLanguageCode(LanguageCode);
+                languageComboBox.addItem(x);
             }
             languagePanel.add(languageComboBox);
 
