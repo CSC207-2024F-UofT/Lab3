@@ -69,8 +69,6 @@ public class GUI {
                     Translator translator = new JSONTranslator();
                     LanguageCodeConverter languageObject = new LanguageCodeConverter();
                     String result = translator.translate(country, languageObject.fromLanguage(language));
-                    System.out.println(country);
-                    System.out.println(languageObject.fromLanguage(language));
                     if (result == null) {
                         result = "no translation found!";
                     }
