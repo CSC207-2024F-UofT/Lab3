@@ -63,6 +63,11 @@ public class LanguageCodeConverter {
         return code;
     }
 
+    public String[] languages() {
+        String[] languages = languageToLanguageCode.keySet().toArray(new String[0]);
+        return languages;
+    }
+
     /**
      * Return the code of the language for the given language name.
      * @param language the name of the language
