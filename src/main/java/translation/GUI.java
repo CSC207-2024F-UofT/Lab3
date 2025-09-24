@@ -27,9 +27,6 @@ public class GUI {
             countryPanel.add(countryField);
             countryPanel.add(countryListScrollPane);
 
-            countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
-
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
