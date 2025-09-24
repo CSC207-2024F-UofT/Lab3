@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="55b96c1b-f186-4c25-9bdd-2f110cb6c9a5" name="Changes" comment="Merge remote-tracking branch 'refs/remotes/origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/workspace.xml&#10;#&#9;target/classes/translation/CanadaTranslator.class&#10;#&#9;target/classes/translation/CountryCodeConverter.class&#10;#&#9;target/classes/translation/GUI$1.class&#10;#&#9;target/classes/translation/GUI.class&#10;#&#9;target/classes/translation/JSONTranslator.class&#10;#&#9;target/classes/translation/LanguageCodeConverter.class">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/translation/CanadaTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translation/CanadaTranslator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/translation/CountryCodeConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translation/CountryCodeConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/translation/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translation/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/translation/JSONTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translation/JSONTranslator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/translation/LanguageCodeConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translation/LanguageCodeConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/CanadaTranslator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/translation/CanadaTranslator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/CountryCodeConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/translation/CountryCodeConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/translation/GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/translation/GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/JSONTranslator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/translation/JSONTranslator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/translation/LanguageCodeConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/translation/LanguageCodeConverter.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+</project>
