@@ -32,8 +32,6 @@ public class GUI {
             final JComboBox<String> lang = new JComboBox<>(languages);
 
             JPanel buttonPanel = new JPanel();
-            JButton submit = new JButton("Submit");
-            buttonPanel.add(submit);
 
             JLabel resultLabelText = new JLabel("Translation:");
             buttonPanel.add(resultLabelText);
@@ -59,7 +57,7 @@ public class GUI {
             languagePanel.add(languageComboBox);
 
             // adding listener for when the user clicks the submit button
-            submit.addActionListener(new ActionListener() {
+            languageComboBox.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String language = languageComboBox.getSelectedItem().toString();
