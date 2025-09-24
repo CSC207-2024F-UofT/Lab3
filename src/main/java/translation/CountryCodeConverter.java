@@ -41,7 +41,6 @@ public class CountryCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
-                // Contains Country, Alpha-2 code, Alpha-3 code, Numeric
                 String country = parts[0];
                 String code = parts[2].toLowerCase();
                 countryCodeToCountry.put(code, country);
