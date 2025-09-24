@@ -2,6 +2,7 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Arrays;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -16,10 +17,15 @@ public class GUI {
             // country panel
             JPanel countryPanel = new JPanel();
             JComboBox<String> countryField = new JComboBox<>();
-
             CountryCodeConverter country_converter = new CountryCodeConverter();
             String[] countries = country_converter.getCountries();
-            for (String country : countries){countryField.addItem(country);}
+            Arrays.sort(countries);
+            JList<String> countryList = new JList<>(countries);
+            countryList.setVisibleRowCount(8);
+            JScrollPane countryListScrollPane = new JScrollPane(countryList);
+            countryPanel.add(new JLabel("Country:"));
+            countryPanel.add(countryField);
+            countryPanel.add(countryListScrollPane);
 
             countryPanel.add(new JLabel("Country:"));
             countryPanel.add(countryField);
