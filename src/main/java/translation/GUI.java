@@ -14,23 +14,26 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            // country panel
+            LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
+            String[] languages = languageCodeConverter.getLanguages();
+            Arrays.sort(languages);
+
+            // language panel and dropdown
+            JPanel languagePanel = new JPanel();
+            languagePanel.add(new JLabel("Language:"));
+            JComboBox<String> languageComboBox = new JComboBox<>(languages);
+            languagePanel.add(languageComboBox);
+
             JPanel countryPanel = new JPanel();
-            JComboBox<String> countryField = new JComboBox<>();
-            CountryCodeConverter country_converter = new CountryCodeConverter();
-            String[] countries = country_converter.getCountries();
+            CountryCodeConverter countryConverter = new CountryCodeConverter();
+            String[] countries = countryConverter.getCountries();
             Arrays.sort(countries);
             JList<String> countryList = new JList<>(countries);
             countryList.setVisibleRowCount(8);
             JScrollPane countryListScrollPane = new JScrollPane(countryList);
             countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
             countryPanel.add(countryListScrollPane);
 
-            JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
-            languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
@@ -46,14 +49,21 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
+                    // Getting language from dropdown and language code
+                    String language = "";
+                    String languageCode = "";
+                    if (languageComboBox.getSelectedItem() != null) {
+                        language = languageComboBox.getSelectedItem().toString();
+                        languageCode = languageCodeConverter.fromLanguage(language);
+                    }
+
                     String country = "can";
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
                     Translator translator = new CanadaTranslator();
 
-                    String result = translator.translate(country, language);
+                    String result = translator.translate(country, languageCode);
                     if (result == null) {
                         result = "no translation found!";
                     }
@@ -65,8 +75,8 @@ public class GUI {
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-            mainPanel.add(countryPanel);
             mainPanel.add(languagePanel);
+            mainPanel.add(countryPanel);
             mainPanel.add(buttonPanel);
 
             JFrame frame = new JFrame("Country Name Translator");
