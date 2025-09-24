@@ -46,7 +46,6 @@ public class LanguageCodeConverter {
                 int length = line.length();
                 languageToLanguageCode.put(line.split("\t")[0], line.split("\t")[1]);
                 languageCodeToLanguage.put(line.split("\t")[1], line.split("\t")[0]);
-                // TODO Task A: use line to populate the instance variables
             }
 
         } catch (IOException | URISyntaxException ex) {
@@ -62,7 +61,6 @@ public class LanguageCodeConverter {
     public String fromLanguageCode(String code) {
 
         return languageCodeToLanguage.get(code);
-        // TODO Task A: update this code to use the correct instance variable to return the appropriate value
     }
 
     /**
@@ -73,7 +71,6 @@ public class LanguageCodeConverter {
     public String fromLanguage(String language) {
 
         return languageToLanguageCode.get(language);
-        // TODO Task A: update this code to use the correct instance variable to return the appropriate value
     }
 
     /**
