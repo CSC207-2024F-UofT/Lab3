@@ -2,6 +2,7 @@ package examples;
 
 import translation.CanadaTranslator;
 import translation.Translator;
+import translation.JSONTranslator;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
