@@ -17,9 +17,6 @@ public class GUI {
             LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
             String[] languages = languageCodeConverter.getLanguages();
             Arrays.sort(languages);
-            CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
-            String[] countries = countryCodeConverter.getCountries();
-            Arrays.sort(countries);
 
             // language panel and dropdown
             JPanel languagePanel = new JPanel();
@@ -28,14 +25,14 @@ public class GUI {
             languagePanel.add(languageComboBox);
 
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            JList countryList = new JList(countries);
-            countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            JScrollPane countryScroll = new JScrollPane(countryList);
-            countryField.setEditable(false); // we only support the "can" country code for now
+            CountryCodeConverter countryConverter = new CountryCodeConverter();
+            String[] countries = countryConverter.getCountries();
+            Arrays.sort(countries);
+            JList<String> countryList = new JList<>(countries);
+            countryList.setVisibleRowCount(8);
+            JScrollPane countryListScrollPane = new JScrollPane(countryList);
             countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryScroll);
-            countryPanel.add(countryField);
+            countryPanel.add(countryListScrollPane);
 
 
             JPanel buttonPanel = new JPanel();
@@ -60,7 +57,7 @@ public class GUI {
                         languageCode = languageCodeConverter.fromLanguage(language);
                     }
 
-                    String country = countryField.getText();
+                    String country = "can";
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
