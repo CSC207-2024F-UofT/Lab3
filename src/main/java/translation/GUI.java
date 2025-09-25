@@ -1,6 +1,8 @@
 package translation;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
 import java.util.Arrays;
 
@@ -11,6 +13,41 @@ import java.util.Arrays;
 //            See the examples package for some code snippets that may be useful when updating
 //            the GUI.
 public class GUI {
+    /**
+     * This fucntions updates the translation, a function was used since this code was rquired to be applied
+     * for both the language dropdown and country list
+     * @param languageComboBox: dropdown for languages
+     * @param languageCodeConverter: the converter to find the languages codes
+     * @param countryList: the list of the countries
+     * @param countryConverter: the converter to find the country codes
+     * @param resultLabel: the label the provides the translation
+     */
+    private static void updateTranslation(JComboBox<String> languageComboBox,
+                                          LanguageCodeConverter languageCodeConverter,
+                                          JList<String> countryList, CountryCodeConverter countryConverter,
+                                          JLabel resultLabel) {
+        String language;
+        String languageCode = "";
+        if (languageComboBox.getSelectedItem() != null) {
+            language = languageComboBox.getSelectedItem().toString();
+            languageCode = languageCodeConverter.fromLanguage(language);
+        }
+
+        // Marcus - Get selected country from the list
+        String countryCode = "";
+        if (countryList.getSelectedValue() !=  null){
+            String selectedCountry = countryList.getSelectedValue();
+            countryCode = countryConverter.fromCountry(selectedCountry);
+        }
+
+        Translator translator = new JSONTranslator();
+        String result = translator.translate(countryCode, languageCode);
+
+        if (result == null) {
+            result = "no translation found!";
+        }
+        resultLabel.setText(result);
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -18,11 +55,15 @@ public class GUI {
             String[] languages = languageCodeConverter.getLanguages();
             Arrays.sort(languages);
 
+
+
             // language panel and dropdown
             JPanel languagePanel = new JPanel();
             languagePanel.add(new JLabel("Language:"));
             JComboBox<String> languageComboBox = new JComboBox<>(languages);
             languagePanel.add(languageComboBox);
+
+
 
             JPanel countryPanel = new JPanel();
             CountryCodeConverter countryConverter = new CountryCodeConverter();
@@ -34,50 +75,52 @@ public class GUI {
             countryPanel.add(new JLabel("Country:"));
             countryPanel.add(countryListScrollPane);
 
+            JPanel translationPanel = new JPanel();
 
-            JPanel buttonPanel = new JPanel();
-            JButton submit = new JButton("Submit");
-            buttonPanel.add(submit);
 
             JLabel resultLabelText = new JLabel("Translation:");
-            buttonPanel.add(resultLabelText);
+            translationPanel.add(resultLabelText);
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
-            buttonPanel.add(resultLabel);
+            translationPanel.add(resultLabel);
 
 
-            // adding listener for when the user clicks the submit button
-            submit.addActionListener(new ActionListener() {
+            /**
+             *
+             * Action listener - receives and reacts to the changed language in the language dropdown
+             * Uses the updateTranslation function to update the translation accordingly
+             * Takes the language dropdown, the language code converter, the country list, the country converter,
+             * and the result label to update accordingly
+             */
+
+            languageComboBox.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Getting language from dropdown and language code
-                    String language = "";
-                    String languageCode = "";
-                    if (languageComboBox.getSelectedItem() != null) {
-                        language = languageComboBox.getSelectedItem().toString();
-                        languageCode = languageCodeConverter.fromLanguage(language);
-                    }
-
-                    String country = "can";
-
-                    // for now, just using our simple translator, but
-                    // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
-
-                    String result = translator.translate(country, languageCode);
-                    if (result == null) {
-                        result = "no translation found!";
-                    }
-                    resultLabel.setText(result);
-
+                    updateTranslation(languageComboBox, languageCodeConverter, countryList, countryConverter,
+                            resultLabel);
                 }
+            });
 
+            /**
+             *
+             * ListSelectionListener - receives and reacts to the changed country in the country list
+             * Uses the updateTranslation function to update the translation accordingly
+             * Takes the language dropdown, the language code converter, the country list, the country converter,
+             * and the result label to update accordingly
+             */
+            countryList.addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    updateTranslation(languageComboBox, languageCodeConverter, countryList, countryConverter,
+                            resultLabel);
+                }
             });
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
             mainPanel.add(languagePanel);
+            mainPanel.add(translationPanel);
             mainPanel.add(countryPanel);
-            mainPanel.add(buttonPanel);
+
 
             JFrame frame = new JFrame("Country Name Translator");
             frame.setContentPane(mainPanel);
