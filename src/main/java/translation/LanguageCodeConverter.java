@@ -46,8 +46,8 @@ public class LanguageCodeConverter {
                 String[] language = line.split("\t");
                 String languageCode = language[1];
                 String languageLang = language[0];
-                languageCodeToLanguage.put(languageCode.toLowerCase(), languageLang);
-                languageToLanguageCode.put(languageLang, languageCode.toLowerCase());
+                languageCodeToLanguage.put(languageCode, languageLang);
+                languageToLanguageCode.put(languageLang.toLowerCase(), languageCode);
             }
 
         } catch (IOException | URISyntaxException ex) {
@@ -62,7 +62,7 @@ public class LanguageCodeConverter {
      */
     public String fromLanguageCode(String code) {
         // DONETODO Task A: update this code to use the correct instance variable to return the appropriate value
-        return languageCodeToLanguage.get(code);
+        return languageCodeToLanguage.get(code.toLowerCase());
     }
 
     /**
@@ -73,7 +73,7 @@ public class LanguageCodeConverter {
     public String fromLanguage(String language) {
         // DONETODO Task A: update this code to use the correct instance variable to return the appropriate value
 
-        return languageToLanguageCode.get(language);
+        return languageToLanguageCode.get(language.toLowerCase());
     }
 
     /**
