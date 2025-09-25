@@ -14,8 +14,8 @@ import java.util.Map;
  */
 public class CountryCodeConverter {
 
-    private Map<String, String> countryCodeToCountry = new HashMap<>();
-    private Map<String, String> countryToCountryCode = new HashMap<>();
+    private final Map<String, String> countryCodeToCountry = new HashMap<>();
+    private final Map<String, String> countryToCountryCode = new HashMap<>();
 
     /**
      * Default constructor that loads the country codes from "country-codes.txt"
@@ -41,16 +41,9 @@ public class CountryCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
-                //Task B: use parts to populate the instance variables
-                if (parts.length >= 3) {
-                    String code_alpha3 = parts[2].trim().toLowerCase();
-                    String name = parts[0].trim();
-
-                    if (!code_alpha3.isEmpty() && !name.isEmpty()) {
-                        countryCodeToCountry.put(code_alpha3, name);
-                        countryToCountryCode.put(name.toLowerCase(), code_alpha3);
-                    }
-                }
+                // TODO Task B: use parts to populate the instance variables
+                countryCodeToCountry.put(parts[0].toLowerCase(), parts[2].toLowerCase());
+                countryToCountryCode.put(parts[2].toLowerCase(), parts[0].toLowerCase());
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -65,9 +58,8 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        //Task B: update this code to use an instance variable to return the correct value
-        if (code == null)
-            return null;
+        // TODO Task B: update this code to use an instance variable to return the correct value
+        if (code == null) {return null;}
         return countryCodeToCountry.get(code.toLowerCase());
     }
 
@@ -77,9 +69,8 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        //Task B: update this code to use an instance variable to return the correct value
-        if (country == null)
-            return null;
+        // TODO Task B: update this code to use an instance variable to return the correct value
+        if (country == null) {return null;}
         return countryToCountryCode.get(country.toLowerCase());
     }
 
@@ -88,7 +79,7 @@ public class CountryCodeConverter {
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-        //Task B: update this code to use an instance variable to return the correct value
+        // TODO Task B: update this code to use an instance variable to return the correct value
         return countryCodeToCountry.size();
     }
 }
