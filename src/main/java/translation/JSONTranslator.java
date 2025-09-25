@@ -44,6 +44,7 @@ public class JSONTranslator implements Translator {
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
+
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject countryData = jsonArray.getJSONObject(i);
@@ -84,6 +85,11 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        return translations.get(countryCode + "-" + languageCode);
+        System.out.println(countryCode + "-" + languageCode);
+        return translations.get(countryCode.toLowerCase() + "-" + languageCode);
+    }
+
+    public Map<String, String> getTranslation(){
+        return translations;
     }
 }
