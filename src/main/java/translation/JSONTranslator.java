@@ -47,13 +47,12 @@ public class JSONTranslator implements Translator {
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject countryData = jsonArray.getJSONObject(i);
-                String countryCode = countryData.getString("alpha3");
+                String countryCode = countryData.getString("alpha3").toUpperCase();
 
                 List<String> languages = new ArrayList<>();
                 if (!countryCodes.contains(countryCode)) {
                     countryCodes.add(countryCode);
                 }
-                // TODO Task C: record this countryCode in the correct instance variable
 
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
@@ -61,7 +60,6 @@ public class JSONTranslator implements Translator {
                         String languageCode = key;
                         String translation = countryData.getString(languageCode);
                         translations.put(countryCode + "-" + languageCode, translation);
-                        // TODO Task C: record this translation in the appropriate instance variable
 
                         if (!languages.contains(languageCode)) {
                             languages.add(languageCode);
@@ -82,7 +80,6 @@ public class JSONTranslator implements Translator {
     public List<String> getLanguageCodes() {
         return new ArrayList<>(languageCodes);
     }
-// TODO Task C: return a copy of the language codes
 
 
     @Override
@@ -98,4 +95,3 @@ public class JSONTranslator implements Translator {
         );
     }
 }
-        // TODO Task C: complete this method using your instance variables as needed

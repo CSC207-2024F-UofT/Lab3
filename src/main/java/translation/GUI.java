@@ -24,7 +24,6 @@ public class GUI {
             for(String countryCode : countryCodes) {
                 countries.add(countryCodeConverter.fromCountryCode(countryCode));
             }
-            JTextField countryField = new JTextField(10);
             JList<String> list = new JList<>(countries.toArray(new String[0]));
             countryPanel.add(new JLabel("Country:"));
             JScrollPane scrollList = new JScrollPane(list);
@@ -32,7 +31,6 @@ public class GUI {
 
             JPanel languagePanel = new JPanel();
             languagePanel.add(new JLabel("Language:"));
-            JTextField languageField = new JTextField(10);
             List<String> languageCodes = translator.getLanguageCodes();
             List<String> languages = new ArrayList<>();
             LanguageCodeConverter converter = new LanguageCodeConverter();
@@ -44,29 +42,29 @@ public class GUI {
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton();
+            submit.setText("Translate");
+            buttonPanel.add(submit);
 
-            JLabel resultLabelText = new JLabel("Translation:");
-            buttonPanel.add(resultLabelText);
-            JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
+            JLabel resultLabel = new JLabel("Translation:");
             buttonPanel.add(resultLabel);
-
 
             // adding listener for when the user clicks the submit button
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
-                    String country = countryField.getText();
+                    String language = (String) languageComboBox.getSelectedItem();
+                    String country = list.getSelectedValue();
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
+                    String countryCode = countryCodeConverter.fromCountry(country);
+                    String languageCode = converter.fromLanguage(language);
+                    String result = translator.translate(countryCode, languageCode);
 
-                    String result = translator.translate(country, language);
                     if (result == null) {
                         result = "no translation found!";
                     }
-                    resultLabel.setText(result);
+                    resultLabel.setText("Translation: " + result);
 
                 }
 
