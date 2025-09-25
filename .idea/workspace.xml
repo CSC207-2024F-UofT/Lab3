@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="edfa92ad-c5e0-4762-8b96-af23964eae54" name="Changes" comment="Task B implementation" />
+    <list default="true" id="edfa92ad-c5e0-4762-8b96-af23964eae54" name="Changes" comment="Task B implementation">
+      <change beforePath="$PROJECT_DIR$/src/main/java/translation/LanguageCodeConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translation/LanguageCodeConverter.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,13 +46,14 @@
     "JUnit.<default>.executor": "Run",
     "JUnit.All in lab3.executor": "Run",
     "JUnit.CountryCodeConverterTest.executor": "Run",
+    "JUnit.JSONTranslatorTest.executor": "Run",
     "JUnit.LanguageCodeConverterTest.executor": "Run",
     "JUnit.LanguageCodeConverterTest.fromLanguageCodeAllLoaded.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#9 on task__c",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
