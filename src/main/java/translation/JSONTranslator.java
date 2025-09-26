@@ -48,19 +48,29 @@ public class JSONTranslator implements Translator {
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject countryData = jsonArray.getJSONObject(i);
-                String countryCode = countryData.getString("alpha3");
+                String countryCode = countryData.getString("alpha3").toLowerCase();
 
                 List<String> languages = new ArrayList<>();
 
-                countryCodes.add(countryCode);
+                if (!countryCodes.contains(countryCode)) {
+                    countryCodes.add(countryCode);
+                }
                 // iterate through the other keys to get the information that we need
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
-                        String languageCode = key;
-                        languageCodes.add(languageCode);
+                        String languageCode = key.toLowerCase();
+                        String translation = countryData.getString(key);
+
+                        translations.put(countryCode + "-" + languageCode, translation);
+
                         if (!languages.contains(languageCode)) {
                             languages.add(languageCode);
                         }
+                    }
+                }
+                for (String lang : languages) {
+                    if (!languageCodes.contains(lang)) {
+                        languageCodes.add(lang);
                     }
                 }
             }
@@ -83,8 +93,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        // TODO Task C: complete this method using your instance variables as needed
-        String translation = translations.get(countryCode + '-' +languageCode);
-        return translation;
+        String key = countryCode.toLowerCase() + "-" + languageCode.toLowerCase();
+        return translations.get(key);
     }
 }

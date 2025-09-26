@@ -42,11 +42,15 @@ public class LanguageCodeConverter {
             iterator.next(); // skip the first line
             while (iterator.hasNext()) {
                 String line = iterator.next();
-                String[] parts = line.split(" ");      // split into code and name
-                String code = parts[0].trim();         // first piece = code
-                String language = parts[1].trim();     // second piece = language
-                languageCodeToLanguage.put(code, language);
-                languageToLanguageCode.put(language, code);
+                String[] parts = line.split("\t");      // split into code and name
+                if (parts.length >= 2) {
+                    String languageName = parts[0].trim();  // FIRST column = language name
+                    String languageCode = parts[1].trim().toLowerCase(); // SECOND column = code
+
+                    // Populate both maps
+                    languageCodeToLanguage.put(languageCode, languageName);
+                    languageToLanguageCode.put(languageName, languageCode);
+                }
             }
 
         } catch (IOException | URISyntaxException ex) {
