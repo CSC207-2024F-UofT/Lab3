@@ -2,6 +2,7 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.*;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -21,9 +22,54 @@ public class GUI {
             countryPanel.add(countryField);
 
             JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
+            //add json translator
+            Translator jsonTranslator = new JSONTranslator(); 
+            List<String> languageCodes = jsonTranslator.getLanguageCodes(); 
+            List<String> languageNames = new ArrayList<>();
+            Map<String, String> languageMap = new LinkedHashMap<>();
+            languageMap.put("ar", "Arabic");
+            languageMap.put("bg", "Bulgarian");
+            languageMap.put("cs", "Czech");
+            languageMap.put("da", "Danish");
+            languageMap.put("de", "German");
+            languageMap.put("el", "Greek");
+            languageMap.put("en", "English");
+            languageMap.put("eo", "Esperanto");
+            languageMap.put("es", "Spanish");
+            languageMap.put("et", "Estonian");
+            languageMap.put("eu", "Basque");
+            languageMap.put("fa", "Persian");
+            languageMap.put("fi", "Finnish");
+            languageMap.put("fr", "French");
+            languageMap.put("hr", "Croatian");
+            languageMap.put("hu", "Hungarian");
+            languageMap.put("hy", "Armenian");
+            languageMap.put("it", "Italian");
+            languageMap.put("ja", "Japanese");
+            languageMap.put("ko", "Korean");
+            languageMap.put("lt", "Lithuanian");
+            languageMap.put("nl", "Dutch");
+            languageMap.put("no", "Norwegian");
+            languageMap.put("pl", "Polish");
+            languageMap.put("pt", "Portuguese");
+            languageMap.put("ro", "Romanian");
+            languageMap.put("ru", "Russian");
+            languageMap.put("sk", "Slovak");
+            languageMap.put("sl", "Slovenian");
+            languageMap.put("sr", "Serbian");
+            languageMap.put("sv", "Swedish");
+            languageMap.put("th", "Thai");
+            languageMap.put("uk", "Ukrainian");
+            languageMap.put("zh", "Chinese (Simplified)");
+            languageMap.put("zh-tw", "Chinese (Traditional)");
+            for (String languageCode : languageCodes) {
+                languageNames.add(languageMap.get(languageCode));
+            }
+            String[] languagesArray = languageNames.toArray(new String[0]); 
+            JComboBox<String> languageComboBox = new JComboBox<>(languagesArray); 
+
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+            languagePanel.add(languageComboBox);
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
@@ -39,7 +85,7 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
+                    String language = languageComboBox.getSelectedItem().toString();
                     String country = countryField.getText();
 
                     // for now, just using our simple translator, but
