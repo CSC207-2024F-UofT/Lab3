@@ -41,12 +41,13 @@ public class CountryCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
+
                 if (parts.length >= 2) {
                     String code = parts[0].trim();
-                    String country = parts[1].trim();
+                    String country = parts[2].trim().toLowerCase();
 
-                    countryCodeToCountry.put(code, country);
-                    countryToCountryCode.put(country, code);
+                    countryCodeToCountry.put(country, code);
+                    countryToCountryCode.put(code, country);
                 }
             }
         }
