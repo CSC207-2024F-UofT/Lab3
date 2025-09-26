@@ -1,25 +1,22 @@
 package translation;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GUI {
+    static JSONTranslator jsonTranslator = new JSONTranslator();
+    static LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
+    static CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
 
     public static void main(String[] args) {
-        JSONTranslator jsonTranslator = new JSONTranslator();
-        LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
-        CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
-
         SwingUtilities.invokeLater(() -> {
             JPanel countryPanel = new JPanel();
             List<String> languageCodes = jsonTranslator.getLanguageCodes();
             JComboBox<String> comboBox = new JComboBox<>();
             for (String languageCode : languageCodes)
-                comboBox.addItem(languageCodeConverter.fromLanguageCode(languageCode));
+                comboBox.addItem(
+                        languageCodeConverter.fromLanguageCode(languageCode));
             countryPanel.add(new JLabel("Language:"));
             countryPanel.add(comboBox);
 
@@ -38,35 +35,11 @@ public class GUI {
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             translationPanel.add(resultLabel);
 
-            comboBox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String language = (String) comboBox.getSelectedItem();
-                    String country = jlist.getSelectedValue();
-                    String result = jsonTranslator.translate(
-                            countryCodeConverter.fromCountry(country),
-                            languageCodeConverter.fromLanguage(language));
-                    if (result == null) {
-                        result = "no translation found!";
-                    }
-                    resultLabel.setText(result);
-                }
-            });
+            comboBox.addActionListener(e -> getResults(
+                    comboBox, jlist, resultLabel));
 
-            jlist.addListSelectionListener(new ListSelectionListener() {
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    String language = (String) comboBox.getSelectedItem();
-                    String country = jlist.getSelectedValue();
-                    String result = jsonTranslator.translate(
-                            countryCodeConverter.fromCountry(country),
-                            languageCodeConverter.fromLanguage(language));
-                    if (result == null) {
-                        result = "no translation found!";
-                    }
-                    resultLabel.setText(result);
-                }
-            });
+            jlist.addListSelectionListener(e -> getResults(
+                    comboBox, jlist, resultLabel));
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -79,8 +52,20 @@ public class GUI {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
-
-
         });
+    }
+
+    private static void getResults(JComboBox<String> comboBox,
+                                   JList<String> jlist,
+                                   JLabel resultLabel) {
+        String language = (String) comboBox.getSelectedItem();
+        String country = jlist.getSelectedValue();
+        String result = jsonTranslator.translate(
+                countryCodeConverter.fromCountry(country),
+                languageCodeConverter.fromLanguage(language));
+        if (result == null) {
+            result = "no translation found!";
+        }
+        resultLabel.setText(result);
     }
 }
