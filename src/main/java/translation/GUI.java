@@ -1,74 +1,127 @@
 package translation;
 
 import javax.swing.*;
-import java.awt.event.*;
+import javax.swing.event.ListSelectionEvent;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
-
-// TODO Task D: Update the GUI for the program to align with UI shown in the README example.
-//            Currently, the program only uses the CanadaTranslator and the user has
-//            to manually enter the language code they want to use for the translation.
-//            See the examples package for some code snippets that may be useful when updating
-//            the GUI.
 public class GUI {
+
+    private static class LabeledCode {
+        final String label; // shown to user
+        final String code;  // passed to Translator.translate(...)
+        LabeledCode(String label, String code) { this.label = label; this.code = code; }
+        @Override public String toString() { return label; }
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
-            countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+            Translator translator = new JSONTranslator();                  // uses sample.json
+            CountryCodeConverter countryConv = new CountryCodeConverter(); // uses country-codes.txt
+            LanguageCodeConverter langConv   = new LanguageCodeConverter();// uses language-codes.txt
 
-            JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
+            // ---- Language dropdown: ALWAYS show names ----
+            List<String> langCodes = translator.getLanguageCodes();
+            List<LabeledCode> langItems = new ArrayList<>();
+            for (String lc : langCodes) {
+                String name = langConv.fromLanguageCode(lc);
+                if (name == null || name.isEmpty()) name = langConv.fromLanguageCode(lc.toUpperCase());
+                if (name == null || name.isEmpty()) name = langConv.fromLanguageCode(lc.toLowerCase());
+                if (name == null || name.isEmpty()) name = lc; // extreme fallback
+                langItems.add(new LabeledCode(name, lc));
+            }
+            langItems.sort(Comparator.comparing(lc -> lc.label.toLowerCase()));
+            JComboBox<LabeledCode> languageCombo = new JComboBox<>(langItems.toArray(new LabeledCode[0]));
+
+            JPanel languagePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+            languagePanel.add(languageCombo);
 
-            JPanel buttonPanel = new JPanel();
-            JButton submit = new JButton("Submit");
-            buttonPanel.add(submit);
-
-            JLabel resultLabelText = new JLabel("Translation:");
-            buttonPanel.add(resultLabelText);
-            JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
-            buttonPanel.add(resultLabel);
-
-
-            // adding listener for when the user clicks the submit button
-            submit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
-                    String country = countryField.getText();
-
-                    // for now, just using our simple translator, but
-                    // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
-
-                    String result = translator.translate(country, language);
-                    if (result == null) {
-                        result = "no translation found!";
-                    }
-                    resultLabel.setText(result);
-
+            // ---- Country list: ALWAYS show names ----
+            DefaultListModel<LabeledCode> countryModel = new DefaultListModel<>();
+            List<String> countryCodes = translator.getCountryCodes();
+            List<LabeledCode> countryItems = new ArrayList<>();
+            for (String cc : countryCodes) {
+                String name = countryConv.fromCountryCode(cc);
+                // Fallback: try English translation from translator (works once JSONTranslator is fully implemented)
+                if ((name == null || name.isEmpty())) {
+                    name = "null";
                 }
+                countryItems.add(new LabeledCode(name, cc));
+            }
+            countryItems.sort(Comparator.comparing(c -> c.label.toLowerCase()));
+            for (LabeledCode item : countryItems) countryModel.addElement(item);
 
+            JList<LabeledCode> countryList = new JList<>(countryModel);
+            countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            countryList.setVisibleRowCount(12);
+            JScrollPane countryScroll = new JScrollPane(countryList);
+            countryScroll.setPreferredSize(new Dimension(260, 260));
+
+            JPanel countryPanel = new JPanel(new BorderLayout(6, 6));
+            countryPanel.add(countryScroll, BorderLayout.CENTER);
+
+            // ---- Result area ----
+            JLabel resultTitle = new JLabel("Translation:");
+            JLabel resultValue = new JLabel(" ");
+            resultValue.setFont(resultValue.getFont().deriveFont(Font.BOLD, 14f));
+            JPanel resultPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            resultPanel.add(resultTitle);
+            resultPanel.add(resultValue);
+
+            // ---- Update result ----
+            Runnable updateResult = () -> {
+                LabeledCode lang = (LabeledCode) languageCombo.getSelectedItem();
+                LabeledCode ctry = countryList.getSelectedValue();
+                if (lang == null || ctry == null) { resultValue.setText("—"); return; }
+
+                String countryCode = ctry.code == null ? null : ctry.code.toLowerCase();
+                String langCode    = lang.code  == null ? null : lang.code.toLowerCase();
+
+                String text = translator.translate(countryCode, langCode);
+                resultValue.setText((text == null || text.isEmpty()) ? "(no translation found)" : text);
+            };
+
+            languageCombo.addActionListener(e -> updateResult.run());
+            countryList.addListSelectionListener((ListSelectionEvent e) -> {
+                if (!e.getValueIsAdjusting()) updateResult.run();
             });
 
-            JPanel mainPanel = new JPanel();
-            mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-            mainPanel.add(countryPanel);
-            mainPanel.add(languagePanel);
-            mainPanel.add(buttonPanel);
+            // ---- Defaults ----
+            int englishIndex = -1;
+            for (int i = 0; i < languageCombo.getItemCount(); i++) {
+                if (Objects.equals(languageCombo.getItemAt(i).code, "en")) { englishIndex = i; break; }
+            }
+            if (englishIndex >= 0) languageCombo.setSelectedIndex(englishIndex);
+
+            int canadaIndex = -1;
+            for (int i = 0; i < countryModel.size(); i++) {
+                if (Objects.equals(countryModel.get(i).code.toLowerCase(), CanadaTranslator.CANADA)) { canadaIndex = i; break; }
+            }
+            if (canadaIndex >= 0) countryList.setSelectedIndex(canadaIndex);
+            else if (!countryModel.isEmpty()) countryList.setSelectedIndex(0);
+
+            updateResult.run();
+
+            // ---- Layout ----
+            JPanel main = new JPanel();
+            main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
+            main.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+            main.add(languagePanel);
+            main.add(Box.createVerticalStrut(8));
+            main.add(countryPanel);
+            main.add(Box.createVerticalStrut(12));
+            main.add(resultPanel);
 
             JFrame frame = new JFrame("Country Name Translator");
-            frame.setContentPane(mainPanel);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setContentPane(main);
             frame.pack();
+            frame.setLocationByPlatform(true);
             frame.setVisible(true);
-
-
         });
     }
 }
