@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class provides the service of converting country codes to their names and back.
@@ -41,7 +38,12 @@ public class CountryCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
-                // TODO Task B: use parts to populate the instance variables
+                int codeIndex = (parts.length - 2);
+                // Slice the array in case the country has many words
+                String [] countryArray = Arrays.copyOfRange(parts, 0, codeIndex - 1);
+                String countryName = countryArray[0];
+                countryCodeToCountry.put(parts[codeIndex].toLowerCase(), countryName);
+                countryToCountryCode.put(countryName, parts[codeIndex].toLowerCase());
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -56,8 +58,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return code;
+        return countryCodeToCountry.get(code);
     }
 
     /**
@@ -66,8 +67,7 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return country;
+        return countryToCountryCode.get(country);
     }
 
     /**
@@ -75,7 +75,12 @@ public class CountryCodeConverter {
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-        // TODO Task B: update this code to use an instance variable to return the correct value
-        return 0;
+        return countryCodeToCountry.size();
+    }
+    /*
+     * Return all the countries in this country code converter
+     */
+    public String[] getCountries() {
+        return countryToCountryCode.keySet().toArray(new String[0]);
     }
 }
