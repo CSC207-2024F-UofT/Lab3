@@ -195,7 +195,7 @@ language codes, and converting country codes.
 
 ### The GUI (Task D)
 
-- [ ] **As a team, complete the ``TODO Task D``**
+- [X] **As a team, complete the ``TODO Task D``**
 
 For the improved UI, you'll notice that there is a dropdown menu of languages and a scrollable list of country names.
 Each time one of these items is selected, the UI updates to show the translation. The new components used in the UI
