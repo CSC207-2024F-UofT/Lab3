@@ -43,7 +43,6 @@ public class LanguageCodeConverter {
             int i = 0;
             while (iterator.hasNext()) {
                 String line = iterator.next();
-                int length = line.length();
                 languageToLanguageCode.put(line.split("\t")[0], line.split("\t")[1]);
                 languageCodeToLanguage.put(line.split("\t")[1], line.split("\t")[0]);
             }
@@ -79,5 +78,12 @@ public class LanguageCodeConverter {
      */
     public int getNumLanguages() {
         return languageCodeToLanguage.size();
+    }
+
+/*
+ * Return all the languages in this language code converter.
+ */
+    public String[] getLanguages() {
+        return languageToLanguageCode.keySet().toArray(new String[0]);
     }
 }

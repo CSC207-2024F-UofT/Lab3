@@ -77,4 +77,11 @@ public class CountryCodeConverter {
     public int getNumCountries() {
         return countryCodeToCountry.size();
     }
+
+    /*
+    * Return all the countries in this country code converter
+    */
+    public String[] getCountries() {
+        return countryToCountryCode.keySet().toArray(new String[0]);
+    }
 }
