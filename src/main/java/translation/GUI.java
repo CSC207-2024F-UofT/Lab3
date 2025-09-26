@@ -2,6 +2,7 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -13,28 +14,32 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            // Enter country
             JPanel countryPanel = new JPanel();
             JTextField countryField = new JTextField(10);
             countryField.setEditable(true); // we only support the "can" country code for now
             countryPanel.add(new JLabel("Country:"));
             countryPanel.add(countryField);
 
+            // Enter language
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
             languagePanel.add(languageField);
 
+            // Submit button
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
             buttonPanel.add(submit);
 
+            // Display translation
             JLabel resultLabelText = new JLabel("Translation:");
             buttonPanel.add(resultLabelText);
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
 
 
-            // adding listener for when the user clicks the submit button
+            // Adding listener for when the user clicks the submit button
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -50,9 +55,7 @@ public class GUI {
                         result = "no translation found!";
                     }
                     resultLabel.setText(result);
-
                 }
-
             });
 
             JPanel mainPanel = new JPanel();
@@ -67,6 +70,20 @@ public class GUI {
             frame.setSize(500, 300);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
+
+            // List of countries
+            DefaultListModel<String> countryListModel = new DefaultListModel<>();
+            // Add all country names to list model from json
+            countryListModel.addElement("Canada");
+            countryListModel.addElement("France");
+
+            JList<String> countryList = new JList<>(countryListModel);
+            countryList.setBounds(0, 0, 500, 300);
+
+            frame.add(countryList);
+
+            // List of languages
+            DefaultListModel<String> languageListModel = new DefaultListModel<>();
 
         });
     }
