@@ -75,7 +75,6 @@ public class GUI {
             DefaultListModel<String> countryListModel = new DefaultListModel<>();
             // Add all country names to list model from json
             // Create list of countries
-//            ArrayList<String> countries = new ArrayList<>();
             countryListModel.addElement("Canada");
             countryListModel.addElement("France");
 
