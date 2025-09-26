@@ -21,9 +21,21 @@ public class GUI {
             countryPanel.add(new JLabel("Country:"));
             countryPanel.add(countryField);
 
+            Translator jsonTranslator = new JSONTranslator();// Moved json translator here since I need it for Jlist.
+            CountryCodeConverter countryConverter = new CountryCodeConverter();
+            ArrayList<String> countryNames = new ArrayList<>();
+            for (String code : jsonTranslator.getCountryCodes()) {
+                String name = countryConverter.fromCountryCode(code);
+                countryNames.add(name);
+            }
+            String[] countryArray = countryNames.toArray(new String[0]);
+            JList<String> countryList = new JList<>(countryArray);
+            countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            JScrollPane countryScroll = new JScrollPane(countryList);
+            countryPanel.add(countryScroll);
+
             JPanel languagePanel = new JPanel();
             //add json translator
-            Translator jsonTranslator = new JSONTranslator(); 
             List<String> languageCodes = jsonTranslator.getLanguageCodes(); 
             List<String> languageNames = new ArrayList<>();
             Map<String, String> languageMap = new LinkedHashMap<>();
