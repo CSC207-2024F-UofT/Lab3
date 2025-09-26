@@ -12,20 +12,23 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            JSONTranslator jsonTranslator = new JSONTranslator();
+            CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
             LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
 
             JPanel languagePanel = new JPanel();
             JComboBox<String> languageComboBox = new JComboBox<>();
-            for(String countryCode : languageCodeConverter.getLanguages()) {
-                languageComboBox.addItem(countryCode);
+            for(String languageCode : jsonTranslator.getLanguageCodes()) {
+                languageComboBox.addItem(languageCodeConverter.fromLanguageCode(languageCode));
             }
             languagePanel.add(new JLabel("Language:"));
             languagePanel.add(languageComboBox);
 
-            CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
-
             JPanel countryPanel = new JPanel();
-            String[] items = countryCodeConverter.getCountries();
+            String[] items = jsonTranslator.getCountryCodes().toArray(new String[0]);
+            for(int i = 0; i < items.length; i++) {
+                items[i] = countryCodeConverter.fromCountryCode(items[i]);
+            }
             JList countryField = new JList<>(items);
             JScrollPane countryScrollPane = new JScrollPane(countryField);
             countryPanel.add(countryScrollPane);

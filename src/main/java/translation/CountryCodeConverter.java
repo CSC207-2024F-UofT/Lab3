@@ -83,7 +83,4 @@ public class CountryCodeConverter {
         return num_country;
     }
 
-    public String[]  getCountries() {
-        return countryToCountryCode.keySet().toArray(new String[0]);
-    }
 }
