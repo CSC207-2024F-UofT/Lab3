@@ -63,8 +63,11 @@ public class JSONTranslator implements Translator {
                         if (!languageCodes.contains(languageCode)) {
                             languageCodes.add(languageCode);
                         }
-
-
+                        if (!languages.contains(languageCode)) {
+                            languages.add(languageCode);
+                        }
+                        String codeKey = countryCode + "-" + languageCode;
+                        translations.put(codeKey, countryData.getString(key));
                     }
                 }
             }
@@ -86,7 +89,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String countryCode, String languageCode) {
-        CanadaTranslator translator = new CanadaTranslator();
-        return translator.translate(countryCode, languageCode);
+        String codeKey = countryCode + "-" + languageCode;
+        return translations.get(codeKey);
     }
 }
