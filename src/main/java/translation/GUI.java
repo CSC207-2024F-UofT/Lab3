@@ -71,11 +71,14 @@ public class GUI {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
-            // List of countries
+            // Scroll list of countries
             DefaultListModel<String> countryListModel = new DefaultListModel<>();
             // Add all country names to list model from json
+            // Create list of countries
+//            ArrayList<String> countries = new ArrayList<>();
             countryListModel.addElement("Canada");
             countryListModel.addElement("France");
+
 
             JList<String> countryList = new JList<>(countryListModel);
             countryList.setBounds(0, 0, 500, 300);
