@@ -2,6 +2,7 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Arrays;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -20,10 +21,22 @@ public class GUI {
             countryPanel.add(new JLabel("Country:"));
             countryPanel.add(countryField);
 
-            JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
+
+            JPanel languagePanel = new JPanel();
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+
+            // translator to fetch supported codes
+            Translator translator = new CanadaTranslator();
+            String[] items = translator.getLanguageCodes().toArray(new String[0]);
+
+            JList<String> list = new JList<>(items);
+            list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            JScrollPane scrollPane = new JScrollPane(list);
+            scrollPane.setPreferredSize(new java.awt.Dimension(120, 80));
+            languagePanel.add(scrollPane);
+
+
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
@@ -34,26 +47,22 @@ public class GUI {
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
 
+            submit.addActionListener(e -> {
+                java.util.List<String> selected = list.getSelectedValuesList();
+                String country = countryField.getText();
 
-            // adding listener for when the user clicks the submit button
-            submit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
-                    String country = countryField.getText();
+                Translator innerTranslator = new CanadaTranslator();
 
-                    // for now, just using our simple translator, but
-                    // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
-
-                    String result = translator.translate(country, language);
+                StringBuilder results = new StringBuilder();
+                for (String language : selected) {
+                    String result = innerTranslator.translate(country, language);
                     if (result == null) {
                         result = "no translation found!";
                     }
-                    resultLabel.setText(result);
-
+                    results.append(language).append(": ").append(result).append("   ");
                 }
 
+                resultLabel.setText(results.toString());
             });
 
             JPanel mainPanel = new JPanel();
