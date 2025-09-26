@@ -83,4 +83,7 @@ public class JSONTranslator implements Translator {
     public String translate(String countryCode, String languageCode) {
         return translations.get(countryCode + "-" + languageCode);
     }
+    public Map<String, String> translation(){
+        return translations;
+    }
 }
