@@ -13,12 +13,18 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+
+            // Selecting Language from a dropdown menu, using ComboBox.
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
             countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+            Translator translator = new JSONTranslator();
+            JComboBox<String> countryComboBox = new JComboBox<>();
+            for (String countryCode : translator.getCountryCodes()) {
+                countryComboBox.addItem(countryCode);
+            }
+            countryPanel.add(countryComboBox);
+
+
 
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
@@ -40,7 +46,7 @@ public class GUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String language = languageField.getText();
-                    String country = countryField.getText();
+                    String country = countryComboBox.getSelectedItem().toString();
 
                     // for now, just using our simple translator, but
                     // we'll need to use the real JSON version later.
