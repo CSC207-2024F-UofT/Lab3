@@ -52,6 +52,7 @@ public class LanguageCodeConverter {
 
             }
             languageCodeToLanguage.put("zh-tw", "Chinese (Taiwan)");
+            languageToLanguageCode.put("Chinese (Taiwan)", "zh-tw");
 
         } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
