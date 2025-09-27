@@ -11,22 +11,29 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            Translator translator = new CanadaTranslator();
+            Translator translator = new JSONTranslator();
             LanguageCodeConverter languageConverter = new LanguageCodeConverter();
             CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
 
+
+            System.out.println("Available countries: " + translator.getCountryCodes());
+            System.out.println("Available languages: " + translator.getLanguageCodes());
 
             JPanel languagePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
             languagePanel.add(new JLabel("Language:"));
             JComboBox<String> languageComboBox = new JComboBox<>();
             for (String langCode: translator.getLanguageCodes()) {
-                languageComboBox.addItem(langCode);
+                String languageName = languageConverter.fromLanguageCode(langCode);
+                if (languageName != null) {
+                    languageComboBox.addItem(languageName);
+                } else {
+                    languageComboBox.addItem(langCode);
+                }
             }
             languagePanel.add(languageComboBox);
 
-
             JPanel countryCodePanel = new JPanel(new BorderLayout());
-            countryCodePanel.add(new JLabel("Country:"), 0);
+            countryCodePanel.add(new JLabel("Country:"), BorderLayout.NORTH);
             DefaultListModel<String> countryListModel = new DefaultListModel<>();
             List<String> countryCodes = translator.getCountryCodes();
             List<String> countryNames = new ArrayList<>();
@@ -37,8 +44,8 @@ public class GUI {
                 }
             }
 
-            for(String countryCode : countryNames){
-                countryListModel.addElement(countryCode);
+            for(String countryName : countryNames){
+                countryListModel.addElement(countryName);
             }
             JList<String> countryList = new JList<>(countryListModel);
             countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -55,37 +62,29 @@ public class GUI {
             // adding listener for when the user clicks the submit button
             languageComboBox.addItemListener(e -> {
                 if(e.getStateChange() == ItemEvent.SELECTED){
-                    String selectedLanguageCode = (String) languageComboBox.getSelectedItem();
+                    String selectedLanguageName = (String) languageComboBox.getSelectedItem();
                     String selectedCountryName = countryList.getSelectedValue();
-                    if(selectedLanguageCode == null || selectedCountryName == null) {
-                        resultLabel.setText("Please select a country and a language");
-                        return;
-                    }
+                    if(selectedLanguageName == null || selectedCountryName == null) return;
+                    String langCode = languageConverter.fromLanguage(selectedLanguageName);
+                    if (langCode == null) langCode = selectedLanguageName;
                     String countryCode = countryCodeConverter.fromCountry(selectedCountryName);
-                    if (countryCode == null) {
-                        resultLabel.setText("Country code not found for: " + selectedCountryName);
-                        return;
-                    }
-                    String result = translator.translate(countryCode, selectedLanguageCode);
-                    resultLabel.setText(result == null ? "No translation found for " + selectedCountryName: result);
+                    if (countryCode == null) return;
+                    String result = translator.translate(countryCode, langCode);
+                    resultLabel.setText(result == null ? "No translation found." : result);
                 }
             });
 
             countryList.addListSelectionListener(e ->{
                 if(!e.getValueIsAdjusting()){
-                    String selectedLanguageCode = (String) languageComboBox.getSelectedItem();
+                    String selectedLanguageName = (String) languageComboBox.getSelectedItem();
                     String selectedCountryName = countryList.getSelectedValue();
-                    if(selectedLanguageCode == null || selectedCountryName == null) {
-                        resultLabel.setText("Please select a country and a language");
-                        return;
-                    }
+                    if(selectedLanguageName == null || selectedCountryName == null) return;
+                    String langCode = languageConverter.fromLanguage(selectedLanguageName);
+                    if (langCode == null) langCode = selectedLanguageName;
                     String countryCode = countryCodeConverter.fromCountry(selectedCountryName);
-                    if (countryCode == null) {
-                        resultLabel.setText("Country code not found for: " + selectedCountryName);
-                        return;
-                    }
-                    String result = translator.translate(countryCode, selectedLanguageCode);
-                    resultLabel.setText(result == null ? "No translation found for " + selectedCountryName: result);
+                    if (countryCode == null) return;
+                    String result = translator.translate(countryCode, langCode);
+                    resultLabel.setText(result == null ? "No translation found." : result);
                 }
             });
 
