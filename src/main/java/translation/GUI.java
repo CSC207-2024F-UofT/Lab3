@@ -14,18 +14,20 @@ public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
 
-            // Selecting Language from a dropdown menu, using ComboBox.
+            // Select country from a dropdown menu, using ComboBox.
             JPanel countryPanel = new JPanel();
             countryPanel.add(new JLabel("Country:"));
             Translator translator = new JSONTranslator();
+            CountryCodeConverter countryCodeConverter =
+                    new CountryCodeConverter("country-codes.txt");
             JComboBox<String> countryComboBox = new JComboBox<>();
             for (String countryCode : translator.getCountryCodes()) {
-                countryComboBox.addItem(countryCode);
+                countryComboBox.addItem(countryCodeConverter.fromCountryCode(countryCode));
             }
             countryPanel.add(countryComboBox);
 
 
-
+            // Select language from a scrollable list, using Jlist.
             JPanel languagePanel = new JPanel();
             JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
