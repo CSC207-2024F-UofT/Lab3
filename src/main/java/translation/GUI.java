@@ -10,13 +10,16 @@ public class GUI {
             LanguageCodeConverter languageConv = new LanguageCodeConverter();
             JSONTranslator translator = new JSONTranslator();
 
-            // Country Panel
-            JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(true); // only "can" for now
+            // Country Panel (JScrollPanel)
+            DefaultListModel<String> listModel = new DefaultListModel<>();
+            JScrollPane countryPanel = new JScrollPane();
             countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+            JList<String> countryList = new JList<>(listModel);
+            countryPanel.setViewportView(countryList);
+            for (String countryCode : translator.getCountryCodes()) {
+                String countryName = countryConv.fromCountryCode(countryCode);
+                listModel.addElement(countryName);
+            }
 
             // Language Panel (ComboBox)
             JPanel languagePanel = new JPanel();
@@ -45,10 +48,11 @@ public class GUI {
                 public void actionPerformed(ActionEvent e) {
                     String langName = (String) languageComboBox.getSelectedItem();
                     String langCode = languageConv.fromLanguage(langName);
-                    String country = countryField.getText();
+                    String countryName = countryList.getSelectedValue();
+                    String countryCode = countryConv.fromCountryCode(countryName);
 
                     // Use JSONTranslator (not CanadaTranslator) if you want real translations
-                    String result = translator.translate(country, langCode);
+                    String result = translator.translate(countryCode, langCode);
                     if (result == null) {
                         result = "no translation found!";
                     }
