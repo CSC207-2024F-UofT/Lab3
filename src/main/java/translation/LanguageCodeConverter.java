@@ -44,8 +44,8 @@ public class LanguageCodeConverter {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
                 if (parts.length >= 2) {
-                    String code = parts[0].toLowerCase();
-                    String language = parts[1];
+                    String language = parts[0];
+                    String code = parts[1];
                     languageCodeToLanguage.put(code, language);
                     languageToLanguageCode.put(language, code);
                 }
@@ -62,7 +62,7 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        return languageCodeToLanguage.get(code);
+        return languageCodeToLanguage.get(code.toLowerCase());
 
     }
 
