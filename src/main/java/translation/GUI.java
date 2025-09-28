@@ -16,6 +16,13 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+
+            // Create language dropdown menu (combobox)
+            JPanel languageDropdownPanel = new JPanel();
+            String[] languages = {"language 1", "language 2", "language 3", "language 4"};
+            JComboBox languageComboBox = new JComboBox(languages);
+            languageDropdownPanel.add(languageComboBox);
+
             // Enter country
             JPanel countryPanel = new JPanel();
             JTextField countryField = new JTextField(10);
@@ -62,6 +69,7 @@ public class GUI {
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+            mainPanel.add(languageDropdownPanel);
             mainPanel.add(countryPanel);
             mainPanel.add(languagePanel);
             mainPanel.add(buttonPanel);
@@ -103,11 +111,6 @@ public class GUI {
 //                    // Display textl
 //                }
 //            });
-
-            // Create language dropdown menu
-            // Create list of languages
-            DefaultListModel<String> languageListModel = new DefaultListModel<>();
-
         });
     }
 }
