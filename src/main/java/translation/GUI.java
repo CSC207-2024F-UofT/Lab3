@@ -1,6 +1,8 @@
 package translation;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -73,18 +75,37 @@ public class GUI {
 
             // Scroll list of countries
             DefaultListModel<String> countryListModel = new DefaultListModel<>();
+
             // Add all country names to list model from json
+                // TODO: somehow create a list of country names, then add all to the list model
             // Create list of countries
+
+            // TEST: replace with list later (add w/for loop or smth)
             countryListModel.addElement("Canada");
             countryListModel.addElement("France");
-
+            countryListModel.addElement("Germany");
+            countryListModel.addElement("Austria");
+            countryListModel.addElement("Hungary");
 
             JList<String> countryList = new JList<>(countryListModel);
+            countryList.setVisibleRowCount(1);
             countryList.setBounds(0, 0, 500, 300);
 
-            frame.add(countryList);
+            JScrollPane countryScrollPane = new JScrollPane(countryList);
+            frame.add(countryScrollPane);
 
-            // List of languages
+            // TODO: Add selection listener for country (selected country = gets translated)
+//            countryList.addListSelectionListener(new ListSelectionListener() {
+//                @Override
+//                public void valueChanged(ListSelectionEvent e) {
+//                    // Get translated country name
+//                    String translatedCountry = LanguageCodeConverter..getSelectedValue();
+//                    // Display textl
+//                }
+//            });
+
+            // Create language dropdown menu
+            // Create list of languages
             DefaultListModel<String> languageListModel = new DefaultListModel<>();
 
         });
