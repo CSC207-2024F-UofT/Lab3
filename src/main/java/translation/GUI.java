@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.List;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -47,6 +47,36 @@ public class GUI {
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
 
+// Scroll list of countries
+            DefaultListModel<String> countryListModel = new DefaultListModel<>();
+
+            // Add all country names to list model from json
+            // TODO: somehow create a list of country names, then add all to the list model
+            // Create list of countries
+            JSONTranslator countryCodesJSON = new JSONTranslator();
+            List<String> countryCodes = countryCodesJSON.getCountryCodes();
+
+            for (String countryCode : countryCodes) {
+                CountryCodeConverter countryFromCode = new CountryCodeConverter();
+                countryListModel.addElement(countryFromCode.fromCountryCode(countryCode));
+            }
+
+            JList<String> countryList = new JList<>(countryListModel);
+            countryList.setVisibleRowCount(3);
+            countryList.setBounds(0, 500, 100, 300);
+
+            JScrollPane countryScrollPane = new JScrollPane(countryList);
+
+            // TODO: Add selection listener for country (selected country = gets translated)
+//            countryList.addListSelectionListener(new ListSelectionListener() {
+//                @Override
+//                public void valueChanged(ListSelectionEvent e) {
+//                    // Get translated country name
+//                    String translatedCountry = LanguageCodeConverter..getSelectedValue();
+//                    // Display textl
+//                }
+//            });
+
 
             // Adding listener for when the user clicks the submit button
             submit.addActionListener(new ActionListener() {
@@ -73,6 +103,7 @@ public class GUI {
             mainPanel.add(countryPanel);
             mainPanel.add(languagePanel);
             mainPanel.add(buttonPanel);
+            mainPanel.add(countryScrollPane);
 
             JFrame frame = new JFrame("Country Name Translator");
             frame.setContentPane(mainPanel);
@@ -80,37 +111,6 @@ public class GUI {
             frame.setSize(500, 300);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
-
-            // Scroll list of countries
-            DefaultListModel<String> countryListModel = new DefaultListModel<>();
-
-            // Add all country names to list model from json
-                // TODO: somehow create a list of country names, then add all to the list model
-            // Create list of countries
-
-            // TEST: replace with list later (add w/for loop or smth)
-            countryListModel.addElement("Canada");
-            countryListModel.addElement("France");
-            countryListModel.addElement("Germany");
-            countryListModel.addElement("Austria");
-            countryListModel.addElement("Hungary");
-
-            JList<String> countryList = new JList<>(countryListModel);
-            countryList.setVisibleRowCount(1);
-            countryList.setBounds(0, 0, 500, 300);
-
-            JScrollPane countryScrollPane = new JScrollPane(countryList);
-            frame.add(countryScrollPane);
-
-            // TODO: Add selection listener for country (selected country = gets translated)
-//            countryList.addListSelectionListener(new ListSelectionListener() {
-//                @Override
-//                public void valueChanged(ListSelectionEvent e) {
-//                    // Get translated country name
-//                    String translatedCountry = LanguageCodeConverter..getSelectedValue();
-//                    // Display textl
-//                }
-//            });
         });
     }
 }
