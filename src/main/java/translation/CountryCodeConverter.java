@@ -37,13 +37,21 @@ public class CountryCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             Iterator<String> iterator = lines.iterator();
-            iterator.next(); // skip the first line
+            if (iterator.hasNext()) {
+                iterator.next();
+            }
             while (iterator.hasNext()) {
-                String line = iterator.next();
-                String[] parts = line.split("\t");
-                countryToCountryCode.put(parts[0], parts[1]);
-                countryCodeToCountry.put(parts[1], parts[0]);
+                String line = iterator.next().trim();
+                if (line.isEmpty()) continue;
 
+                String[] parts = line.split("\t");
+                if (parts.length < 3) continue;
+
+                String name   = parts[0].trim();
+                String alpha3 = parts[2].trim().toLowerCase();
+
+                countryToCountryCode.put(name, alpha3);
+                countryCodeToCountry.put(alpha3, name);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -58,7 +66,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return countryCodeToCountry.get(code);
+        return countryCodeToCountry.get(code.toLowerCase());
     }
 
     /**

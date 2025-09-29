@@ -14,28 +14,24 @@ public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
 
-            // -------- Data services (back end) --------
-            // Uses your Part C translator + Part A/B converters.
             Translator translator = new JSONTranslator("sample.json");
             CountryCodeConverter countryConv = new CountryCodeConverter();
             LanguageCodeConverter langConv = new LanguageCodeConverter();
 
-            // -------- Build language dropdown (show NAMES) --------
-            // We’ll preserve a deterministic mapping from displayed name -> code.
             Map<String, String> langNameToCode = new LinkedHashMap<>();
             List<String> langNames = new ArrayList<>();
             for (String code : translator.getLanguageCodes()) {
                 String name = langConv.fromLanguageCode(code);
                 if (name == null || name.isEmpty()) {
-                    name = code; // fallback if Task A not finished yet
+                    name = code;
                 }
-                // Avoid accidental duplicates
+
                 if (!langNameToCode.containsKey(name)) {
                     langNameToCode.put(name, code.toLowerCase());
                     langNames.add(name);
                 }
             }
-            Collections.sort(langNames); // nice UX
+            Collections.sort(langNames);
 
             DefaultComboBoxModel<String> langModel = new DefaultComboBoxModel<>();
             for (String name : langNames) {
@@ -43,20 +39,19 @@ public class GUI {
             }
             JComboBox<String> languageCombo = new JComboBox<>(langModel);
 
-            // -------- Build country list (show NAMES) --------
             Map<String, String> countryNameToCode = new LinkedHashMap<>();
             List<String> countryNames = new ArrayList<>();
             for (String ccode : translator.getCountryCodes()) {
                 String cname = countryConv.fromCountryCode(ccode);
                 if (cname == null || cname.isEmpty()) {
-                    cname = ccode; // fallback if Task B not finished yet
+                    cname = ccode;
                 }
                 if (!countryNameToCode.containsKey(cname)) {
                     countryNameToCode.put(cname, ccode.toLowerCase());
                     countryNames.add(cname);
                 }
             }
-            Collections.sort(countryNames); // matches the example screenshot ordering
+            Collections.sort(countryNames);
 
             DefaultListModel<String> countryModel = new DefaultListModel<>();
             for (String name : countryNames) {
@@ -67,21 +62,17 @@ public class GUI {
             JScrollPane countryScroll = new JScrollPane(countryList);
             countryScroll.setPreferredSize(new Dimension(320, 260));
 
-            // -------- Result label --------
             JLabel resultLabel = new JLabel("Translation: ");
             resultLabel.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
 
-            // -------- Action: recompute translation on any selection change --------
             Runnable refresh = () -> {
                 String countryName = countryList.getSelectedValue();
                 String langName = (String) languageCombo.getSelectedItem();
                 if (countryName == null || langName == null) return;
 
-                // Convert display names -> codes
                 String countryCode = countryNameToCode.get(countryName);
                 String langCode = langNameToCode.get(langName);
 
-                // Defensive fallbacks in case A/B not finished
                 if (countryCode == null) countryCode = countryConv.fromCountry(countryName);
                 if (langCode == null) langCode = langConv.fromLanguage(langName);
                 if (countryCode == null || langCode == null) {
@@ -93,13 +84,11 @@ public class GUI {
                 resultLabel.setText("Translation: " + (out != null ? out : "no translation found!"));
             };
 
-            // -------- Listeners (immediate UI updates) --------
             languageCombo.addActionListener(e -> refresh.run());
             countryList.addListSelectionListener((ListSelectionListener) e -> {
                 if (!e.getValueIsAdjusting()) refresh.run();
             });
 
-            // -------- Layout (close to the screenshot) --------
             JPanel topRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 8));
             topRow.add(new JLabel("Language:"));
             topRow.add(languageCombo);
@@ -115,7 +104,6 @@ public class GUI {
             frame.setContentPane(main);
             frame.pack();
 
-            // -------- Defaults: select first items & show initial translation --------
             if (!countryModel.isEmpty()) countryList.setSelectedIndex(0);
             if (languageCombo.getItemCount() > 0) languageCombo.setSelectedIndex(0);
             refresh.run();
