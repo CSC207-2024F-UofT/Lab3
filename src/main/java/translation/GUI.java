@@ -68,7 +68,7 @@ public class GUI {
 
             JPanel countryPanel = new JPanel();
             CountryCodeConverter countryConverter = new CountryCodeConverter();
-            String[] countries = countryConverter.getCountries();
+            String[] countries = countryConverter.getCountries(translator.getCountryCodes());
             Arrays.sort(countries);
             JList<String> countryList = new JList<>(countries);
             countryList.setVisibleRowCount(8);
