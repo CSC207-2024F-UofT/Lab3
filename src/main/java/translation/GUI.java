@@ -17,6 +17,7 @@ public class GUI {
             // Load translators
             Translator translator = new JSONTranslator();
             CountryCodeConverter converter = new CountryCodeConverter();
+			final LanguageCodeConverter langConverter = new LanguageCodeConverter();
 
             // Country dropdown
             JPanel countryPanel = new JPanel();
@@ -27,12 +28,17 @@ public class GUI {
                             : new String[]{});
             countryPanel.add(countryBox);
 
-            // Language dropdown
-            JPanel languagePanel = new JPanel();
-            languagePanel.add(new JLabel("Language:"));
-            JComboBox<String> languageBox = new JComboBox<>(
-                    translator.getLanguageCodes().toArray(new String[0]));
-            languagePanel.add(languageBox);
+			// Language dropdown (show full language names)
+			JPanel languagePanel = new JPanel();
+			languagePanel.add(new JLabel("Language:"));
+			List<String> languageCodes = translator.getLanguageCodes();
+			String[] languageNames = new String[languageCodes.size()];
+			for (int i = 0; i < languageCodes.size(); i++) {
+				String code = languageCodes.get(i);
+				languageNames[i] = langConverter.fromLanguageCode(code);
+			}
+			JComboBox<String> languageBox = new JComboBox<>(languageNames);
+			languagePanel.add(languageBox);
 
             // Button + result label
             JPanel buttonPanel = new JPanel();
@@ -47,13 +53,14 @@ public class GUI {
 
             // Action listener
             submit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String countryName = (String) countryBox.getSelectedItem();
-                    String langCode = (String) languageBox.getSelectedItem();
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					String countryName = (String) countryBox.getSelectedItem();
+					String languageName = (String) languageBox.getSelectedItem();
 
-                    String countryCode = converter.fromCountry(countryName);
-                    String result = translator.translate(countryCode, langCode);
+					String countryCode = converter.fromCountry(countryName);
+					String langCode = langConverter.fromLanguage(languageName);
+					String result = translator.translate(countryCode, langCode);
 
                     if (result == null) {
                         result = "no translation found!";
