@@ -2,6 +2,7 @@ package translation;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.*;
 
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
@@ -14,16 +15,32 @@ public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JPanel countryPanel = new JPanel();
-            JTextField countryField = new JTextField(10);
-            countryField.setText("can");
-            countryField.setEditable(false); // we only support the "can" country code for now
-            countryPanel.add(new JLabel("Country:"));
-            countryPanel.add(countryField);
+            JLabel heading = new JLabel();
+            heading.setText("Country: ");
+
+            countryPanel.add(heading);
+
+            Translator jsonTranslator = new JSONTranslator();// Moved json translator here since I need it for Jlist.
+            CountryCodeConverter countryConverter = new CountryCodeConverter();
+            ArrayList<String> countryNames = new ArrayList<>();
+            for (String code : jsonTranslator.getCountryCodes()) {
+                String name = countryConverter.fromCountryCode(code);
+                countryNames.add(name);
+            }
+            String[] countryArray = countryNames.toArray(new String[0]);
+            JList<String> countryList = new JList<>(countryArray);
+            countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            JScrollPane countryScroll = new JScrollPane(countryList);
+            countryPanel.add(countryScroll);
 
             JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
+            //add json translator
+            List<String> languageNames = getStrings(jsonTranslator);
+            String[] languagesArray = languageNames.toArray(new String[0]);
+            JComboBox<String> languageComboBox = new JComboBox<>(languagesArray);
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+            languagePanel.add(languageComboBox);
+            languageComboBox.setSelectedItem(languagesArray[0]);
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
@@ -39,17 +56,19 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
-                    String country = countryField.getText();
-
-                    // for now, just using our simple translator, but
-                    // we'll need to use the real JSON version later.
-                    Translator translator = new CanadaTranslator();
-
-                    String result = translator.translate(country, language);
-                    if (result == null) {
-                        result = "no translation found!";
+                    String language = languageComboBox.getSelectedItem().toString();
+                    String country = countryList.getSelectedValue();
+                    if (country == null) {
+                        resultLabel.setText("Please select a country.");
+                        return;
                     }
+                    CountryCodeConverter countryConvert = new  CountryCodeConverter();
+                    String countryCode = countryConvert.fromCountry(country);
+                    LanguageCodeConverter languageConvert = new  LanguageCodeConverter();
+                    String languageCode = languageConvert.fromLanguage(language);
+
+                    String result = jsonTranslator.translate(countryCode, languageCode);
+
                     resultLabel.setText(result);
 
                 }
@@ -70,5 +89,50 @@ public class GUI {
 
 
         });
+    }
+
+    private static List<String> getStrings(Translator jsonTranslator) {
+        List<String> languageCodes = jsonTranslator.getLanguageCodes();
+        List<String> languageNames = new ArrayList<>();
+        Map<String, String> languageMap = new LinkedHashMap<>();
+        languageMap.put("ar", "Arabic");
+        languageMap.put("bg", "Bulgarian");
+        languageMap.put("cs", "Czech");
+        languageMap.put("da", "Danish");
+        languageMap.put("de", "German");
+        languageMap.put("el", "Greek");
+        languageMap.put("en", "English");
+        languageMap.put("eo", "Esperanto");
+        languageMap.put("es", "Spanish");
+        languageMap.put("et", "Estonian");
+        languageMap.put("eu", "Basque");
+        languageMap.put("fa", "Persian");
+        languageMap.put("fi", "Finnish");
+        languageMap.put("fr", "French");
+        languageMap.put("hr", "Croatian");
+        languageMap.put("hu", "Hungarian");
+        languageMap.put("hy", "Armenian");
+        languageMap.put("it", "Italian");
+        languageMap.put("ja", "Japanese");
+        languageMap.put("ko", "Korean");
+        languageMap.put("lt", "Lithuanian");
+        languageMap.put("nl", "Dutch");
+        languageMap.put("no", "Norwegian");
+        languageMap.put("pl", "Polish");
+        languageMap.put("pt", "Portuguese");
+        languageMap.put("ro", "Romanian");
+        languageMap.put("ru", "Russian");
+        languageMap.put("sk", "Slovak");
+        languageMap.put("sl", "Slovenian");
+        languageMap.put("sr", "Serbian");
+        languageMap.put("sv", "Swedish");
+        languageMap.put("th", "Thai");
+        languageMap.put("uk", "Ukrainian");
+        languageMap.put("zh", "Chinese (Simplified)");
+        languageMap.put("zh-tw", "Chinese (Traditional)");
+        for (String languageCode : languageCodes) {
+            languageNames.add(languageMap.get(languageCode));
+        }
+        return languageNames;
     }
 }
