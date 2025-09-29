@@ -6,6 +6,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 
+import java.util.List;
 
 // TODO Task D: Update the GUI for the program to align with UI shown in the README example.
 //            Currently, the program only uses the CanadaTranslator and the user has
@@ -24,7 +25,9 @@ public class GUI {
 
         protected TranslationUIComponent(TranslationUI translationUIIn) {
             translationUI = translationUIIn;
+        }
 
+        protected void createUI() {
             makePanel(translationUI.getTranslator());
             addListener();
         }
@@ -42,55 +45,31 @@ public class GUI {
         }
     }
 
-    private static class LanguageDropDown extends TranslationUIComponent {
-        private JComboBox<String> languageComboBox;
-
-        public LanguageDropDown(TranslationUI translationUI) {
-            super(translationUI);
-        }
-
-        @Override
-        protected void makePanel(Translator translator) {
-            // adds the label
-            panel.add(new JLabel("Language:"));
-
-            languageComboBox = new JComboBox<>();
-            for(String countryCode : translator.getLanguageCodes()) {
-                languageComboBox.addItem(countryCode);
-            }
-            panel.add(languageComboBox);
-        }
-
-        @Override
-        protected void addListener() {
-            languageComboBox.addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-
-                    if (e.getStateChange() == ItemEvent.SELECTED) {
-                        selection = languageComboBox.getSelectedItem().toString();
-                        translationUI.updateTranslation();
-                    } else {
-                        selection = null;
-                    }
-                }
-            });
-        }
-    }
-
     private static class CountryList extends TranslationUIComponent {
         private JList<String> countryList;
 
+        CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+
         public CountryList(TranslationUI translationUI) {
             super(translationUI);
+            createUI();
+        }
+
+        public CountryCodeConverter getCountryCodeConverter() {
+            return countryCodeConverter;
         }
 
         @Override
         protected void makePanel(Translator translator) {
             panel.setLayout(new GridLayout(0, 1));
 
-            String[] countryCodes = translator.getCountryCodes().toArray(new String[0]);
-            countryList = new JList<>(countryCodes);
+            List<String> countryCodes = translator.getCountryCodes();
+            String[] countries = new String[countryCodes.size()];
+            for (int i = 0; i < countryCodes.size(); i++) {
+                countries[i] = countryCodeConverter.fromCountryCode(countryCodes.get(i));
+            }
+
+            countryList = new JList<>(countries);
             countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
             JScrollPane scrollPane = new JScrollPane(countryList);
@@ -107,6 +86,50 @@ public class GUI {
                     } else {
                         selection = countryList.getSelectedValue();
                         translationUI.updateTranslation();
+                    }
+                }
+            });
+        }
+    }
+
+    private static class LanguageDropDown extends TranslationUIComponent {
+        private JComboBox<String> languageComboBox;
+
+        LanguageCodeConverter languageCodeConverter =  new LanguageCodeConverter();
+
+        public LanguageDropDown(TranslationUI translationUI) {
+            super(translationUI);
+            createUI();
+        }
+
+        public LanguageCodeConverter getLanguageCodeConverter() {
+            return languageCodeConverter;
+        }
+
+        @Override
+        protected void makePanel(Translator translator) {
+            // adds the label
+            panel.add(new JLabel("Language:"));
+
+            languageComboBox = new JComboBox<>();
+            for(String languageCode : translator.getLanguageCodes()) {
+                String language = languageCodeConverter.fromLanguageCode(languageCode);
+                languageComboBox.addItem(language);
+            }
+            panel.add(languageComboBox);
+        }
+
+        @Override
+        protected void addListener() {
+            languageComboBox.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+                        selection = languageComboBox.getSelectedItem().toString();
+                        translationUI.updateTranslation();
+                    } else {
+                        selection = null;
                     }
                 }
             });
@@ -150,9 +173,12 @@ public class GUI {
         public void updateTranslation() {
             if (countryList.isSelected() && languageDropDown.isSelected()) {
                 String country = countryList.getSelected();
-                String language = languageDropDown.getSelected();
+                String countryCode = countryList.getCountryCodeConverter().fromCountry(country);
 
-                String translation = translator.translate(country, language);
+                String language = languageDropDown.getSelected();
+                String languageCode = languageDropDown.getLanguageCodeConverter().fromLanguage(language);
+
+                String translation = translator.translate(countryCode, languageCode);
                 translationText.setText(translation);
             }
         }
@@ -168,7 +194,7 @@ public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
 
-            Translator translator = new CanadaTranslator();
+            Translator translator = new JSONTranslator();
 
             TranslationUI translationUI = new TranslationUI(translator);
 
