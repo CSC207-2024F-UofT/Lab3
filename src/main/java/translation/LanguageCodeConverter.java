@@ -79,7 +79,12 @@ public class LanguageCodeConverter {
         return languageCodeToLanguage.size();
     }
 
-    public String[] getLanguages() {
-        return languageToLanguageCode.keySet().toArray(new String[0]);
+    public String[] getLanguages(List<String> languageCodes) {
+        String[] languages = new String[languageCodes.size()];
+        for (int i = 0; i < languages.length; i ++) {
+            String languageCode = languageCodes.get(i);
+            languages[i] = languageCodeToLanguage.get(languageCode);
+        }
+        return languages;
     }
 }

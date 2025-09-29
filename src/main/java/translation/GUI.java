@@ -40,6 +40,7 @@ public class GUI {
             countryCode = countryConverter.fromCountry(selectedCountry);
         }
 
+
         String result = translator.translate(countryCode, languageCode);
 
         if (result == null) {
@@ -52,7 +53,7 @@ public class GUI {
         SwingUtilities.invokeLater(() -> {
             Translator translator = new JSONTranslator();
             LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
-            String[] languages = languageCodeConverter.getLanguages();
+            String[] languages = languageCodeConverter.getLanguages(translator.getLanguageCodes());
             Arrays.sort(languages);
 
 
