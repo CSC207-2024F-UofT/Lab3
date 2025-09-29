@@ -25,7 +25,7 @@ public class GUI {
                 countries.add(countryCodeConverter.fromCountryCode(countryCode));
             }
             JList<String> list = new JList<>(countries.toArray(new String[0]));
-            countryPanel.add(new JLabel("Country:"));
+            countryPanel.add(new JLabel());
             JScrollPane scrollList = new JScrollPane(list);
             countryPanel.add(scrollList);
 
