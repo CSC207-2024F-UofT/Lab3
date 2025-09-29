@@ -85,8 +85,9 @@ public class GUI {
                         selection = null;
                     } else {
                         selection = countryList.getSelectedValue();
-                        translationUI.updateTranslation();
                     }
+
+                    translationUI.updateTranslation();
                 }
             });
         }
@@ -127,10 +128,11 @@ public class GUI {
 
                     if (e.getStateChange() == ItemEvent.SELECTED) {
                         selection = languageComboBox.getSelectedItem().toString();
-                        translationUI.updateTranslation();
                     } else {
                         selection = null;
                     }
+
+                    translationUI.updateTranslation();
                 }
             });
         }
