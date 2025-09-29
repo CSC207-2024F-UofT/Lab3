@@ -70,20 +70,30 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task B: update this code to use an instance variable to return the correct valuefrom
-        return code;
+        if (code == null) {
+            return null;
+        }
+        return countryCodeToCountry.get(code.toLowerCase());
     }
 
     /**
      * Return the code of the country for the given country name.
      * @param country the name of the country
      * @return the 3-letter code of the country
-     *
      * This seems good
      */
     public String fromCountry(String country) {
         // TODO Task B: Tick
         return countryToCountryCode.get(country);
+    }
+    /**
+     * Returns a sorted list of all country names for use in the GUI.
+     * @return A sorted List of country names.
+     */
+    public java.util.List<String> getCountryNames() {
+        java.util.List<String> sortedNames = new java.util.ArrayList<>(countryToCountryCode.keySet());
+        java.util.Collections.sort(sortedNames);
+        return sortedNames;
     }
 
     /**

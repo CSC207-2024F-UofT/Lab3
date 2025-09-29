@@ -19,48 +19,36 @@ import org.json.JSONObject;
 public class JSONTranslator implements Translator {
 
     private final List<String> languageCodes = new ArrayList<>();
-
     private final List<String> countryCodes = new ArrayList<>();
-
-    // the key used is "countryCode-languageCode"; the value is the translated country name
     private final Map<String, String> translations = new HashMap<>();
-    /**
-     * Construct a JSONTranslator using data from the sample.json resources file.
-     */
+
     public JSONTranslator() {
         this("sample.json");
     }
 
-    /**
-     * Construct a JSONTranslator populated using data from the specified resources file.
-     * @param filename the name of the file in resources to load the data from
-     * @throws RuntimeException if the resource file can't be loaded properly
-     */
     public JSONTranslator(String filename) {
-        // read the file to get the data to populate things...
         try {
-
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
-
             JSONArray jsonArray = new JSONArray(jsonString);
 
             for (int i = 0; i < jsonArray.length(); i++) {
-
                 JSONObject countryData = jsonArray.getJSONObject(i);
-                String countryCode = countryData.getString("alpha3");
 
-                List<String> languages = new ArrayList<>();
+                // *** THIS IS THE FIX ***
+                // The country code from the JSON file is uppercase ("DZA").
+                // We must convert it to lowercase to match the other converters.
+                String countryCode = countryData.getString("alpha3").toLowerCase();
 
-                // TODO Task C: record this countryCode in the correct instance variable      Tick
                 if (!countryCodes.contains(countryCode)) {
                     countryCodes.add(countryCode);
                 }
-                // iterate through the other keys to get the information that we need
+
                 for (String key : countryData.keySet()) {
                     if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
                         String languageCode = key;
-                        // TODO Task C: record this translation in the appropriate instance variable   Tick
                         String translatedName = countryData.getString(key);
+
+                        // Now the key is created as "dza-af", which will match the lookup key.
                         translations.put(countryCode + "-" + languageCode, translatedName);
 
                         if (!languageCodes.contains(languageCode)) {
@@ -69,11 +57,12 @@ public class JSONTranslator implements Translator {
                     }
                 }
             }
-        }
-        catch (IOException | URISyntaxException ex) {
+        } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
     }
+
+    // No changes needed to the methods below
 
     @Override
     public List<String> getLanguageCodes() {
@@ -88,6 +77,7 @@ public class JSONTranslator implements Translator {
     @Override
     public String translate(String countryCode, String languageCode) {
         if (countryCode == null || languageCode == null) return null;
+        // This lookup will now succeed because the keys in the map are also lowercase.
         return translations.get(countryCode.toLowerCase() + "-" + languageCode.toLowerCase());
     }
 }
