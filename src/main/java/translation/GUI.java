@@ -25,7 +25,7 @@ public class GUI {
     private static void updateTranslation(JComboBox<String> languageComboBox,
                                           LanguageCodeConverter languageCodeConverter,
                                           JList<String> countryList, CountryCodeConverter countryConverter,
-                                          JLabel resultLabel) {
+                                          JLabel resultLabel, Translator translator) {
         String language;
         String languageCode = "";
         if (languageComboBox.getSelectedItem() != null) {
@@ -40,7 +40,7 @@ public class GUI {
             countryCode = countryConverter.fromCountry(selectedCountry);
         }
 
-        Translator translator = new JSONTranslator();
+
         String result = translator.translate(countryCode, languageCode);
 
         if (result == null) {
@@ -51,8 +51,9 @@ public class GUI {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            Translator translator = new JSONTranslator();
             LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
-            String[] languages = languageCodeConverter.getLanguages();
+            String[] languages = languageCodeConverter.getLanguages(translator.getLanguageCodes());
             Arrays.sort(languages);
 
 
@@ -96,7 +97,7 @@ public class GUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     updateTranslation(languageComboBox, languageCodeConverter, countryList, countryConverter,
-                            resultLabel);
+                            resultLabel, translator);
                 }
             });
 
@@ -111,7 +112,7 @@ public class GUI {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
                     updateTranslation(languageComboBox, languageCodeConverter, countryList, countryConverter,
-                            resultLabel);
+                            resultLabel, translator);
                 }
             });
 
